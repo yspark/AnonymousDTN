@@ -65,9 +65,30 @@ public class World {
 	/** single ConnectivityCell's size is biggest radio range times this */
 	private int conCellSizeMult;
 
+	
+	/*******************************************/
+	// YSPARK
+	/** epoch interval */
+	private double epochInterval;
+	private double nextEpochStartTime;
+	/*******************************************/
+	
 	/**
 	 * Constructor.
 	 */
+	/*******************************************/
+	// YSPARK
+	public World(List<DTNHost> hosts, int sizeX, int sizeY, 
+			double updateInterval, double epochInterval, List<UpdateListener> updateListeners,
+			boolean simulateConnections, List<EventQueue> eventQueues) {
+		
+		this(hosts, sizeX, sizeY, updateInterval, updateListeners, simulateConnections, eventQueues);
+				
+		this.epochInterval = epochInterval;		
+		this.nextEpochStartTime = 0.0;
+	}
+	/*******************************************/
+	
 	public World(List<DTNHost> hosts, int sizeX, int sizeY, 
 			double updateInterval, List<UpdateListener> updateListeners,
 			boolean simulateConnections, List<EventQueue> eventQueues) {
@@ -183,6 +204,7 @@ public class World {
 		moveHosts(this.updateInterval);
 		simClock.setTime(runUntil);
 
+		
 		updateHosts();
 
 		/* inform all update listeners */
@@ -197,12 +219,30 @@ public class World {
 	 * are made in random order.
 	 */
 	private void updateHosts() {
+		/***********************************************/
+		// YSPARK
+		boolean bEpochChanged = false;
+		
+		if(SimClock.getTime() >= nextEpochStartTime) {
+			bEpochChanged = true;
+		}
+		/***********************************************/
+
+		
 		if (this.updateOrder == null) { // randomizing is off
 			for (int i=0, n = hosts.size();i < n; i++) {
 				if (this.isCancelled) {
 					break;
 				}
-				hosts.get(i).update(simulateConnections);
+				//hosts.get(i).update(simulateConnections);
+				
+				//YSPARK
+				DTNHost host = hosts.get(i);							
+				
+				host.update(simulateConnections);
+				
+				if(bEpochChanged)
+					host.updateEphemeralID((int)nextEpochStartTime);
 			}
 		}
 		else { // update order randomizing is on
@@ -214,9 +254,28 @@ public class World {
 				if (this.isCancelled) {
 					break;
 				}
-				this.updateOrder.get(i).update(simulateConnections);
+				//this.updateOrder.get(i).update(simulateConnections);
+				
+				//YSPARK
+				DTNHost host = this.updateOrder.get(i);							
+				
+				host.update(simulateConnections);
+				
+				if(bEpochChanged)
+					host.updateEphemeralID((int)nextEpochStartTime);
+				
 			}			
 		}
+		
+		/***********************************************/
+		// YSPARK
+		if(bEpochChanged) { 
+			nextEpochStartTime += epochInterval;
+
+			bEpochChanged = false;
+		}
+		/***********************************************/
+
 	}
 
 	/**

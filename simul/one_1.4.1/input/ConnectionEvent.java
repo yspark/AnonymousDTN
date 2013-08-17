@@ -7,6 +7,9 @@ package input;
 import core.DTNHost;
 import core.World;
 
+
+import core.DTNSim;
+
 /**
  * A connection up/down event.
  */
@@ -36,6 +39,7 @@ public class ConnectionEvent extends ExternalEvent {
 		this.toAddr= to;
 		this.isUp = up;
 		this.interfaceId = interf;
+		
 	}
 	
 	@Override
@@ -44,6 +48,8 @@ public class ConnectionEvent extends ExternalEvent {
 		DTNHost to = world.getNodeByAddress(this.toAddr);
 		
 		from.forceConnection(to, interfaceId, this.isUp);
+		
+		System.out.printf("forceConnection: %d, %d\n", fromAddr, toAddr);
 	}
 	
 	@Override

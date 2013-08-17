@@ -29,7 +29,7 @@ public class MessageCreateEvent extends MessageEvent {
 			int responseSize, double time) {
 		super(from,to, id, time);
 		this.size = size;
-		this.responseSize = responseSize;
+		this.responseSize = responseSize;		
 	}
 
 	

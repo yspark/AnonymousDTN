@@ -11,10 +11,15 @@ import java.util.List;
 
 import ui.DTNSimTextUI;
 
+
 /**
  * Simulator's main class 
  */
 public class DTNSim {
+	// YSPARK	
+	public static final String ANONYMOUS_DTN_MODE_FLAG = "-adtn";
+	public static boolean ANONYMOUS_DTN = false;		
+	
 	/** If this option ({@value}) is given to program, batch mode and
 	 * Text UI are used*/
 	public static final String BATCH_MODE_FLAG = "-b";
@@ -50,6 +55,7 @@ public class DTNSim {
 		java.util.Locale.setDefault(java.util.Locale.US);
 		
 		if (args.length > 0) {
+	
 			if (args[0].equals(BATCH_MODE_FLAG)) {
 				batchMode = true;
                 if (args.length == 1) {
@@ -73,6 +79,18 @@ public class DTNSim {
 		else {
 			confFiles = new String[] {null};
 		}
+		
+		/***************************************************/
+		// YSPARK		
+		if (args[0].equals(ANONYMOUS_DTN_MODE_FLAG)) {
+			System.out.println("Anonymous DTN simulation");
+			ANONYMOUS_DTN = true;
+			batchMode = true;
+			firstConfIndex = 0;
+						
+			confFiles[0] = "anonymous_dtn_settings.txt";				
+		}									
+		/***************************************************/
 		
 		initSettings(confFiles, firstConfIndex);
 		

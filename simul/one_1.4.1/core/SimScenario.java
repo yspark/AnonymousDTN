@@ -73,6 +73,34 @@ public class SimScenario implements Serializable {
 	/** application name in the group -setting id ({@value})*/
 	public static final String GAPPNAME_S = "application";
 
+	
+	/***************************************************/
+	// YSPARK
+	
+	/** (Namespace: Scenario) number of anonymity groups */
+	public static final String N_ANONYMITY_GROUPS = "nAnonymityGroups";
+	/** (Namespace: Scenario) epoch interval*/
+	public static final String EPOCH_INTERVAL = "epochInterval";
+	
+	
+	/** Namespace for anonymity group settings ({@value}) */
+	public static final String ANONYMITY_NS = "Anonymity";
+	/** (Namespace: ANONYMITY_NS) number of hosts in anonymity group */
+	public static final String N_ANONYMITY_HOSTS = "nAnonymityHosts";
+	/** (Namespace: ANONYMITY+i) Trusted hosts */
+	public static final String TRUSTED_HOSTS = "trustedHosts";
+			 
+	
+	/** Number of anonymity groups */
+	private int nAnonymityGroups;
+	/** List of hosts in this simulation */
+	protected List<List<Integer>> anonymityGroupList;
+	
+	/** Epoch interval */
+	private double epochInterval;
+	/***************************************************/
+	
+	
 	/** package where to look for movement models */
 	private static final String MM_PACKAGE = "movement.";
 	/** package where to look for router classes */
@@ -120,6 +148,10 @@ public class SimScenario implements Serializable {
 	/** Global application event listeners */
 	private List<ApplicationListener> appListeners;
 
+	
+
+	
+	
 	static {
 		DTNSim.registerForReset(SimScenario.class.getCanonicalName());
 		reset();
@@ -155,17 +187,30 @@ public class SimScenario implements Serializable {
 		this.appListeners = new ArrayList<ApplicationListener>();
 		this.eqHandler = new EventQueueHandler();
 
+		// YSPARK
+		this.epochInterval = s.getDouble(EPOCH_INTERVAL);
+		this.nAnonymityGroups = s.getInt(N_ANONYMITY_GROUPS);
+		System.out.printf("Number of Anonymity Groups: %d\n", this.nAnonymityGroups);
+				
+		
 		/* TODO: check size from movement models */
 		s.setNameSpace(MovementModel.MOVEMENT_MODEL_NS);
 		int [] worldSize = s.getCsvInts(MovementModel.WORLD_SIZE, 2);
 		this.worldSizeX = worldSize[0];
 		this.worldSizeY = worldSize[1];
-		
+						
 		createHosts();
 		
-		this.world = new World(hosts, worldSizeX, worldSizeY, updateInterval, 
+		//YSPARK
+		createAnonymityGroups();
+		
+		
+		this.world = new World(hosts, worldSizeX, worldSizeY, updateInterval,
+				//YSPARK
+				epochInterval, 
 				updateListeners, simulateConnections, 
 				eqHandler.getEventQueues());
+		
 	}
 	
 	/**
@@ -327,6 +372,11 @@ public class SimScenario implements Serializable {
 	protected void createHosts() {
 		this.hosts = new ArrayList<DTNHost>();
 
+		// YSPARK
+		if(DTNSim.ANONYMOUS_DTN)
+			System.out.printf("nrofGroups:%d\n", nrofGroups);
+	
+		
 		for (int i=1; i<=nrofGroups; i++) {
 			List<NetworkInterface> mmNetInterfaces = 
 				new ArrayList<NetworkInterface>();
@@ -405,7 +455,7 @@ public class SimScenario implements Serializable {
 						mmProto, mRouterProto);
 				hosts.add(host);
 			}
-		}
+		}		
 	}
 
 	/**
@@ -424,4 +474,34 @@ public class SimScenario implements Serializable {
 		return this.world;
 	}
 
+	
+	// YSPARK
+	/**
+	 * Creates anonymity groups (trusted groups)
+	 */
+	private void createAnonymityGroups() {
+		anonymityGroupList = new ArrayList<List<Integer>>();	
+				
+		for (int i=1; i<=nAnonymityGroups; i++) {
+			Settings s = new Settings(ANONYMITY_NS+i);
+			//int nHosts = s.getInt(N_ANONYMITY_HOSTS);
+			
+			int[] trustedNodesArray = s.getCsvInts(TRUSTED_HOSTS);
+			List<Integer> trustedNodesList = new ArrayList<Integer>(); 
+			for (int node : trustedNodesArray) {
+				trustedNodesList.add(Integer.valueOf(node));
+			}
+									
+			anonymityGroupList.add(trustedNodesList);						
+		}
+		
+		for(DTNHost host : hosts) {
+			for(List<Integer> anonymityGroup : anonymityGroupList) {
+				if(anonymityGroup.contains(host.getAddress())) {
+					host.addTrustedNodes(anonymityGroup);
+				}
+			}
+		}
+				
+	}
 }

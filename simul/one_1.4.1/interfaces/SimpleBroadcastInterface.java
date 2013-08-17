@@ -43,6 +43,9 @@ public class SimpleBroadcastInterface extends NetworkInterface {
 	 * @param anotherInterface The interface to connect to
 	 */
 	public void connect(NetworkInterface anotherInterface) {
+		//YSPARK
+		System.out.println("SimpleBroadcastInterface:connect");
+		
 		if (isScanning()  
 				&& anotherInterface.getHost().isActive() 
 				&& isWithinRange(anotherInterface) 
@@ -59,6 +62,7 @@ public class SimpleBroadcastInterface extends NetworkInterface {
 					anotherInterface.getHost(), anotherInterface, conSpeed);
 			connect(con,anotherInterface);
 		}
+		
 	}
 
 	/**
@@ -88,7 +92,11 @@ public class SimpleBroadcastInterface extends NetworkInterface {
 			optimizer.getNearInterfaces(this);
 		for (NetworkInterface i : interfaces) {
 			connect(i);
+			
+			//YSPARK
+			System.out.println("SimpleBroadcastInterface:update()");
 		}
+		
 	}
 
 	/** 
@@ -97,6 +105,10 @@ public class SimpleBroadcastInterface extends NetworkInterface {
 	 * @param anotherInterface The interface to create the connection to
 	 */
 	public void createConnection(NetworkInterface anotherInterface) {
+		
+		// YSPARK
+		System.out.println("createConnection\n");
+		
 		if (!isConnected(anotherInterface) && (this != anotherInterface)) {    			
 			// connection speed is the lower one of the two speeds 
 			int conSpeed = anotherInterface.getTransmitSpeed();

@@ -6,6 +6,7 @@ package core;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import movement.MovementModel;
@@ -34,6 +35,10 @@ public class DTNHost implements Comparable<DTNHost> {
 	private List<NetworkInterface> net;
 	private ModuleCommunicationBus comBus;
 
+	// YSPARK
+	private int ephemeralAddress;
+	private List<HashMap<Integer, Integer>> anonymityGroupList;
+	
 	static {
 		DTNSim.registerForReset(DTNHost.class.getCanonicalName());
 		reset();
@@ -86,6 +91,9 @@ public class DTNHost implements Comparable<DTNHost> {
 				l.initialLocation(this, this.location);
 			}
 		}
+		
+		//YSPARK
+		//anonymityGroupList = new ArrayList<HashMap<Integer, Integer>>();
 	}
 	
 	/**
@@ -311,6 +319,10 @@ public class DTNHost implements Comparable<DTNHost> {
 				"WARNING: using deprecated DTNHost.connect(DTNHost)" +
 		"\n Use DTNHost.forceConnection(DTNHost,null,true) instead");
 		forceConnection(h,null,true);
+		
+		
+		//YSPARK
+		System.out.println("DTNHost:connect()");
 	}
 
 	/**
@@ -329,7 +341,34 @@ public class DTNHost implements Comparable<DTNHost> {
 		}
 		this.router.update();
 	}
+	
+	/**********************************************/
+	//YSPARK
+	/**
+	 * update ephemeral address
+	 * 1) ephemeral address of its own
+	 * 2) ephemeral addresses of its trusted nodes
+	 * 3) ephemeral addresses of packet destinations
+	 * @param seed
+	 */
+	public void updateEphemeralID(int seed) {
+		ephemeralAddress = Integer.valueOf(address + seed).hashCode();
 
+		//System.out.printf("Node %d, %d\n", address, ephemeralAddress);
+		
+		if(!anonymityGroupList.isEmpty()) {
+			for(int nodeAddress : anonymityGroupList.get(0).keySet() ) {
+				anonymityGroupList.get(0).put(nodeAddress, Integer.valueOf(nodeAddress + seed).hashCode());
+				
+				//System.out.printf("%d, %d\n", nodeAddress, Integer.valueOf(nodeAddress + seed).hashCode());
+			}
+		}
+		
+		/** TODO: update packet destinations */ 
+	}	
+	/**********************************************/
+	
+	
 	/**
 	 * Moves the node towards the next waypoint or waits if it is
 	 * not time to move yet
@@ -500,5 +539,39 @@ public class DTNHost implements Comparable<DTNHost> {
 	public int compareTo(DTNHost h) {
 		return this.getAddress() - h.getAddress();
 	}
+	
+	
+	
+	/**********************************************/
+	// YSAPRK
+	/**
+	 * Add trusted nodes 
+	 * Currently, DTNHost maintains only 1 hashmap of trusted nodes. 
+	 * @param trustedNodes
+	 */
+	public void addTrustedNodes(List<Integer> trustedNodes) {
+		//System.out.printf("addTrustedNodes: %d\n", this.address);
+				
+		if(anonymityGroupList == null) {
+			anonymityGroupList = new ArrayList<HashMap<Integer, Integer>>();
+			anonymityGroupList.add(new HashMap<Integer, Integer>());
+		}
+						
+		for(Integer nodeAddress : trustedNodes) {
+			if(this.address == nodeAddress.intValue())
+				continue;
+			
+			if(!anonymityGroupList.get(0).containsKey(nodeAddress)) {
+				anonymityGroupList.get(0).put(nodeAddress, nodeAddress.hashCode());								
+			}						
+		}		
+		return;
+	}
+	
+	public List<HashMap<Integer, Integer>> getAnonymityGroups() {				
+		return anonymityGroupList;
+	}
+	
+	/**********************************************/
 
 }
