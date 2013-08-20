@@ -19,10 +19,7 @@ public class CBRConnection extends Connection {
 	private int speed;
 	private double transferDoneTime;
 	
-	//YSPARK
-	private List<Integer> fromNodeForwardableEphemeralAddresses;
-	private List<Integer> toNodeForwardableEphemeralAddresses;
-
+	
 	/**
 	 * Creates a new connection between nodes and sets the connection
 	 * state to "up".
@@ -38,30 +35,7 @@ public class CBRConnection extends Connection {
 		super(fromNode, fromInterface, toNode, toInterface);
 		this.speed = connectionSpeed;
 		this.transferDoneTime = 0;
-
-		/***************************************************************/
-		// YSPARK
-		fromNodeForwardableEphemeralAddresses = new ArrayList<Integer>();
-		buildForwardableEphemeralAddresses(fromNode, toNode, fromNodeForwardableEphemeralAddresses);
-				
-		toNodeForwardableEphemeralAddresses = new ArrayList<Integer>();
-		buildForwardableEphemeralAddresses(toNode, fromNode, toNodeForwardableEphemeralAddresses);
-		/***************************************************************/
-
 	}
-
-	
-	/***************************************************************/
-	// YSPARK
-	protected void buildForwardableEphemeralAddresses(DTNHost fromNode, DTNHost toNode, List<Integer> forwardableEphemeralAddresses) {
-				
-		for(Message m : fromNode.getRouter().getMessageCollection()) {
-			if(toNode.getReceivableEphemeralAddresses().contains(m.getToEphemeralAddress())) {
-				forwardableEphemeralAddresses.add(m.getToEphemeralAddress());
-			}
-		}		
-	}
-	/***************************************************************/
 	
 	
 	/**

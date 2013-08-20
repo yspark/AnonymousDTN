@@ -4,6 +4,9 @@
  */
 package core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import routing.MessageRouter;
 
 /**
@@ -21,6 +24,11 @@ public abstract class Connection {
 	/** how many bytes this connection has transferred */
 	protected int bytesTransferred;
 
+	//YSPARK
+	private List<Integer> fromNodeForwardableEphemeralAddresses;
+	private List<Integer> toNodeForwardableEphemeralAddresses;
+	
+	
 	/**
 	 * Creates a new connection between nodes and sets the connection
 	 * state to "up".
@@ -37,9 +45,41 @@ public abstract class Connection {
 		this.toInterface = toInterface;
 		this.isUp = true;
 		this.bytesTransferred = 0;
+		
+		/***************************************************************/
+		// YSPARK
+		this.fromNodeForwardableEphemeralAddresses = new ArrayList<Integer>();
+		buildForwardableEphemeralAddresses(fromNode, toNode, fromNodeForwardableEphemeralAddresses);
+				
+		this.toNodeForwardableEphemeralAddresses = new ArrayList<Integer>();
+		buildForwardableEphemeralAddresses(toNode, fromNode, toNodeForwardableEphemeralAddresses);
+		/***************************************************************/
 	}
 
 
+	/***************************************************************/
+	// YSPARK
+	protected void buildForwardableEphemeralAddresses(DTNHost fromNode, DTNHost toNode, List<Integer> forwardableEphemeralAddresses) {
+				
+		for(Message m : fromNode.getRouter().getMessageCollection()) {
+			if(toNode.getReceivableEphemeralAddresses().contains(m.getToEphemeralAddress())) {
+				forwardableEphemeralAddresses.add(m.getToEphemeralAddress());
+			}
+		}		
+	}
+	
+	public List<Integer> getForwarableEphemeralAddresses(int permanentAddress) {
+		if(permanentAddress == this.fromNode.getPermanentAddress()) {
+			return fromNodeForwardableEphemeralAddresses;
+		}
+		else {
+			return toNodeForwardableEphemeralAddresses;
+		}
+	}
+	
+	/***************************************************************/
+	
+	
 	/**
 	 * Returns true if the connection is up
 	 * @return state of the connection

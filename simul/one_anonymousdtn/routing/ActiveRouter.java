@@ -385,13 +385,20 @@ public abstract class ActiveRouter extends MessageRouter {
 	  */
 	protected Message tryAllMessages(Connection con, List<Message> messages) {
 		for (Message m : messages) {
-			int retVal = startTransfer(m, con); 
-			if (retVal == RCV_OK) {
-				return m;	// accepted a message, don't try others
+			/*************************************************/
+			//YSPARK
+			List<Integer> forwardableEphemeralAddresses = con.getForwarableEphemeralAddresses(this.getHost().getPermanentAddress()); 
+			
+			if(forwardableEphemeralAddresses.contains(m.getToEphemeralAddress())) {
+				int retVal = startTransfer(m, con); 
+				if (retVal == RCV_OK) {
+					return m;	// accepted a message, don't try others
+				}
+				else if (retVal > 0) { 
+					return null; // should try later -> don't bother trying others
+				}								
 			}
-			else if (retVal > 0) { 
-				return null; // should try later -> don't bother trying others
-			}
+			/*************************************************/			
 		}
 		
 		return null; // no message was accepted		
