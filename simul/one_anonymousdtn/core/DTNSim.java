@@ -55,8 +55,25 @@ public class DTNSim {
 		java.util.Locale.setDefault(java.util.Locale.US);
 		
 		if (args.length > 0) {
-	
-			if (args[0].equals(BATCH_MODE_FLAG)) {
+			/***************************************************/
+			// YSPARK		
+			if (args[0].equals(ANONYMOUS_DTN_MODE_FLAG)) {
+				System.out.println("Anonymous DTN simulation");
+				ANONYMOUS_DTN = true;
+				
+				if(args.length > 1 && args[1].equals(BATCH_MODE_FLAG))
+					batchMode = true;				
+				else 
+					batchMode = false;
+				
+				firstConfIndex = 0;						
+				confFiles = new String[1];
+				confFiles[0] = "anonymous_dtn_settings.txt";
+				
+				System.out.println(confFiles[0]);
+			}									
+			/***************************************************/
+			else if (args[0].equals(BATCH_MODE_FLAG)) {
 				batchMode = true;
                 if (args.length == 1) {
                     firstConfIndex = 1;
@@ -65,6 +82,7 @@ public class DTNSim {
                     nrofRuns = parseNrofRuns(args[1]);
                     firstConfIndex = 2;
                 }
+                confFiles = args;
 			}
 			else { /* GUI mode */				
 				try { /* is there a run index for the GUI mode ? */
@@ -73,25 +91,14 @@ public class DTNSim {
 				} catch (NumberFormatException e) {
 					firstConfIndex = 0;
 				}
-			}
-			confFiles = args;
+				confFiles = args;
+			}			
 		}
 		else {
 			confFiles = new String[] {null};
 		}
 		
-		/***************************************************/
-		// YSPARK		
-		if (args[0].equals(ANONYMOUS_DTN_MODE_FLAG)) {
-			System.out.println("Anonymous DTN simulation");
-			ANONYMOUS_DTN = true;
-			batchMode = true;
-			firstConfIndex = 0;
-						
-			confFiles[0] = "anonymous_dtn_settings.txt";				
-		}									
-		/***************************************************/
-		
+				
 		initSettings(confFiles, firstConfIndex);
 		
 		if (batchMode) {

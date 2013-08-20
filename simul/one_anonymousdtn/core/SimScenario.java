@@ -11,6 +11,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+//YSPARK
+import java.util.Random;
+
 import movement.MapBasedMovement;
 import movement.MovementModel;
 import movement.map.SimMap;
@@ -98,6 +101,7 @@ public class SimScenario implements Serializable {
 	
 	/** Epoch interval */
 	private double epochInterval;
+	
 	/***************************************************/
 	
 	
@@ -187,11 +191,12 @@ public class SimScenario implements Serializable {
 		this.appListeners = new ArrayList<ApplicationListener>();
 		this.eqHandler = new EventQueueHandler();
 
+		/*************************************************************/
 		// YSPARK
 		this.epochInterval = s.getDouble(EPOCH_INTERVAL);
 		this.nAnonymityGroups = s.getInt(N_ANONYMITY_GROUPS);
 		System.out.printf("Number of Anonymity Groups: %d\n", this.nAnonymityGroups);
-				
+		/*************************************************************/		
 		
 		/* TODO: check size from movement models */
 		s.setNameSpace(MovementModel.MOVEMENT_MODEL_NS);
@@ -201,13 +206,16 @@ public class SimScenario implements Serializable {
 						
 		createHosts();
 		
+		/*************************************************************/
 		//YSPARK
 		createAnonymityGroups();
 		
+		insertAnonymityGroupsIntoEventQueues();
+		/*************************************************************/
 		
 		this.world = new World(hosts, worldSizeX, worldSizeY, updateInterval,
 				//YSPARK
-				epochInterval, 
+				epochInterval,
 				updateListeners, simulateConnections, 
 				eqHandler.getEventQueues());
 		
@@ -474,24 +482,34 @@ public class SimScenario implements Serializable {
 		return this.world;
 	}
 
-	
+	/*************************************************************/
 	// YSPARK
 	/**
 	 * Creates anonymity groups (trusted groups)
 	 */
 	private void createAnonymityGroups() {
-		anonymityGroupList = new ArrayList<List<Integer>>();	
+		anonymityGroupList = new ArrayList<List<Integer>>();
+		
+		Random randomGenerator = new Random(0);
 				
 		for (int i=1; i<=nAnonymityGroups; i++) {
 			Settings s = new Settings(ANONYMITY_NS+i);
-			//int nHosts = s.getInt(N_ANONYMITY_HOSTS);
+			int nHosts = (int)(s.getDouble(N_ANONYMITY_HOSTS) * (double)(hosts.size()));
 			
-			int[] trustedNodesArray = s.getCsvInts(TRUSTED_HOSTS);
-			List<Integer> trustedNodesList = new ArrayList<Integer>(); 
-			for (int node : trustedNodesArray) {
-				trustedNodesList.add(Integer.valueOf(node));
+			System.out.printf("AnonymityGroup %d: %d\n",  i, nHosts);
+			
+			List<Integer> trustedNodesList = new ArrayList<Integer>();
+			
+			for(int j = 0; j < nHosts; j++) {
+				int node = randomGenerator.nextInt(hosts.size());
+				
+				if(!trustedNodesList.contains(node)) {
+					trustedNodesList.add(node);	
+				}				
 			}
-									
+			
+			System.out.println(trustedNodesList.toString());
+												
 			anonymityGroupList.add(trustedNodesList);						
 		}
 		
@@ -504,4 +522,27 @@ public class SimScenario implements Serializable {
 		}
 				
 	}
+	
+	
+	private void insertAnonymityGroupsIntoEventQueues() {
+		for(EventQueue queue : eqHandler.getEventQueues()) {
+			queue.setAnonymityGroupList(this.anonymityGroupList);
+		}		
+	}
+	/*************************************************************/
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

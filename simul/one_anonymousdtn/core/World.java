@@ -68,6 +68,9 @@ public class World {
 	
 	/*******************************************/
 	// YSPARK
+	
+	//private List<List<Integer>> anonymityGroupList;
+	
 	/** epoch interval */
 	private double epochInterval;
 	private double nextEpochStartTime;
@@ -79,15 +82,19 @@ public class World {
 	/*******************************************/
 	// YSPARK
 	public World(List<DTNHost> hosts, int sizeX, int sizeY, 
-			double updateInterval, double epochInterval, List<UpdateListener> updateListeners,
+			double updateInterval, double epochInterval,   
+			List<UpdateListener> updateListeners,
 			boolean simulateConnections, List<EventQueue> eventQueues) {
 		
 		this(hosts, sizeX, sizeY, updateInterval, updateListeners, simulateConnections, eventQueues);
-				
+						
+		//this.anonymityGroupList = anonymityGroupList;
 		this.epochInterval = epochInterval;		
 		this.nextEpochStartTime = 0.0;
 	}
 	/*******************************************/
+	
+	
 	public World(List<DTNHost> hosts, int sizeX, int sizeY, 
 			double updateInterval, List<UpdateListener> updateListeners,
 			boolean simulateConnections, List<EventQueue> eventQueues) {
@@ -225,6 +232,7 @@ public class World {
 		
 		if(SimClock.getTime() >= nextEpochStartTime) {
 			bEpochChanged = true;
+			System.out.printf("Epoch changed: %f\n", SimClock.getTime());
 		}
 		/***********************************************/
 

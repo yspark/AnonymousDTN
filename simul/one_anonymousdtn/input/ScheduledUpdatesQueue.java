@@ -102,4 +102,11 @@ public class ScheduledUpdatesQueue implements EventQueue {
 		
 		return times;
 	}
+
+	// YSPARK
+	@Override
+	public void setAnonymityGroupList(List<List<Integer>> anonymityGroupList) {
+		// TODO Auto-generated method stub
+		return;
+	}
 }

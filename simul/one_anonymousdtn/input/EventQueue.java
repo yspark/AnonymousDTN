@@ -4,6 +4,9 @@
  */
 package input;
 
+//YSPARK
+import java.util.List;
+
 /**
  * Interface for event queues. Any class that is not a movement model or a 
  * routing module but wishes to provide events for the simulation (like creating
@@ -27,4 +30,7 @@ public interface EventQueue {
 	 */
 	public double nextEventsTime();
 
+	
+	//YSPARK
+	public void setAnonymityGroupList(List<List<Integer>> anonymityGroupList);
 }

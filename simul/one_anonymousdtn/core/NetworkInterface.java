@@ -236,6 +236,14 @@ abstract public class NetworkInterface implements ModuleCommunicationListener {
 		// inform routers about the connection
 		this.host.connectionUp(con);
 		anotherInterface.getHost().connectionUp(con);
+		
+		/***********************************************/
+		// YSPARK
+		// add to neighbor list
+		this.host.addNeighborNode(this.host.getEphemeralAddress());
+		anotherInterface.getHost().addNeighborNode(anotherInterface.getHost().getEphemeralAddress());
+		
+		/***********************************************/
 	}
 
 	/**

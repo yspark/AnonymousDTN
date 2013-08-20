@@ -105,6 +105,7 @@ public class DTNHost implements Comparable<DTNHost> {
 		}
 		
 		//YSPARK
+		neighborEphemeralAddresses = new ArrayList<Integer>();
 		//anonymityGroupList = new ArrayList<HashMap<Integer, Integer>>();
 	}
 	
@@ -181,25 +182,35 @@ public class DTNHost implements Comparable<DTNHost> {
 
 		//System.out.printf("Node %d, %d\n", address, ephemeralAddress);
 		
-		// Update anonymityGroupList
-		if(!anonymityGroupList.isEmpty()) {
+
+		if(anonymityGroupList!= null && !anonymityGroupList.isEmpty()) {
+			List<String> messagesToDelete = new ArrayList<String>();
+			
+			/** Update anonymityGroupList */ 
 			for(int nodeAddress : anonymityGroupList.get(0).keySet() ) {
 				anonymityGroupList.get(0).put(nodeAddress, Integer.valueOf(nodeAddress + epoch).hashCode());
 				
 				//System.out.printf("%d, %d\n", nodeAddress, Integer.valueOf(nodeAddress + seed).hashCode());
 			}
-		}						
-		
-		/** update packet destinations */
-		for(Message m : this.router.getMessageCollection()) {
-			if(this.anonymityGroupList.get(0).containsValue(m.getToEphemeralAddress())) {				
-				int newEphemeralAddress = Integer.valueOf(m.getTo().getPermanentAddress() + epoch).hashCode();						
-				m.setToEphemeralAddress(newEphemeralAddress);
+
+			/** update packet destinations */		
+			for(Message m : this.router.getMessageCollection()) {
+				if(this.anonymityGroupList.get(0).containsValue(m.getToEphemeralAddress())) {				
+					int newEphemeralAddress = Integer.valueOf(m.getTo().getPermanentAddress() + epoch).hashCode();						
+					m.setToEphemeralAddress(newEphemeralAddress);
+				}
+				else {
+					messagesToDelete.add(m.getId());
+				}					
 			}
-			else {
-				// Delete un-updated packets??
-			}					
-		}
+			
+			/** Delete expired packets */
+			/** TODO: keep expired packets.  
+				All nodes need to maintain k-recent ephemeral addresses of trusted/neighbor nodes */
+			for(String msgId : messagesToDelete) {
+				this.router.deleteMessage(msgId, true);
+			}
+		}								
 	}
 	
 	
@@ -209,13 +220,25 @@ public class DTNHost implements Comparable<DTNHost> {
 	public List<Integer> getReceivableEphemeralAddresses() {
 		List<Integer> receivableEphemeralAddresses = new ArrayList<Integer>();
 						
-		receivableEphemeralAddresses.addAll(anonymityGroupList.get(0).values());
+		if(anonymityGroupList != null)
+			receivableEphemeralAddresses.addAll(anonymityGroupList.get(0).values());
+				
 		if(neighborEphemeralAddresses != null)
 			receivableEphemeralAddresses.addAll(neighborEphemeralAddresses);
 		
 		return receivableEphemeralAddresses;
 		
 	}
+	
+	
+	public void addNeighborNode(int ephemeralAddress) {
+		neighborEphemeralAddresses.add(ephemeralAddress);
+	}
+	
+	public List<Integer> getNeighborNodeList() {
+		return this.neighborEphemeralAddresses;
+	}
+	
 	
 	/********************************************************/
 	

@@ -384,11 +384,13 @@ public abstract class ActiveRouter extends MessageRouter {
 	  * transfer was started. 
 	  */
 	protected Message tryAllMessages(Connection con, List<Message> messages) {
-		for (Message m : messages) {
-			/*************************************************/
-			//YSPARK
-			List<Integer> forwardableEphemeralAddresses = con.getForwarableEphemeralAddresses(this.getHost().getPermanentAddress()); 
-			
+		/*************************************************/
+		//YSPARK
+				
+		List<Integer> forwardableEphemeralAddresses = con.getForwarableEphemeralAddresses(this.getHost().getPermanentAddress());
+		
+		// First, try to forward "forwardable, pulled" packets		
+		for (Message m : messages) {			 			
 			if(forwardableEphemeralAddresses.contains(m.getToEphemeralAddress())) {
 				int retVal = startTransfer(m, con); 
 				if (retVal == RCV_OK) {
@@ -397,10 +399,22 @@ public abstract class ActiveRouter extends MessageRouter {
 				else if (retVal > 0) { 
 					return null; // should try later -> don't bother trying others
 				}								
-			}
-			/*************************************************/			
+			}					
 		}
-		
+
+		// Second, try to forward any packets. 
+		for (Message m : messages) {
+			if(!forwardableEphemeralAddresses.contains(m.getToEphemeralAddress())) {
+				int retVal = startTransfer(m, con); 
+				if (retVal == RCV_OK) {
+					return m;	// accepted a message, don't try others
+				}
+				else if (retVal > 0) { 
+					return null; // should try later -> don't bother trying others
+				}
+			}
+		}	
+		/*************************************************/
 		return null; // no message was accepted		
 	}
 

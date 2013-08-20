@@ -4,6 +4,7 @@
  */
 package input;
 
+import java.util.List;
 import java.util.Random;
 
 import core.Settings;
@@ -64,6 +65,11 @@ public class MessageEventGenerator implements EventQueue {
 
 	/** Random number generator for this Class */
 	protected Random rng;
+	
+	
+	//YSPARK
+	private List<List<Integer>> anonymityGroupList;
+	
 	
 	/**
 	 * Constructor, initializes the interval between events, 
@@ -181,6 +187,14 @@ public class MessageEventGenerator implements EventQueue {
 		return to;
 	}
 	
+	
+	/******************************************************************/
+	public void setAnonymityGroupList(List<List<Integer>> anonymityGroupList) {
+		this.anonymityGroupList = anonymityGroupList;
+	}
+	/******************************************************************/
+	
+	
 	/** 
 	 * Returns the next message creation event
 	 * @see input.EventQueue#nextEvent()
@@ -189,12 +203,37 @@ public class MessageEventGenerator implements EventQueue {
 		int responseSize = 0; /* zero stands for one way messages */
 		int msgSize;
 		int interval;
-		int from;
-		int to;
+		int from = 0;
+		int to = 1;
+		
+		/*********************************************************/
+		//YSPARK
+		boolean flag = true;
+		while(flag) {
+			from = drawHostAddress(this.hostRange);
+			
+			for(List<Integer> anonymityGroup : anonymityGroupList) {
+				if(anonymityGroup.contains(from))
+					flag = false;
+					break;
+			}
+		}
+		
+		flag = true;
+		while(flag) {
+			to = drawToAddress(hostRange, from);
+			
+			for(List<Integer> anonymityGroup : anonymityGroupList) {
+				if(anonymityGroup.contains(to))
+					flag = false;
+					break;
+			}
+		}
 		
 		/* Get two *different* nodes randomly from the host ranges */
-		from = drawHostAddress(this.hostRange);	
-		to = drawToAddress(hostRange, from);
+		//from = drawHostAddress(this.hostRange);	
+		//to = drawToAddress(hostRange, from);
+		/*********************************************************/
 		
 		msgSize = drawMessageSize();
 		interval = drawNextEventTimeDiff();
