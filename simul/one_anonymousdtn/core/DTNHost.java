@@ -43,7 +43,6 @@ public class DTNHost implements Comparable<DTNHost> {
 	private List<HashMap<Integer, Integer>> anonymityGroupList;
 	
 	private List<Integer> neighborEphemeralAddresses;	
-	//private List<Integer> receivableEphemeralAddresses;
 	/********************************************************/
 	
 	static {
@@ -106,7 +105,6 @@ public class DTNHost implements Comparable<DTNHost> {
 		
 		//YSPARK
 		neighborEphemeralAddresses = new ArrayList<Integer>();
-		//anonymityGroupList = new ArrayList<HashMap<Integer, Integer>>();
 	}
 	
 	/**
@@ -253,7 +251,8 @@ public class DTNHost implements Comparable<DTNHost> {
 		}			
 		
 		// remove myself from the list
-		anonymityGroupList.get(0).remove(anonymityGroupList.get(0).get(this.permanentAddress));
+		if(receivableEphemeralAddresses != null && receivableEphemeralAddresses.contains(this.ephemeralAddress))
+			receivableEphemeralAddresses.remove(receivableEphemeralAddresses.indexOf(this.ephemeralAddress));
 		
 		return receivableEphemeralAddresses;
 		
