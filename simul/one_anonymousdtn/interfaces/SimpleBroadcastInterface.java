@@ -121,7 +121,7 @@ public class SimpleBroadcastInterface extends NetworkInterface {
 	public void createConnection(NetworkInterface anotherInterface) {
 		
 		// YSPARK
-		System.out.println("createConnection\n");
+		//System.out.println("createConnection\n");
 		
 		if (!isConnected(anotherInterface) && (this != anotherInterface)) {    			
 			// connection speed is the lower one of the two speeds 

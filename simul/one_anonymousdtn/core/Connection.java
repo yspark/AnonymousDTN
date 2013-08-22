@@ -69,8 +69,8 @@ public abstract class Connection {
 				
 		for(Message m : fromNode.getRouter().getMessageCollection()) {
 			
-			if(toNode.getReceivableEphemeralAddresses().size() != 125) 
-				System.out.printf("wrong receivableEphemeralAddresses: %d, %d\n", toNode.getPermanentAddress(), toNode.getReceivableEphemeralAddresses().size());
+			//if(toNode.getReceivableEphemeralAddresses().size() != 125) 
+				//System.out.printf("wrong receivableEphemeralAddresses: %d, %d\n", toNode.getPermanentAddress(), toNode.getReceivableEphemeralAddresses().size());
 			
 			if(toNode.getReceivableEphemeralAddresses().contains(m.getToEphemeralAddress())) {
 				forwardableEphemeralAddresses.add(m.getToEphemeralAddress());

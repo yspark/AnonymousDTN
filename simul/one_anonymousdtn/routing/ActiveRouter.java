@@ -408,6 +408,21 @@ public abstract class ActiveRouter extends MessageRouter {
 				continue;
 			
 			if(forwardableEphemeralAddresses.contains(m.getToEphemeralAddress())) {
+				
+				//YSPARK
+				/*
+				if(toHost.getAnonymityGroups().get(0).containsKey(this.getHost().getPermanentAddress()) == false &&
+						toHost.getNeighborNodeList().contains(this.getHost().getEphemeralAddress()) == false) {
+					
+					System.out.println("========================");
+					System.out.printf("%d->%d", this.getHost().getPermanentAddress(), toHost.getPermanentAddress());
+					System.out.println(forwardableEphemeralAddresses.toString());
+					System.out.println(toHost.getAnonymityGroups().get(0).toString());
+					System.out.println(toHost.getNeighborNodeList().toString());					
+				}
+				*/
+				
+				
 				int retVal = startTransfer(m, con); 
 				if (retVal == RCV_OK) {
 					
@@ -445,6 +460,7 @@ public abstract class ActiveRouter extends MessageRouter {
 				}								
 			}
 			else {
+				/*
 				System.out.printf("****************************\n%s: %d(%d)->%d(%d), packet(%d(%d)->%d(%d):%d)\n",
 						m.getId(),
 						this.getHost().getPermanentAddress(), this.getHost().getEphemeralAddress(),
@@ -453,7 +469,7 @@ public abstract class ActiveRouter extends MessageRouter {
 						m.getTo().getPermanentAddress(), m.getTo().getEphemeralAddress(), m.getToEphemeralAddress()						
 						);
 				System.out.println(forwardableEphemeralAddresses.toString());
-				
+				*/
 			}
 		}
 

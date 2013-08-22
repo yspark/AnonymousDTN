@@ -104,7 +104,7 @@ public class DTNHost implements Comparable<DTNHost> {
 		}
 		
 		//YSPARK
-		neighborEphemeralAddresses = new ArrayList<Integer>();
+		neighborEphemeralAddresses = new ArrayList<Integer>();	
 	}
 	
 	/**
@@ -184,9 +184,9 @@ public class DTNHost implements Comparable<DTNHost> {
 	
 	
 	public void updateAnonymityGroup(int epoch) {
+		List<String> messagesToDelete = new ArrayList<String>();		
 		
 		if(anonymityGroupList!= null && !anonymityGroupList.isEmpty()) {
-			List<String> messagesToDelete = new ArrayList<String>();
 
 			
 			/** Update anonymityGroupList */ 
@@ -215,15 +215,24 @@ public class DTNHost implements Comparable<DTNHost> {
 				}					
 			}
 			
-			/** Delete expired packets */
-			/** TODO: keep expired packets.  
-				All nodes need to maintain k-recent ephemeral addresses of trusted/neighbor nodes */
-			for(String msgId : messagesToDelete) {
-				this.router.deleteMessage(msgId, true);
+		
+		}
+		else {
+			for(Message m : this.router.getMessageCollection()) 
+				messagesToDelete.add(m.getId());
+		}
+		
+		
+		/** Delete expired packets */
+		/** TODO: keep expired packets.  
+			All nodes need to maintain k-recent ephemeral addresses of trusted/neighbor nodes */
+		for(String msgId : messagesToDelete) {
+			if(DTNSim.ANONYMOUS_DTN_DEBUG >= 2) {
+				System.out.printf("Packet expired in %d\n",  this.permanentAddress);
 			}
 			
-			
-		}
+			this.router.deleteMessage(msgId, true);
+		}			
 		
 		
 		/** Reset neighbor list */
@@ -245,7 +254,7 @@ public class DTNHost implements Comparable<DTNHost> {
 				
 		if(neighborEphemeralAddresses != null) {
 			for(int neighbor : neighborEphemeralAddresses) {
-				if(receivableEphemeralAddresses.contains(neighbor))
+				if(receivableEphemeralAddresses.contains(neighbor) == false)
 					receivableEphemeralAddresses.add(neighbor);
 			}
 		}			
@@ -260,7 +269,8 @@ public class DTNHost implements Comparable<DTNHost> {
 	
 	
 	public void addNeighborNode(int ephemeralAddress) {
-		neighborEphemeralAddresses.add(ephemeralAddress);
+		if(neighborEphemeralAddresses.contains(ephemeralAddress) == false)
+			neighborEphemeralAddresses.add(ephemeralAddress);
 	}
 	
 	public List<Integer> getNeighborNodeList() {
