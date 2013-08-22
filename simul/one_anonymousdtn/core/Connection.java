@@ -47,12 +47,18 @@ public abstract class Connection {
 		this.bytesTransferred = 0;
 		
 		/***************************************************************/
+		/*
 		// YSPARK
-		this.fromNodeForwardableEphemeralAddresses = new ArrayList<Integer>();
-		buildForwardableEphemeralAddresses(fromNode, toNode, fromNodeForwardableEphemeralAddresses);
+		if(fromNode.getMessageCollection().size() > 0) {
+			this.fromNodeForwardableEphemeralAddresses = new ArrayList<Integer>();
+			buildForwardableEphemeralAddresses(fromNode, toNode, fromNodeForwardableEphemeralAddresses);
+		}
 				
-		this.toNodeForwardableEphemeralAddresses = new ArrayList<Integer>();
-		buildForwardableEphemeralAddresses(toNode, fromNode, toNodeForwardableEphemeralAddresses);
+		if(toNode.getMessageCollection().size() > 0) {
+			this.toNodeForwardableEphemeralAddresses = new ArrayList<Integer>();
+			buildForwardableEphemeralAddresses(toNode, fromNode, toNodeForwardableEphemeralAddresses);
+		}
+		*/
 		/***************************************************************/
 	}
 
@@ -62,17 +68,44 @@ public abstract class Connection {
 	protected void buildForwardableEphemeralAddresses(DTNHost fromNode, DTNHost toNode, List<Integer> forwardableEphemeralAddresses) {
 				
 		for(Message m : fromNode.getRouter().getMessageCollection()) {
+			
+			if(toNode.getReceivableEphemeralAddresses().size() != 125) 
+				System.out.printf("wrong receivableEphemeralAddresses: %d, %d\n", toNode.getPermanentAddress(), toNode.getReceivableEphemeralAddresses().size());
+			
 			if(toNode.getReceivableEphemeralAddresses().contains(m.getToEphemeralAddress())) {
 				forwardableEphemeralAddresses.add(m.getToEphemeralAddress());
 			}
-		}		
+		}
+		
+		
+		/*
+		if(forwardableEphemeralAddresses.size() == 0) { 
+			System.out.printf("wrong forwardableEphemeralAddresses: %d->%d: %d\n", 
+					fromNode.getPermanentAddress(), toNode.getPermanentAddress(), 
+					toNode.getReceivableEphemeralAddresses().size()
+					);
+			
+			for(Message m : fromNode.getRouter().getMessageCollection()) {					
+				System.out.printf("message:%d\n", m.getToEphemeralAddress());
+			}
+			System.out.println("-----");
+			System.out.println(toNode.getReceivableEphemeralAddresses().toString());
+			
+		}
+		*/
+
 	}
 	
 	public List<Integer> getForwarableEphemeralAddresses(int permanentAddress) {
 		if(permanentAddress == this.fromNode.getPermanentAddress()) {
+			
+			this.fromNodeForwardableEphemeralAddresses = new ArrayList<Integer>();
+			buildForwardableEphemeralAddresses(fromNode, toNode, fromNodeForwardableEphemeralAddresses);			
 			return fromNodeForwardableEphemeralAddresses;
 		}
 		else {
+			this.toNodeForwardableEphemeralAddresses = new ArrayList<Integer>();
+			buildForwardableEphemeralAddresses(toNode, fromNode, toNodeForwardableEphemeralAddresses);
 			return toNodeForwardableEphemeralAddresses;
 		}
 	}
@@ -169,6 +202,18 @@ public abstract class Connection {
 
 		getOtherNode(msgFromNode).messageTransferred(this.msgOnFly.getId(),
 				msgFromNode);
+		
+		
+		//YSPARK
+		System.out.printf("MSG Forward Done: From(%d/%d), To(%d/%d), Msg(%s, %d/%d->%d/%d)\n\n",
+				this.fromNode.getPermanentAddress(), this.fromNode.getEphemeralAddress(),
+				this.toNode.getPermanentAddress(), this.toNode.getEphemeralAddress(),
+				msgOnFly.getId(),
+				msgOnFly.getFrom().getPermanentAddress(), msgOnFly.getFrom().getEphemeralAddress(),
+				msgOnFly.getTo().getPermanentAddress(), msgOnFly.getTo().getEphemeralAddress()
+				);
+		
+		
 		clearMsgOnFly();
 	}
 

@@ -337,6 +337,14 @@ public abstract class ActiveRouter extends MessageRouter {
 
 				if(m.getToEphemeralAddress() == to.getEphemeralAddress()) {
 					forTuples.add(new Tuple<Message, Connection>(m,con));
+					
+					/*
+					System.out.printf("final: %s(%d:%d->%d), %d(%d)->%d(%d) \n",  m.getId(), m.getToEphemeralAddress(), 
+							m.getFrom().getPermanentAddress(), m.getTo().getPermanentAddress(),
+							this.getHost().getPermanentAddress(), this.getHost().getEphemeralAddress(),
+							to.getPermanentAddress(), to.getEphemeralAddress()
+							);
+							*/
 				}
 				
 				//if (m.getTo() == to) {
@@ -386,20 +394,63 @@ public abstract class ActiveRouter extends MessageRouter {
 	protected Message tryAllMessages(Connection con, List<Message> messages) {
 		/*************************************************/
 		//YSPARK
+		//if(messages.size() > 0)
+		//	System.out.printf("tryAllMessages (%d)\n", this.getHost().getPermanentAddress());
 				
 		List<Integer> forwardableEphemeralAddresses = con.getForwarableEphemeralAddresses(this.getHost().getPermanentAddress());
 		
 		// First, try to forward "forwardable, pulled" packets		
-		for (Message m : messages) {			 			
+		for (Message m : messages) {
+			DTNHost toHost = con.getOtherNode(this.getHost());
+			
+			if(m.getToEphemeralAddress() == toHost.getEphemeralAddress())
+				continue;
+			
 			if(forwardableEphemeralAddresses.contains(m.getToEphemeralAddress())) {
 				int retVal = startTransfer(m, con); 
 				if (retVal == RCV_OK) {
+					
+					//YSPARK
+					System.out.printf("%f: MSG Forward ongoing From(%d/%d) -> To(%d,%d), MSG(%s, (%d/%d)->(%d/%d), %d), RemainingBytes(%d)\n",
+							SimClock.getTime(),
+							this.getHost().getPermanentAddress(), this.getHost().getEphemeralAddress(),
+							con.getOtherNode(this.getHost()).getPermanentAddress(), con.getOtherNode(this.getHost()).getEphemeralAddress(),
+							m.getId(),
+							m.getFrom().getPermanentAddress(), m.getFrom().getEphemeralAddress(),
+							m.getTo().getPermanentAddress(), m.getTo().getEphemeralAddress(), 
+							m.getToEphemeralAddress(),
+							con.getRemainingByteCount()
+							);
+					
+					
+					
 					return m;	// accepted a message, don't try others
 				}
-				else if (retVal > 0) { 
+				else if (retVal > 0) {
+					//YSPARK
+					System.out.printf("MSG Forward failed From(%d/%d) -> To(%d,%d), MSG(%s, (%d/%d)->(%d/%d), %d\n", 
+							this.getHost().getPermanentAddress(), this.getHost().getEphemeralAddress(),
+							con.getOtherNode(this.getHost()).getPermanentAddress(), con.getOtherNode(this.getHost()).getEphemeralAddress(),
+							m.getId(),
+							m.getFrom().getPermanentAddress(), m.getFrom().getEphemeralAddress(),
+							m.getTo().getPermanentAddress(), m.getTo().getEphemeralAddress(), 
+							m.getToEphemeralAddress()
+							);
+					
 					return null; // should try later -> don't bother trying others
 				}								
-			}					
+			}
+			else {
+				System.out.printf("****************************\n%s: %d(%d)->%d(%d), packet(%d(%d)->%d(%d):%d)\n",
+						m.getId(),
+						this.getHost().getPermanentAddress(), this.getHost().getEphemeralAddress(),
+						con.getOtherNode(this.getHost()).getPermanentAddress(), con.getOtherNode(this.getHost()).getEphemeralAddress(),
+						m.getFrom().getPermanentAddress(), m.getFrom().getEphemeralAddress(),  
+						m.getTo().getPermanentAddress(), m.getTo().getEphemeralAddress(), m.getToEphemeralAddress()						
+						);
+				System.out.println(forwardableEphemeralAddresses.toString());
+				
+			}
 		}
 
 		// Second, try to forward any packets. 
@@ -584,7 +635,7 @@ public abstract class ActiveRouter extends MessageRouter {
 			if (con.isMessageTransferred()) {
 				if (con.getMessage() != null) {
 					transferDone(con);
-					con.finalizeTransfer();
+					con.finalizeTransfer();					
 				} /* else: some other entity aborted transfer */
 				removeCurrent = true;
 			}

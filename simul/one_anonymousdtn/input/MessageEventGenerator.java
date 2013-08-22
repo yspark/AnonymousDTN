@@ -189,6 +189,7 @@ public class MessageEventGenerator implements EventQueue {
 	
 	
 	/******************************************************************/
+	// YSPARK
 	public void setAnonymityGroupList(List<List<Integer>> anonymityGroupList) {
 		this.anonymityGroupList = anonymityGroupList;
 	}
@@ -209,27 +210,19 @@ public class MessageEventGenerator implements EventQueue {
 		/*********************************************************/
 		//YSPARK
 		boolean flag = true;
+
 		while(flag) {
 			from = drawHostAddress(this.hostRange);
-			
-			for(List<Integer> anonymityGroup : anonymityGroupList) {
-				if(anonymityGroup.contains(from))
-					flag = false;
-					break;
-			}
-		}
-		
-		flag = true;
-		while(flag) {
 			to = drawToAddress(hostRange, from);
 			
 			for(List<Integer> anonymityGroup : anonymityGroupList) {
-				if(anonymityGroup.contains(to))
-					flag = false;
+				if(anonymityGroup.contains(from) && anonymityGroup.contains(to)) {
+					flag = false;					
 					break;
+				}
 			}
 		}
-		
+				
 		/* Get two *different* nodes randomly from the host ranges */
 		//from = drawHostAddress(this.hostRange);	
 		//to = drawToAddress(hostRange, from);

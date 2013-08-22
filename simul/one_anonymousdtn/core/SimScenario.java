@@ -9,6 +9,7 @@ import input.EventQueueHandler;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 //YSPARK
@@ -495,19 +496,23 @@ public class SimScenario implements Serializable {
 		for (int i=1; i<=nAnonymityGroups; i++) {
 			Settings s = new Settings(ANONYMITY_NS+i);
 			int nHosts = (int)(s.getDouble(N_ANONYMITY_HOSTS) * (double)(hosts.size()));
-			
-			System.out.printf("AnonymityGroup %d: %d\n",  i, nHosts);
-			
+					
 			List<Integer> trustedNodesList = new ArrayList<Integer>();
 			
 			for(int j = 0; j < nHosts; j++) {
-				int node = randomGenerator.nextInt(hosts.size());
+				while(true) {
+					int node = randomGenerator.nextInt(hosts.size());
 				
-				if(!trustedNodesList.contains(node)) {
-					trustedNodesList.add(node);	
-				}				
+					if(!trustedNodesList.contains(node)) {
+						trustedNodesList.add(node);
+						break;
+					}
+				}
 			}
 			
+			Collections.sort(trustedNodesList);
+			
+			System.out.printf("AnonymityGroup %d: (%d,%d)\n",  i, nHosts, trustedNodesList.size());
 			System.out.println(trustedNodesList.toString());
 												
 			anonymityGroupList.add(trustedNodesList);						
@@ -525,7 +530,7 @@ public class SimScenario implements Serializable {
 	
 	
 	private void insertAnonymityGroupsIntoEventQueues() {
-		for(EventQueue queue : eqHandler.getEventQueues()) {
+		for(EventQueue queue : eqHandler.getEventQueues()) {						
 			queue.setAnonymityGroupList(this.anonymityGroupList);
 		}		
 	}

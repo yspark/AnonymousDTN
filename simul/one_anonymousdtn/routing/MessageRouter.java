@@ -438,7 +438,18 @@ public abstract class MessageRouter {
 	 */
 	public boolean createNewMessage(Message m) {
 		m.setTtl(this.msgTtl);
-		addToMessages(m, true);		
+		addToMessages(m, true);
+		
+		
+		//YSPARK
+		System.out.printf("MSG Creation Time(%f): MsgID(%s), From(%d/%d), To(%d/%d), ToEphemeral(%d)\n", 
+				SimClock.getTime(), m.getId(), 
+				m.getFrom().getPermanentAddress(), m.getFrom().getEphemeralAddress(),
+				m.getTo().getPermanentAddress(), m.getTo().getEphemeralAddress(),
+				m.getToEphemeralAddress()
+				);
+		
+		
 		return true;
 	}
 	

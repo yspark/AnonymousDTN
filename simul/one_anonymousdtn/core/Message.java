@@ -372,7 +372,8 @@ public class Message implements Comparable<Message> {
 	/******************************************************/
 	// YSPARK
 	public int getToEphemeralAddress() {
-		return this.toEphemeralAddress;
+		//return this.toEphemeralAddress;
+		return to.getEphemeralAddress();
 	}
 
 	public void setToEphemeralAddress(int newEphemeralAddress) {

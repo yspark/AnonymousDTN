@@ -243,6 +243,14 @@ abstract public class NetworkInterface implements ModuleCommunicationListener {
 		this.host.addNeighborNode(this.host.getEphemeralAddress());
 		anotherInterface.getHost().addNeighborNode(anotherInterface.getHost().getEphemeralAddress());
 		
+		
+		if(con.toNode.getMessageCollection().size() > 0 || con.fromNode.getMessageCollection().size() > 0) {
+			System.out.printf("==========\nConnect From(%d/%d) #Msg(%d) <-> To(%d/%d) #Msg(%d)\n",
+				con.fromNode.getPermanentAddress(), con.fromNode.getEphemeralAddress(), con.fromNode.getMessageCollection().size(),
+				con.toNode.getPermanentAddress(), con.toNode.getEphemeralAddress(), con.toNode.getMessageCollection().size()
+				);
+		}
+		
 		/***********************************************/
 	}
 

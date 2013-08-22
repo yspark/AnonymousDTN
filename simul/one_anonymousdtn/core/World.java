@@ -228,11 +228,18 @@ public class World {
 	private void updateHosts() {
 		/***********************************************/
 		// YSPARK
+		/** first update ephemeral addresses of all nodes */
 		boolean bEpochChanged = false;
 		
 		if(SimClock.getTime() >= nextEpochStartTime) {
 			bEpochChanged = true;
 			System.out.printf("Epoch changed: %f\n", SimClock.getTime());
+		}
+		
+		if(bEpochChanged) {
+			for(DTNHost host : this.hosts) {
+				host.updateEphemeralID((int)nextEpochStartTime);
+			}
 		}
 		/***********************************************/
 
@@ -246,11 +253,11 @@ public class World {
 				
 				//YSPARK
 				DTNHost host = hosts.get(i);							
+
+				//if(bEpochChanged)
+					//host.updateEphemeralID((int)nextEpochStartTime);
 				
-				host.update(simulateConnections);
-				
-				if(bEpochChanged)
-					host.updateEphemeralID((int)nextEpochStartTime);
+				host.update(simulateConnections);				
 			}
 		}
 		else { // update order randomizing is on
@@ -266,12 +273,11 @@ public class World {
 				
 				//YSPARK
 				DTNHost host = this.updateOrder.get(i);							
-				
-				host.update(simulateConnections);
-				
-				if(bEpochChanged)
-					host.updateEphemeralID((int)nextEpochStartTime);
-				
+
+				//if(bEpochChanged)
+					//host.updateEphemeralID((int)nextEpochStartTime);
+
+				host.update(simulateConnections);							
 			}			
 		}
 		

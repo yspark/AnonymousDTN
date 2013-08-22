@@ -178,28 +178,35 @@ public class DTNHost implements Comparable<DTNHost> {
 	 * @param seed
 	 */
 	public void updateEphemeralID(int epoch) {
-		ephemeralAddress = Integer.valueOf(permanentAddress + epoch).hashCode();
+		ephemeralAddress = generateEphemeralAddress(permanentAddress, epoch);
+		//ephemeralAddress = Integer.valueOf(permanentAddress + epoch).hashCode();
 
 		//System.out.printf("Node %d, %d\n", address, ephemeralAddress);
 		
 
 		if(anonymityGroupList!= null && !anonymityGroupList.isEmpty()) {
 			List<String> messagesToDelete = new ArrayList<String>();
+
 			
 			/** Update anonymityGroupList */ 
 			for(int nodeAddress : anonymityGroupList.get(0).keySet() ) {
-				anonymityGroupList.get(0).put(nodeAddress, Integer.valueOf(nodeAddress + epoch).hashCode());
+				anonymityGroupList.get(0).put(nodeAddress, generateEphemeralAddress(nodeAddress, epoch));
+				//anonymityGroupList.get(0).put(nodeAddress, Integer.valueOf(nodeAddress + epoch).hashCode());
 				
 				//System.out.printf("%d, %d\n", nodeAddress, Integer.valueOf(nodeAddress + seed).hashCode());
-			}
+			}			
 
+			
 			/** update packet destinations */		
 			for(Message m : this.router.getMessageCollection()) {
 				if(this.anonymityGroupList.get(0).containsValue(m.getToEphemeralAddress())) {				
-					int newEphemeralAddress = Integer.valueOf(m.getTo().getPermanentAddress() + epoch).hashCode();						
-					m.setToEphemeralAddress(newEphemeralAddress);
+					//int newEphemeralAddress = Integer.valueOf(m.getTo().getPermanentAddress() + epoch).hashCode();						
+					
+					m.setToEphemeralAddress(generateEphemeralAddress(m.getTo().getPermanentAddress(), epoch));
 				}
 				else {
+					System.out.printf("update (%d,%d): %s:%d\n", permanentAddress, ephemeralAddress, m.getId(), m.getToEphemeralAddress());
+					System.out.println(this.anonymityGroupList.get(0).toString());
 					messagesToDelete.add(m.getId());
 				}					
 			}
@@ -210,10 +217,18 @@ public class DTNHost implements Comparable<DTNHost> {
 			for(String msgId : messagesToDelete) {
 				this.router.deleteMessage(msgId, true);
 			}
-		}								
+			
+			
+		}
+		
+		/** Reset neighbor list */
+		this.neighborEphemeralAddresses.clear();
 	}
 	
 	
+	private int generateEphemeralAddress(int permanentAddress, int epoch) {
+		return Integer.valueOf(epoch*100 + permanentAddress).hashCode();
+	}
 	
 	
 	
@@ -223,8 +238,15 @@ public class DTNHost implements Comparable<DTNHost> {
 		if(anonymityGroupList != null)
 			receivableEphemeralAddresses.addAll(anonymityGroupList.get(0).values());
 				
-		if(neighborEphemeralAddresses != null)
-			receivableEphemeralAddresses.addAll(neighborEphemeralAddresses);
+		if(neighborEphemeralAddresses != null) {
+			for(int neighbor : neighborEphemeralAddresses) {
+				if(receivableEphemeralAddresses.contains(neighbor))
+					receivableEphemeralAddresses.add(neighbor);
+			}
+		}			
+		
+		// remove myself from the list
+		anonymityGroupList.get(0).remove(anonymityGroupList.get(0).get(this.permanentAddress));
 		
 		return receivableEphemeralAddresses;
 		
@@ -622,7 +644,7 @@ public class DTNHost implements Comparable<DTNHost> {
 	 * @param trustedNodes
 	 */
 	public void addTrustedNodes(List<Integer> trustedNodes) {
-		//System.out.printf("addTrustedNodes: %d\n", this.address);
+		//System.out.printf("addTrustedNodes: %d (%d)\n", this.permanentAddress, trustedNodes.size());
 				
 		if(anonymityGroupList == null) {
 			anonymityGroupList = new ArrayList<HashMap<Integer, Integer>>();
@@ -634,7 +656,7 @@ public class DTNHost implements Comparable<DTNHost> {
 				continue;
 			
 			if(!anonymityGroupList.get(0).containsKey(nodeAddress)) {
-				anonymityGroupList.get(0).put(nodeAddress, nodeAddress.hashCode());								
+				anonymityGroupList.get(0).put(nodeAddress, generateEphemeralAddress(nodeAddress, 0));								
 			}						
 		}		
 		return;
