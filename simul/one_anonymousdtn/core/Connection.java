@@ -205,14 +205,15 @@ public abstract class Connection {
 		
 		
 		//YSPARK
-		System.out.printf("MSG Forward Done: From(%d/%d), To(%d/%d), Msg(%s, %d/%d->%d/%d)\n\n",
-				this.fromNode.getPermanentAddress(), this.fromNode.getEphemeralAddress(),
-				this.toNode.getPermanentAddress(), this.toNode.getEphemeralAddress(),
-				msgOnFly.getId(),
-				msgOnFly.getFrom().getPermanentAddress(), msgOnFly.getFrom().getEphemeralAddress(),
-				msgOnFly.getTo().getPermanentAddress(), msgOnFly.getTo().getEphemeralAddress()
-				);
-		
+		if(DTNSim.ANONYMOUS_DTN_DEBUG >= 2) {
+			System.out.printf("MSG Forward Done: From(%d/%d), To(%d/%d), Msg(%s, %d/%d->%d/%d)\n\n",
+					this.fromNode.getPermanentAddress(), this.fromNode.getEphemeralAddress(),
+					this.toNode.getPermanentAddress(), this.toNode.getEphemeralAddress(),
+					msgOnFly.getId(),
+					msgOnFly.getFrom().getPermanentAddress(), msgOnFly.getFrom().getEphemeralAddress(),
+					msgOnFly.getTo().getPermanentAddress(), msgOnFly.getTo().getEphemeralAddress()
+					);
+		}
 		
 		clearMsgOnFly();
 	}

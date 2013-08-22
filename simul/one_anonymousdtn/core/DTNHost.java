@@ -181,9 +181,12 @@ public class DTNHost implements Comparable<DTNHost> {
 		ephemeralAddress = generateEphemeralAddress(permanentAddress, epoch);
 		//ephemeralAddress = Integer.valueOf(permanentAddress + epoch).hashCode();
 
-		//System.out.printf("Node %d, %d\n", address, ephemeralAddress);
+		//System.out.printf("Node %d, %d\n", address, ephemeralAddress);						
+	}
+	
+	
+	public void updateAnonymityGroup(int epoch) {
 		
-
 		if(anonymityGroupList!= null && !anonymityGroupList.isEmpty()) {
 			List<String> messagesToDelete = new ArrayList<String>();
 
@@ -205,8 +208,11 @@ public class DTNHost implements Comparable<DTNHost> {
 					m.setToEphemeralAddress(generateEphemeralAddress(m.getTo().getPermanentAddress(), epoch));
 				}
 				else {
-					System.out.printf("update (%d,%d): %s:%d\n", permanentAddress, ephemeralAddress, m.getId(), m.getToEphemeralAddress());
-					System.out.println(this.anonymityGroupList.get(0).toString());
+					if(DTNSim.ANONYMOUS_DTN_DEBUG >= 1) {					
+						System.out.printf("update (%d,%d): %s:%d\n", permanentAddress, ephemeralAddress, m.getId(), m.getToEphemeralAddress());
+						System.out.println(this.anonymityGroupList.get(0).toString());
+					}
+					
 					messagesToDelete.add(m.getId());
 				}					
 			}
@@ -220,6 +226,7 @@ public class DTNHost implements Comparable<DTNHost> {
 			
 			
 		}
+		
 		
 		/** Reset neighbor list */
 		this.neighborEphemeralAddresses.clear();

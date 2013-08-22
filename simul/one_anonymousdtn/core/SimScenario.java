@@ -209,8 +209,10 @@ public class SimScenario implements Serializable {
 		
 		/*************************************************************/
 		//YSPARK
+		// create the list of anonymity groups.  
 		createAnonymityGroups();
 		
+		// copy the list of anonymity groups to packet generator 
 		insertAnonymityGroupsIntoEventQueues();
 		/*************************************************************/
 		
@@ -382,7 +384,7 @@ public class SimScenario implements Serializable {
 		this.hosts = new ArrayList<DTNHost>();
 
 		// YSPARK
-		if(DTNSim.ANONYMOUS_DTN)
+		if(DTNSim.ANONYMOUS_DTN_DEBUG >= 0)
 			System.out.printf("nrofGroups:%d\n", nrofGroups);
 	
 		

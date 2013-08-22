@@ -240,6 +240,12 @@ public class World {
 			for(DTNHost host : this.hosts) {
 				host.updateEphemeralID((int)nextEpochStartTime);
 			}
+			
+			for(DTNHost host : this.hosts) {
+				host.updateAnonymityGroup((int)nextEpochStartTime);
+			}
+			
+			nextEpochStartTime += epochInterval;			
 		}
 		/***********************************************/
 
@@ -249,15 +255,8 @@ public class World {
 				if (this.isCancelled) {
 					break;
 				}
-				//hosts.get(i).update(simulateConnections);
 				
-				//YSPARK
-				DTNHost host = hosts.get(i);							
-
-				//if(bEpochChanged)
-					//host.updateEphemeralID((int)nextEpochStartTime);
-				
-				host.update(simulateConnections);				
+				hosts.get(i).update(simulateConnections);									
 			}
 		}
 		else { // update order randomizing is on
@@ -269,27 +268,10 @@ public class World {
 				if (this.isCancelled) {
 					break;
 				}
-				//this.updateOrder.get(i).update(simulateConnections);
 				
-				//YSPARK
-				DTNHost host = this.updateOrder.get(i);							
-
-				//if(bEpochChanged)
-					//host.updateEphemeralID((int)nextEpochStartTime);
-
-				host.update(simulateConnections);							
+				this.updateOrder.get(i).update(simulateConnections);														
 			}			
-		}
-		
-		/***********************************************/
-		// YSPARK
-		if(bEpochChanged) { 
-			nextEpochStartTime += epochInterval;
-
-			bEpochChanged = false;
-		}
-		/***********************************************/
-
+		}	
 	}
 
 	/**

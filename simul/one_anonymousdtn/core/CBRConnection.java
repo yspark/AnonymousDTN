@@ -6,11 +6,6 @@ package core;
 
 import routing.MessageRouter;
 
-//YSPARK
-import java.util.List;
-import java.util.ArrayList;
-
-
 
 /**
  * A constant bit-rate connection between two DTN nodes.

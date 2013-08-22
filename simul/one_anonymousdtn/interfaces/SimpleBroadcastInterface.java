@@ -9,6 +9,7 @@ import java.util.Collection;
 import core.CBRConnection;
 import core.Connection;
 import core.DTNHost;
+import core.DTNSim;
 import core.NetworkInterface;
 import core.Settings;
 import core.SimClock;
@@ -85,12 +86,14 @@ public class SimpleBroadcastInterface extends NetworkInterface {
 				connections.remove(i);
 				
 				//YSPARK
-				if(con.getMessage() != null) {
-					System.out.printf("%f: DISCONNECT %d <-> %d, Remaining:%d\n\n", 
-							SimClock.getTime(),
-							this.host.getPermanentAddress(), con.getOtherNode(this.host).getPermanentAddress(),
-							con.getRemainingByteCount()
-							);
+				if(DTNSim.ANONYMOUS_DTN_DEBUG >= 3) {
+					if(con.getMessage() != null) {
+						System.out.printf("%f: DISCONNECT %d <-> %d, Remaining:%d\n\n", 
+								SimClock.getTime(),
+								this.host.getPermanentAddress(), con.getOtherNode(this.host).getPermanentAddress(),
+								con.getRemainingByteCount()
+								);
+					}
 				}
 				
 			}

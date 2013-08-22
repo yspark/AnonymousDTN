@@ -16,9 +16,12 @@ import ui.DTNSimTextUI;
  * Simulator's main class 
  */
 public class DTNSim {
+	/********************************************/
 	// YSPARK	
+	public static int ANONYMOUS_DTN_DEBUG = 0;	
 	public static final String ANONYMOUS_DTN_MODE_FLAG = "-adtn";
-	public static boolean ANONYMOUS_DTN = false;		
+	/********************************************/
+	
 	
 	/** If this option ({@value}) is given to program, batch mode and
 	 * Text UI are used*/
@@ -59,7 +62,6 @@ public class DTNSim {
 			// YSPARK		
 			if (args[0].equals(ANONYMOUS_DTN_MODE_FLAG)) {
 				System.out.println("Anonymous DTN simulation");
-				ANONYMOUS_DTN = true;
 				
 				if(args.length > 1 && args[1].equals(BATCH_MODE_FLAG))
 					batchMode = true;				

@@ -12,6 +12,7 @@ import java.util.Random;
 
 import core.Connection;
 import core.DTNHost;
+import core.DTNSim;
 import core.Message;
 import core.MessageListener;
 import core.Settings;
@@ -411,31 +412,34 @@ public abstract class ActiveRouter extends MessageRouter {
 				if (retVal == RCV_OK) {
 					
 					//YSPARK
-					System.out.printf("%f: MSG Forward ongoing From(%d/%d) -> To(%d,%d), MSG(%s, (%d/%d)->(%d/%d), %d), RemainingBytes(%d)\n",
-							SimClock.getTime(),
-							this.getHost().getPermanentAddress(), this.getHost().getEphemeralAddress(),
-							con.getOtherNode(this.getHost()).getPermanentAddress(), con.getOtherNode(this.getHost()).getEphemeralAddress(),
-							m.getId(),
-							m.getFrom().getPermanentAddress(), m.getFrom().getEphemeralAddress(),
-							m.getTo().getPermanentAddress(), m.getTo().getEphemeralAddress(), 
-							m.getToEphemeralAddress(),
-							con.getRemainingByteCount()
-							);
-					
+					if(DTNSim.ANONYMOUS_DTN_DEBUG >= 2) {
+						System.out.printf("%f: MSG Forward ongoing From(%d/%d) -> To(%d,%d), MSG(%s, (%d/%d)->(%d/%d), %d), RemainingBytes(%d)\n",
+								SimClock.getTime(),
+								this.getHost().getPermanentAddress(), this.getHost().getEphemeralAddress(),
+								con.getOtherNode(this.getHost()).getPermanentAddress(), con.getOtherNode(this.getHost()).getEphemeralAddress(),
+								m.getId(),
+								m.getFrom().getPermanentAddress(), m.getFrom().getEphemeralAddress(),
+								m.getTo().getPermanentAddress(), m.getTo().getEphemeralAddress(), 
+								m.getToEphemeralAddress(),
+								con.getRemainingByteCount()
+								);
+					}
 					
 					
 					return m;	// accepted a message, don't try others
 				}
 				else if (retVal > 0) {
 					//YSPARK
-					System.out.printf("MSG Forward failed From(%d/%d) -> To(%d,%d), MSG(%s, (%d/%d)->(%d/%d), %d\n", 
-							this.getHost().getPermanentAddress(), this.getHost().getEphemeralAddress(),
-							con.getOtherNode(this.getHost()).getPermanentAddress(), con.getOtherNode(this.getHost()).getEphemeralAddress(),
-							m.getId(),
-							m.getFrom().getPermanentAddress(), m.getFrom().getEphemeralAddress(),
-							m.getTo().getPermanentAddress(), m.getTo().getEphemeralAddress(), 
-							m.getToEphemeralAddress()
-							);
+					if(DTNSim.ANONYMOUS_DTN_DEBUG >= 2) {
+						System.out.printf("MSG Forward failed From(%d/%d) -> To(%d,%d), MSG(%s, (%d/%d)->(%d/%d), %d\n", 
+								this.getHost().getPermanentAddress(), this.getHost().getEphemeralAddress(),
+								con.getOtherNode(this.getHost()).getPermanentAddress(), con.getOtherNode(this.getHost()).getEphemeralAddress(),
+								m.getId(),
+								m.getFrom().getPermanentAddress(), m.getFrom().getEphemeralAddress(),
+								m.getTo().getPermanentAddress(), m.getTo().getEphemeralAddress(), 
+								m.getToEphemeralAddress()
+								);
+					}
 					
 					return null; // should try later -> don't bother trying others
 				}								

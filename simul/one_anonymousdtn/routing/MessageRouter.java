@@ -15,6 +15,7 @@ import java.util.Random;
 import core.Application;
 import core.Connection;
 import core.DTNHost;
+import core.DTNSim;
 import core.Message;
 import core.MessageListener;
 import core.Settings;
@@ -440,14 +441,15 @@ public abstract class MessageRouter {
 		m.setTtl(this.msgTtl);
 		addToMessages(m, true);
 		
-		
 		//YSPARK
-		System.out.printf("MSG Creation Time(%f): MsgID(%s), From(%d/%d), To(%d/%d), ToEphemeral(%d)\n", 
+		if(DTNSim.ANONYMOUS_DTN_DEBUG == 3) {
+			System.out.printf("MSG Creation Time(%f): MsgID(%s), From(%d/%d), To(%d/%d), ToEphemeral(%d)\n", 
 				SimClock.getTime(), m.getId(), 
 				m.getFrom().getPermanentAddress(), m.getFrom().getEphemeralAddress(),
 				m.getTo().getPermanentAddress(), m.getTo().getEphemeralAddress(),
 				m.getToEphemeralAddress()
 				);
+		}
 		
 		
 		return true;
