@@ -193,10 +193,18 @@ public class SimScenario implements Serializable {
 		this.eqHandler = new EventQueueHandler();
 
 		/*************************************************************/
-		// YSPARK
+		// YSPARK		
 		this.epochInterval = s.getDouble(EPOCH_INTERVAL);
 		this.nAnonymityGroups = s.getInt(N_ANONYMITY_GROUPS);
+		
+		if(DTNSim.epoch_interval != 0.0)
+			this.epochInterval = DTNSim.epoch_interval;
+		if(DTNSim.nAnonymityGroups != 0)
+			this.nAnonymityGroups = DTNSim.nAnonymityGroups;
+		
+		
 		System.out.printf("Number of Anonymity Groups: %d\n", this.nAnonymityGroups);
+		System.out.printf("Epoch interval: %f\n", this.epochInterval);
 		/*************************************************************/		
 		
 		/* TODO: check size from movement models */
@@ -493,12 +501,22 @@ public class SimScenario implements Serializable {
 	private void createAnonymityGroups() {
 		anonymityGroupList = new ArrayList<List<Integer>>();
 		
-		Random randomGenerator = new Random(0);
+		Random randomGenerator = new Random(DTNSim.randomSeed);
 				
 		for (int i=1; i<=nAnonymityGroups; i++) {
 			Settings s = new Settings(ANONYMITY_NS+i);
-			int nHosts = (int)(s.getDouble(N_ANONYMITY_HOSTS) * (double)(hosts.size()));
-					
+			double percentage = s.getDouble(N_ANONYMITY_HOSTS);
+			
+			if(DTNSim.host_percentage != 0.0)
+				percentage = DTNSim.host_percentage;
+			
+			
+			int nHosts = (int)(percentage * (double)(hosts.size()));
+
+			
+			System.out.println(nHosts);
+			
+			
 			List<Integer> trustedNodesList = new ArrayList<Integer>();
 			
 			for(int j = 0; j < nHosts; j++) {

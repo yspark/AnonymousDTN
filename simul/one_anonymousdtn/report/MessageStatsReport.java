@@ -38,6 +38,17 @@ public class MessageStatsReport extends Report implements MessageListener {
 	private int nrofResponseDelivered;
 	private int nrofDelivered;
 	
+	
+	/******************************/
+	//YSPARK
+	private int nrofRelayedTrustTrust;
+	private int nrofRelayedTrustUntrust;
+	private int nrofRelayedUntrustTrust;
+	private int nrofRelayedUntrustUntrust;
+	
+	private int nrofDeliveredWithUntrustedHop;
+	/******************************/	
+	
 	/**
 	 * Constructor.
 	 */
@@ -63,6 +74,16 @@ public class MessageStatsReport extends Report implements MessageListener {
 		this.nrofResponseReqCreated = 0;
 		this.nrofResponseDelivered = 0;
 		this.nrofDelivered = 0;
+		
+		/******************************/
+		//YSPARK
+		this.nrofRelayedTrustTrust = 0;
+		this.nrofRelayedTrustUntrust = 0;
+		this.nrofRelayedUntrustTrust = 0;
+		this.nrofRelayedUntrustUntrust = 0;
+		
+		this.nrofDeliveredWithUntrustedHop = 0;
+		/******************************/
 	}
 
 	
@@ -98,11 +119,59 @@ public class MessageStatsReport extends Report implements MessageListener {
 		}
 
 		this.nrofRelayed++;
+		
+		/******************************/
+		//YSPARK
+		boolean fromTrusted = false, toTrusted = false;
+		
+		int destinationAddress = m.getTo().getPermanentAddress();
+		
+		if(from.getAnonymityGroups() != null && from.getAnonymityGroups().get(0).containsKey(destinationAddress))
+			fromTrusted = true;
+		
+		if(to.getAnonymityGroups() != null && to.getAnonymityGroups().get(0).containsKey(destinationAddress))
+			toTrusted = true;
+		else if(to.getPermanentAddress() == destinationAddress)
+			toTrusted = true;
+		
+		if(fromTrusted && toTrusted)
+			nrofRelayedTrustTrust++;
+		else if(fromTrusted && !toTrusted)
+			nrofRelayedTrustUntrust++;
+		else if(!fromTrusted && toTrusted)
+			nrofRelayedUntrustTrust++;
+		else
+			nrofRelayedUntrustUntrust++;
+						
+		/******************************/
+
 		if (finalTarget) {
 			this.latencies.add(getSimTime() - 
 				this.creationTimes.get(m.getId()) );
 			this.nrofDelivered++;
 			this.hopCounts.add(m.getHops().size() - 1);
+			
+			/******************************/
+			//YSPARK						
+			//System.out.printf("finalTarget: %d\n", to.getPermanentAddress());
+			//System.out.println(m.getHops().toString());
+			
+			for(DTNHost host : m.getHops()) {
+				if(host.getPermanentAddress() == to.getPermanentAddress())
+					continue;
+				
+				//System.out.printf("%d ", host.getPermanentAddress());
+				
+				if(to.getAnonymityGroups() != null && !to.getAnonymityGroups().get(0).containsKey(host.getPermanentAddress())) {									
+					nrofDeliveredWithUntrustedHop++;
+					
+					//System.out.printf("%d/%d\n", nrofDeliveredWithUntrustedHop, nrofDelivered);
+					break;
+				}
+			}
+			
+			//System.out.printf("\n");
+			/******************************/
 			
 			if (m.isResponse()) {
 				this.rtt.add(getSimTime() -	m.getRequest().getCreationTime());
@@ -158,10 +227,15 @@ public class MessageStatsReport extends Report implements MessageListener {
 		String statsText = "created: " + this.nrofCreated + 
 			"\nstarted: " + this.nrofStarted + 
 			"\nrelayed: " + this.nrofRelayed +
+			"\n\tnrelayed_t_to_t: " + this.nrofRelayedTrustTrust +
+			"\n\tnrelayed_t_to_ut: " + this.nrofRelayedTrustUntrust + 
+			"\n\tnrelayed_ut_to_t: " + this.nrofRelayedUntrustTrust + 
+			"\n\tnrelayed_ut_to_ut: " + this.nrofRelayedUntrustUntrust + 
 			"\naborted: " + this.nrofAborted +
 			"\ndropped: " + this.nrofDropped +
 			"\nremoved: " + this.nrofRemoved +
 			"\ndelivered: " + this.nrofDelivered +
+			"\n\tdelivered_with_ut_hops: " + this.nrofDeliveredWithUntrustedHop +
 			"\ndelivery_prob: " + format(deliveryProb) +
 			"\nresponse_prob: " + format(responseProb) + 
 			"\noverhead_ratio: " + format(overHead) + 

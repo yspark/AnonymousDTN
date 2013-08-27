@@ -3,7 +3,7 @@
 #
 
 ## Scenario settings
-Scenario.name = default_scenario
+Scenario.name = anonymous_dtn
 Scenario.simulateConnections = true
 Scenario.updateInterval = 0.1
 # 43200s == 12h
@@ -199,7 +199,7 @@ Scenario.epochInterval = 300.0
 Scenario.limitedCommunication = true
 
 # Group define
-Anonymity1.nAnonymityHosts = 0.3
+Anonymity1.nAnonymityHosts = 0.2
 #Anonymity1.trustedHosts = 0, 1, 2
 
 Anonymity2.nAnonymityHosts = 0.2
