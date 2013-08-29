@@ -232,6 +232,9 @@ public class DTNHost implements Comparable<DTNHost> {
 			}
 			
 			this.router.deleteMessage(msgId, true);
+			
+			//YSPARK
+			this.router.countDeleteMessageReason(1);
 		}			
 		
 		

@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import report.MessageStatsReport;
 import core.Application;
 import core.Connection;
 import core.DTNHost;
@@ -472,6 +473,19 @@ public abstract class MessageRouter {
 			ml.messageDeleted(removed, this.host, drop);
 		}
 	}
+	
+	
+	
+	public void countDeleteMessageReason(int reason) {
+		for (MessageListener ml : this.mListeners) {
+			if(ml instanceof MessageStatsReport) {
+				((MessageStatsReport) ml).increaseDropCount(reason);
+			}
+		}
+	}
+	
+	
+	
 	
 	/**
 	 * Sorts/shuffles the given list according to the current sending queue 

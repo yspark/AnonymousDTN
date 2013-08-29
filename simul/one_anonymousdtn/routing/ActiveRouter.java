@@ -177,6 +177,9 @@ public abstract class ActiveRouter extends MessageRouter {
 		/***********************************************************/
 			/* final recipient has already received the msg -> delete it */
 			this.deleteMessage(m.getId(), false);
+			
+			//YSPARK
+			countDeleteMessageReason(4);
 		}
 	
 		return retVal;
@@ -256,6 +259,9 @@ public abstract class ActiveRouter extends MessageRouter {
 			/* delete message from the buffer as "drop" */
 			deleteMessage(m.getId(), true);
 			freeBuffer += m.getSize();
+			
+			//YSPARK
+			countDeleteMessageReason(0);
 		}
 		
 		return true;
@@ -270,6 +276,9 @@ public abstract class ActiveRouter extends MessageRouter {
 			int ttl = messages[i].getTtl(); 
 			if (ttl <= 0) {
 				deleteMessage(messages[i].getId(), true);
+				
+				//YSPARK
+				countDeleteMessageReason(2);
 			}
 		}
 	}

@@ -47,6 +47,13 @@ public class MessageStatsReport extends Report implements MessageListener {
 	private int nrofRelayedUntrustUntrust;
 	
 	private int nrofDeliveredWithUntrustedHop;
+	
+	private int nrofDroppedBufferFull;
+	private int nrofDroppedTTLExpiry;
+	private int nrofDroppedEphemeralIDExipiry;
+	
+	private int nrofRemovedDelivered;
+	private int nrofRemovedAck;
 	/******************************/	
 	
 	/**
@@ -83,6 +90,14 @@ public class MessageStatsReport extends Report implements MessageListener {
 		this.nrofRelayedUntrustUntrust = 0;
 		
 		this.nrofDeliveredWithUntrustedHop = 0;
+		
+		
+		this.nrofDroppedBufferFull = 0;
+		this.nrofDroppedTTLExpiry = 0;
+		this.nrofDroppedEphemeralIDExipiry = 0;
+		
+		this.nrofRemovedDelivered = 0;
+		this.nrofRemovedAck = 0;
 		/******************************/
 	}
 
@@ -233,6 +248,9 @@ public class MessageStatsReport extends Report implements MessageListener {
 			"\n\tnrelayed_ut_to_ut: " + this.nrofRelayedUntrustUntrust + 
 			"\naborted: " + this.nrofAborted +
 			"\ndropped: " + this.nrofDropped +
+			"\n\tdropped_buffer_full: " + this.nrofDroppedBufferFull +
+			"\n\tdropped_ttl_expiry: " + this.nrofDroppedTTLExpiry +
+			"\n\tdropped_ephmeral_expiry: " + this.nrofDroppedEphemeralIDExipiry +
 			"\nremoved: " + this.nrofRemoved +
 			"\ndelivered: " + this.nrofDelivered +
 			"\n\tdelivered_with_ut_hops: " + this.nrofDeliveredWithUntrustedHop +
@@ -252,5 +270,29 @@ public class MessageStatsReport extends Report implements MessageListener {
 		write(statsText);
 		super.done();
 	}
+	
+	/************************************************/
+	//YSPARK
+	/**
+	 * 
+	 * @param kind
+	 * 			0: buffer full
+	 * 			1: Ephemeral ID Expiry
+	 * 			2: TTL Expiry
+	 */
+	public void increaseDropCount(int kind) {
+		switch(kind) {
+		case 0:
+			this.nrofDroppedBufferFull++;
+			break;
+		case 1:
+			this.nrofDroppedEphemeralIDExipiry++;
+			break;
+		case 2:
+			this.nrofDroppedTTLExpiry++;
+			break;
+		}
+	}
+	/************************************************/
 	
 }
