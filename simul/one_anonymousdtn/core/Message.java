@@ -19,9 +19,12 @@ public class Message implements Comparable<Message> {
 	private DTNHost from;
 	private DTNHost to;
 	
+	/********************************************/
 	//YSPARK
 	/** Ephemeral address of the destination */
 	private int toEphemeralAddress;
+	private int nonUpdateEpochCount;
+	/********************************************/
 	
 	/** Identifier of the message */
 	private String id;
@@ -71,8 +74,11 @@ public class Message implements Comparable<Message> {
 		this.from = from;
 		this.to = to;
 		
+		/****************************************************/
 		//YSPARK
 		this.toEphemeralAddress = to.getEphemeralAddress();
+		this.nonUpdateEpochCount = 0;
+		/****************************************************/
 				
 		this.id = id;
 		this.size = size;
@@ -272,6 +278,11 @@ public class Message implements Comparable<Message> {
 		this.initTtl = m.initTtl;
 		this.appID = m.appID;
 		
+		/*************************************************/
+		//YSPARK
+		this.toEphemeralAddress = m.toEphemeralAddress;
+		/*************************************************/
+		
 		if (m.properties != null) {
 			Set<String> keys = m.properties.keySet();
 			for (String key : keys) {
@@ -372,12 +383,21 @@ public class Message implements Comparable<Message> {
 	/******************************************************/
 	// YSPARK
 	public int getToEphemeralAddress() {
-		//return this.toEphemeralAddress;
-		return to.getEphemeralAddress();
+		return this.toEphemeralAddress;
+		//return to.getEphemeralAddress();
 	}
 
 	public void setToEphemeralAddress(int newEphemeralAddress) {
 		this.toEphemeralAddress = newEphemeralAddress;
+		this.nonUpdateEpochCount = 0;
+	}
+	
+	public int getNonUpdateEpochCount() {
+		return this.nonUpdateEpochCount;
+	}
+	
+	public void increaseNonUpdateEpochCount() {
+		this.nonUpdateEpochCount++;
 	}
 	/******************************************************/
 	

@@ -7,6 +7,7 @@ package routing;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -124,6 +125,12 @@ public abstract class ActiveRouter extends MessageRouter {
 	public Message messageTransferred(String id, DTNHost from) {
 		Message m = super.messageTransferred(id, from);
 
+		/***************************************************/
+		//YSPARK
+		//if()
+		
+		/***************************************************/
+		
 		/**
 		 *  N.B. With application support the following if-block
 		 *  becomes obsolete, and the response size should be configured 
@@ -250,7 +257,12 @@ public abstract class ActiveRouter extends MessageRouter {
 		int freeBuffer = this.getFreeBufferSize();
 		/* delete messages from the buffer until there's enough space */
 		while (freeBuffer < size) {
-			Message m = getOldestMessage(true); // don't remove msgs being sent
+			
+			/***********************************************/
+			//YSPARK
+			//Message m = getOldestMessage(true); // don't remove msgs being sent
+			Message m = getMessageToRemove(true); // don't remove msgs being sent			
+			/***********************************************/
 
 			if (m == null) {
 				return false; // couldn't remove any more messages
@@ -324,6 +336,41 @@ public abstract class ActiveRouter extends MessageRouter {
 		
 		return oldest;
 	}
+	
+	
+	
+	/**********************************************************************/
+	//YSPARK
+	protected Message getMessageToRemove(boolean excludeMsgBeingSent) {
+		Collection<Message> messages = this.getMessageCollection();
+
+		Message messageToRemove = null;
+		
+		for (Message m : messages) {
+			
+			if (excludeMsgBeingSent && isSending(m.getId())) {
+				continue; // skip the message(s) that router is sending
+			}
+			
+			if (m.getNonUpdateEpochCount() == 0) {
+				continue;
+			}
+			
+			if (messageToRemove == null ) {
+				messageToRemove = m;
+			}
+			else if (messageToRemove.getReceiveTime() > m.getReceiveTime()) {
+				messageToRemove = m;
+			}
+		}
+		
+		if(messageToRemove == null) {			
+			messageToRemove = getOldestMessage(excludeMsgBeingSent);
+		}
+		
+		return messageToRemove;
+	}
+	/**********************************************************************/
 	
 	/**
 	 * Returns a list of message-connections tuples of the messages whose

@@ -18,7 +18,7 @@ import ui.DTNSimTextUI;
 public class DTNSim {
 	/********************************************/
 	// YSPARK	
-	public static int ANONYMOUS_DTN_DEBUG = 0;	
+	public static int ANONYMOUS_DTN_DEBUG = 1;	
 	public static final String ANONYMOUS_DTN_MODE_FLAG = "-adtn";
 	
 	public static int nAnonymityGroups = 0;

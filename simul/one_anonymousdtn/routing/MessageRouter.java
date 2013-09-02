@@ -209,6 +209,13 @@ public abstract class MessageRouter {
 		return this.messages.values();
 	}
 	
+	/***********************************************************/
+	//YSPARK
+	public Collection<Message> getIncomingMessageCollection() {
+		return this.incomingMessages.values();
+	}	
+	/***********************************************************/
+	
 	/**
 	 * Returns the number of messages this router has
 	 * @return How many messages this router has

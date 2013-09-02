@@ -141,13 +141,27 @@ public class MessageStatsReport extends Report implements MessageListener {
 		
 		int destinationAddress = m.getTo().getPermanentAddress();
 		
-		if(from.getAnonymityGroups() != null && from.getAnonymityGroups().get(0).containsKey(destinationAddress))
-			fromTrusted = true;
+		/* from is trusted by the packet destination */
+		if(from.getTrustedNodesLists() != null) {
+			for(HashMap<Integer, Integer> list : from.getTrustedNodesLists()) {
+				if(list.containsKey(destinationAddress)) {
+					fromTrusted = true;
+					break;
+				}					
+			}
+		}
+			
+				
+		/* to is trusted by the packet destination */
+		if(to.getTrustedNodesLists() != null) {
+			for(HashMap<Integer, Integer> list : to.getTrustedNodesLists()) {
+				if(list.containsKey(destinationAddress)) {
+					toTrusted = true;
+					break;
+				}					
+			}
+		}
 		
-		if(to.getAnonymityGroups() != null && to.getAnonymityGroups().get(0).containsKey(destinationAddress))
-			toTrusted = true;
-		else if(to.getPermanentAddress() == destinationAddress)
-			toTrusted = true;
 		
 		if(fromTrusted && toTrusted)
 			nrofRelayedTrustTrust++;
@@ -170,20 +184,31 @@ public class MessageStatsReport extends Report implements MessageListener {
 			//YSPARK						
 			//System.out.printf("finalTarget: %d\n", to.getPermanentAddress());
 			//System.out.println(m.getHops().toString());
-			
+						
 			for(DTNHost host : m.getHops()) {
+				boolean bTrustedHop = false;
+				
 				if(host.getPermanentAddress() == to.getPermanentAddress())
 					continue;
+												
+				/* to is trusted by the packet destination */
+				if(to.getTrustedNodesLists() != null) {
+					for(HashMap<Integer, Integer> list : to.getTrustedNodesLists()) {
+						if(list.containsKey(host.getPermanentAddress())) {
+							bTrustedHop = true;
+							break;
+						}					
+					}					
+				}
 				
-				//System.out.printf("%d ", host.getPermanentAddress());
-				
-				if(to.getAnonymityGroups() != null && !to.getAnonymityGroups().get(0).containsKey(host.getPermanentAddress())) {									
+				if(bTrustedHop == false) { 
 					nrofDeliveredWithUntrustedHop++;
-					
-					//System.out.printf("%d/%d\n", nrofDeliveredWithUntrustedHop, nrofDelivered);
 					break;
 				}
 			}
+			
+			
+				
 			
 			//System.out.printf("\n");
 			/******************************/

@@ -73,6 +73,7 @@ public class World {
 	
 	/** epoch interval */
 	private double epochInterval;
+	private int epochMargin;
 	private double nextEpochStartTime;
 	/*******************************************/
 	
@@ -82,7 +83,7 @@ public class World {
 	/*******************************************/
 	// YSPARK
 	public World(List<DTNHost> hosts, int sizeX, int sizeY, 
-			double updateInterval, double epochInterval,   
+			double updateInterval, double epochInterval, int epochMargin, 
 			List<UpdateListener> updateListeners,
 			boolean simulateConnections, List<EventQueue> eventQueues) {
 		
@@ -90,6 +91,7 @@ public class World {
 						
 		//this.anonymityGroupList = anonymityGroupList;
 		this.epochInterval = epochInterval;		
+		this.epochMargin = epochMargin;
 		this.nextEpochStartTime = 0.0;
 	}
 	/*******************************************/
@@ -237,13 +239,27 @@ public class World {
 		}
 		
 		if(bEpochChanged) {
+			
+			/** Update packet destinations stored in each host */
+			for(DTNHost host : this.hosts) {
+				host.updatePacketDestinations((int)nextEpochStartTime, epochMargin);
+			}
+
+			/** Update anonymity group of each host */
+			for(DTNHost host : this.hosts) {
+				host.updateTrustedNodesLists((int)nextEpochStartTime);
+			}
+			
+			/** Update ephemeral address of each host */
 			for(DTNHost host : this.hosts) {
 				host.updateEphemeralID((int)nextEpochStartTime);
 			}
-			
+						
+			/** Update neighbor node lists of each host */
 			for(DTNHost host : this.hosts) {
-				host.updateAnonymityGroup((int)nextEpochStartTime);
+				host.updateNeighborNodesLists();
 			}
+			
 			
 			nextEpochStartTime += epochInterval;			
 		}

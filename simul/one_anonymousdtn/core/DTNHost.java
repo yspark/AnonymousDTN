@@ -40,9 +40,14 @@ public class DTNHost implements Comparable<DTNHost> {
 	/********************************************************/
 	// YSPARK
 	private int ephemeralAddress;
-	private List<HashMap<Integer, Integer>> anonymityGroupList;
+	//private List<HashMap<Integer, Integer>> anonymityGroupList;
+	private List<HashMap<Integer, Integer>> trustedNodesLists;
 	
-	private List<Integer> neighborEphemeralAddresses;	
+	private List<List<Integer>> neighborEphemeralAddressesLists;	
+	
+	
+	private double epochInterval;
+	private int validEpochNum;		
 	/********************************************************/
 	
 	static {
@@ -104,8 +109,27 @@ public class DTNHost implements Comparable<DTNHost> {
 		}
 		
 		//YSPARK
-		neighborEphemeralAddresses = new ArrayList<Integer>();	
+		neighborEphemeralAddressesLists = new ArrayList<List<Integer>>();	
 	}
+	
+	/*************************************************/
+	//YSPARK	
+	public DTNHost(List<MessageListener> msgLs,
+			List<MovementListener> movLs,
+			String groupId, List<NetworkInterface> interf,
+			ModuleCommunicationBus comBus, 
+			MovementModel mmProto, MessageRouter mRouterProto,
+			double epochInterval, int validEpochNum) {
+		
+		this(msgLs, movLs, groupId, interf, comBus, mmProto, mRouterProto);
+		
+		this.epochInterval = epochInterval;
+		this.validEpochNum = validEpochNum;
+		
+		this.trustedNodesLists = new ArrayList<HashMap<Integer, Integer>>();		
+	}
+	/*************************************************/
+	
 	
 	/**
 	 * Returns a new network interface address and increments the address for
@@ -159,7 +183,7 @@ public class DTNHost implements Comparable<DTNHost> {
 		
 	}
 	*/
-	
+		
 	public int getPermanentAddress() {
 		return this.permanentAddress;
 	}
@@ -168,6 +192,190 @@ public class DTNHost implements Comparable<DTNHost> {
 		return this.ephemeralAddress;
 	}
 		
+	private int generateEphemeralAddress(int permanentAddress, int epoch) {
+		return Integer.valueOf(epoch*100 + permanentAddress).hashCode();
+	}
+	
+	
+	/**
+	 * Add trusted nodes 
+	 * Currently, DTNHost maintains only 1 hashmap of trusted nodes. 
+	 * @param trustedNodes
+	 */
+	public void addTrustedNodes(List<Integer> trustedNodes) {
+		//System.out.printf("addTrustedNodes: %d (%d)\n", this.permanentAddress, trustedNodes.size());
+		
+		/*
+		if(trustedNodesLists == null) {
+			trustedNodesLists = new ArrayList<HashMap<Integer, Integer>>();			
+		}
+		*/
+		
+		if(trustedNodesLists.isEmpty()) {
+			trustedNodesLists.add(new HashMap<Integer, Integer>());
+		}
+		
+						
+		for(Integer nodePermanentAddress : trustedNodes) {
+			//if(this.permanentAddress == nodePermanentAddress.intValue())
+			//	continue;
+			
+			int index = trustedNodesLists.size() -1;
+			
+			if(!trustedNodesLists.get(index).containsKey(nodePermanentAddress)) {
+				trustedNodesLists.get(index).put(nodePermanentAddress, generateEphemeralAddress(nodePermanentAddress, 0));								
+			}						
+		}		
+		return;
+	}
+	
+	public List<HashMap<Integer, Integer>> getTrustedNodesLists() {	
+		return trustedNodesLists;
+	}
+	
+	
+	/**
+	 * Update packets' destination ephemeral addresses
+	 * @param epoch
+	 */
+	public void updatePacketDestinations(int epoch, int validEpochNum) {
+		List<String> messagesToDelete = new ArrayList<String>();		
+		
+		//if(trustedNodesLists != null && !trustedNodesLists.isEmpty()) {
+		if(!trustedNodesLists.isEmpty()) {
+			/** update packet destinations */		
+			for(Message m : this.router.getMessageCollection()) {
+				boolean messageUpdated = false;
+				
+				for(HashMap<Integer, Integer> list : this.trustedNodesLists) {
+					
+					if(list.containsValue(m.getToEphemeralAddress())) {				
+						
+						m.setToEphemeralAddress(generateEphemeralAddress(m.getTo().getPermanentAddress(), epoch));
+						messageUpdated = true;
+						break;
+						
+					}					
+				}
+				
+				if(messageUpdated == false) {
+					
+					/** work around */
+					if(m.getNonUpdateEpochCount() == 0) {
+						if(this.trustedNodesLists.get(0).containsKey(m.getTo().getPermanentAddress())) {
+							m.setToEphemeralAddress(generateEphemeralAddress(m.getTo().getPermanentAddress(), epoch));
+						}
+					}
+					else {
+						/** Destination ephemeral address update failed */
+						if(DTNSim.ANONYMOUS_DTN_DEBUG >= 1) {					
+							System.out.printf("update (PAddr %d, EAddr %d), MID: %s, toEAddr: %d, m.to.PAddr: %d, m.to.EAddr: %d, NonUpdateEpoch: %d\n", permanentAddress, ephemeralAddress, m.getId(),m.getToEphemeralAddress(), m.getTo().getPermanentAddress(), m.getTo().getEphemeralAddress(), m.getNonUpdateEpochCount());
+							
+							for(HashMap<Integer, Integer> list : this.trustedNodesLists) {
+								System.out.printf("(%d): ", list.size());
+								System.out.println(list.toString());
+							}
+						}
+						
+						m.increaseNonUpdateEpochCount();
+					
+						if(m.getNonUpdateEpochCount() >= validEpochNum) {
+							messagesToDelete.add(m.getId());
+						}		
+					}
+				}
+				
+						
+			}
+
+			
+			/** Update ephemeral addresses of incoming messages */
+			for(Message m: this.router.getIncomingMessageCollection()) {
+				for(HashMap<Integer, Integer> list : this.trustedNodesLists) {				
+					if(list.containsValue(m.getToEphemeralAddress())) {									
+						m.setToEphemeralAddress(generateEphemeralAddress(m.getTo().getPermanentAddress(), epoch));
+						break;					
+					}					
+				}		
+			}
+		}
+		else {
+			
+			for(Message m : this.router.getMessageCollection()) {
+				m.increaseNonUpdateEpochCount();
+				
+				if(m.getNonUpdateEpochCount() >= validEpochNum) {
+					messagesToDelete.add(m.getId());
+				}
+			}		
+		}
+		
+		
+		
+		/** Delete expired packets */
+		for(String msgId : messagesToDelete) {
+			if(DTNSim.ANONYMOUS_DTN_DEBUG >= 1) {
+				if(!trustedNodesLists.isEmpty()) {
+					System.out.printf("Packet expired in %d\n",  this.permanentAddress);
+				}
+			}
+			
+			// Remove packets with expired destination
+			this.router.deleteMessage(msgId, true);
+			
+			// Report 
+			this.router.countDeleteMessageReason(1);
+		}			
+
+		
+
+		
+	}
+
+	
+	/**
+	 * Update trustedNodesLists stored in host
+	 * @param epoch
+	 */
+	public void updateTrustedNodesLists(int epoch) {
+		
+		if(!trustedNodesLists.isEmpty()) {
+				
+			/** Update anonymityGroupList */ 
+			HashMap<Integer, Integer> newList = new HashMap<Integer, Integer>();
+			
+			
+			for(int permanentAddress : trustedNodesLists.get(0).keySet() ) {
+				newList.put(permanentAddress, generateEphemeralAddress(permanentAddress, epoch));
+			
+				//System.out.printf("%d, %d\n", nodeAddress, Integer.valueOf(nodeAddress + seed).hashCode());
+			}
+			
+			trustedNodesLists.add(newList);
+			
+			if(trustedNodesLists.size() > this.validEpochNum) {
+				trustedNodesLists.remove(0);
+			}
+			
+		}
+			
+	}
+	
+	
+	public void updateNeighborNodesLists() {
+				
+		/** Add new neighbor nodes list */
+		this.neighborEphemeralAddressesLists.add(new ArrayList<Integer>());
+		
+		if(neighborEphemeralAddressesLists.size() > this.validEpochNum) {
+			neighborEphemeralAddressesLists.remove(0);
+		}
+		
+		if(neighborEphemeralAddressesLists.get(0).size() > 0) 
+			System.out.println("wrong neighbor");
+	}
+	
+	
 	/**
 	 * update ephemeral address
 	 * 1) ephemeral address of its own
@@ -176,95 +384,35 @@ public class DTNHost implements Comparable<DTNHost> {
 	 * @param seed
 	 */
 	public void updateEphemeralID(int epoch) {
-		ephemeralAddress = generateEphemeralAddress(permanentAddress, epoch);
+		this.ephemeralAddress = generateEphemeralAddress(this.permanentAddress, epoch);
 		//ephemeralAddress = Integer.valueOf(permanentAddress + epoch).hashCode();
 
 		//System.out.printf("Node %d, %d\n", address, ephemeralAddress);						
 	}
 	
 	
-	public void updateAnonymityGroup(int epoch) {
-		List<String> messagesToDelete = new ArrayList<String>();		
-		
-		if(anonymityGroupList!= null && !anonymityGroupList.isEmpty()) {
-
-			
-			/** Update anonymityGroupList */ 
-			for(int nodeAddress : anonymityGroupList.get(0).keySet() ) {
-				anonymityGroupList.get(0).put(nodeAddress, generateEphemeralAddress(nodeAddress, epoch));
-				//anonymityGroupList.get(0).put(nodeAddress, Integer.valueOf(nodeAddress + epoch).hashCode());
-				
-				//System.out.printf("%d, %d\n", nodeAddress, Integer.valueOf(nodeAddress + seed).hashCode());
-			}			
-
-			
-			/** update packet destinations */		
-			for(Message m : this.router.getMessageCollection()) {
-				if(this.anonymityGroupList.get(0).containsValue(m.getToEphemeralAddress())) {				
-					//int newEphemeralAddress = Integer.valueOf(m.getTo().getPermanentAddress() + epoch).hashCode();						
-					
-					m.setToEphemeralAddress(generateEphemeralAddress(m.getTo().getPermanentAddress(), epoch));
-				}
-				else {
-					if(DTNSim.ANONYMOUS_DTN_DEBUG >= 1) {					
-						System.out.printf("update (%d,%d): %s:%d\n", permanentAddress, ephemeralAddress, m.getId(), m.getToEphemeralAddress());
-						System.out.println(this.anonymityGroupList.get(0).toString());
-					}
-					
-					messagesToDelete.add(m.getId());
-				}					
-			}
-			
-		
-		}
-		else {
-			for(Message m : this.router.getMessageCollection()) 
-				messagesToDelete.add(m.getId());
-		}
-		
-		
-		/** Delete expired packets */
-		/** TODO: keep expired packets.  
-			All nodes need to maintain k-recent ephemeral addresses of trusted/neighbor nodes */
-		for(String msgId : messagesToDelete) {
-			if(DTNSim.ANONYMOUS_DTN_DEBUG >= 2) {
-				System.out.printf("Packet expired in %d\n",  this.permanentAddress);
-			}
-			
-			this.router.deleteMessage(msgId, true);
-			
-			//YSPARK
-			this.router.countDeleteMessageReason(1);
-		}			
-		
-		
-		/** Reset neighbor list */
-		this.neighborEphemeralAddresses.clear();
-	}
-	
-	
-	private int generateEphemeralAddress(int permanentAddress, int epoch) {
-		return Integer.valueOf(epoch*100 + permanentAddress).hashCode();
-	}
-	
 	
 	
 	public List<Integer> getReceivableEphemeralAddresses() {
 		List<Integer> receivableEphemeralAddresses = new ArrayList<Integer>();
-						
-		if(anonymityGroupList != null)
-			receivableEphemeralAddresses.addAll(anonymityGroupList.get(0).values());
+								
+		if(!trustedNodesLists.isEmpty()) {
+			for(HashMap<Integer, Integer> list : trustedNodesLists)
+				receivableEphemeralAddresses.addAll(list.values());
+		}
 				
-		if(neighborEphemeralAddresses != null) {
-			for(int neighbor : neighborEphemeralAddresses) {
-				if(receivableEphemeralAddresses.contains(neighbor) == false)
-					receivableEphemeralAddresses.add(neighbor);
+		if(neighborEphemeralAddressesLists.isEmpty() == false) {
+			for(List<Integer> list : neighborEphemeralAddressesLists) {			
+				for(int neighbor : list) {
+					if(receivableEphemeralAddresses.contains(neighbor) == false)
+						receivableEphemeralAddresses.add(neighbor);
+				}
 			}
 		}			
 		
 		// remove myself from the list
-		if(receivableEphemeralAddresses != null && receivableEphemeralAddresses.contains(this.ephemeralAddress))
-			receivableEphemeralAddresses.remove(receivableEphemeralAddresses.indexOf(this.ephemeralAddress));
+		//while(receivableEphemeralAddresses != null && receivableEphemeralAddresses.contains(this.ephemeralAddress))
+		//	receivableEphemeralAddresses.remove(receivableEphemeralAddresses.indexOf(this.ephemeralAddress));
 		
 		return receivableEphemeralAddresses;
 		
@@ -272,13 +420,25 @@ public class DTNHost implements Comparable<DTNHost> {
 	
 	
 	public void addNeighborNode(int ephemeralAddress) {
-		if(neighborEphemeralAddresses.contains(ephemeralAddress) == false)
-			neighborEphemeralAddresses.add(ephemeralAddress);
+		if(neighborEphemeralAddressesLists.isEmpty()) {
+			List<Integer> newNeighborList = new ArrayList<Integer>();
+			neighborEphemeralAddressesLists.add(newNeighborList);
+		}
+		
+		
+		int latestIndex = neighborEphemeralAddressesLists.size()-1;
+		if(neighborEphemeralAddressesLists.get(latestIndex).contains(ephemeralAddress) == false) { 
+			neighborEphemeralAddressesLists.get(latestIndex).add(ephemeralAddress);
+		}				
 	}
 	
-	public List<Integer> getNeighborNodeList() {
-		return this.neighborEphemeralAddresses;
+	/*
+	public List<List<Integer>> getNeighborNodeLists() {
+		return this.neighborEphemeralAddressesLists;
 	}
+	*/
+	
+	
 	
 	
 	/********************************************************/
@@ -653,38 +813,4 @@ public class DTNHost implements Comparable<DTNHost> {
 		return this.getPermanentAddress() - h.getPermanentAddress();
 	}
 	
-	
-	
-	/**********************************************/
-	// YSAPRK
-	/**
-	 * Add trusted nodes 
-	 * Currently, DTNHost maintains only 1 hashmap of trusted nodes. 
-	 * @param trustedNodes
-	 */
-	public void addTrustedNodes(List<Integer> trustedNodes) {
-		//System.out.printf("addTrustedNodes: %d (%d)\n", this.permanentAddress, trustedNodes.size());
-				
-		if(anonymityGroupList == null) {
-			anonymityGroupList = new ArrayList<HashMap<Integer, Integer>>();
-			anonymityGroupList.add(new HashMap<Integer, Integer>());
-		}
-						
-		for(Integer nodeAddress : trustedNodes) {
-			if(this.permanentAddress == nodeAddress.intValue())
-				continue;
-			
-			if(!anonymityGroupList.get(0).containsKey(nodeAddress)) {
-				anonymityGroupList.get(0).put(nodeAddress, generateEphemeralAddress(nodeAddress, 0));								
-			}						
-		}		
-		return;
-	}
-	
-	public List<HashMap<Integer, Integer>> getAnonymityGroups() {				
-		return anonymityGroupList;
-	}
-	
-	/**********************************************/
-
 }

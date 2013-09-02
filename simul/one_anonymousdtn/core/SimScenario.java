@@ -84,8 +84,10 @@ public class SimScenario implements Serializable {
 	/** (Namespace: Scenario) number of anonymity groups */
 	public static final String N_ANONYMITY_GROUPS = "nAnonymityGroups";
 	/** (Namespace: Scenario) epoch interval*/
-	public static final String EPOCH_INTERVAL = "epochInterval";
-	
+	public static final String EPOCH_INTERVAL = "epochInterval";	
+	/** (Namespace: Scenario) epoch interval*/
+	public static final String VALID_EPOCH_NUM = "validEpochNum";
+		
 	
 	/** Namespace for anonymity group settings ({@value}) */
 	public static final String ANONYMITY_NS = "Anonymity";
@@ -102,6 +104,9 @@ public class SimScenario implements Serializable {
 	
 	/** Epoch interval */
 	private double epochInterval;
+	
+	/** Keep unupdated packets during valid epochs */
+	private int validEpochNum;
 	
 	/***************************************************/
 	
@@ -195,6 +200,7 @@ public class SimScenario implements Serializable {
 		/*************************************************************/
 		// YSPARK		
 		this.epochInterval = s.getDouble(EPOCH_INTERVAL);
+		this.validEpochNum = s.getInt(VALID_EPOCH_NUM);
 		this.nAnonymityGroups = s.getInt(N_ANONYMITY_GROUPS);
 		
 		if(DTNSim.epoch_interval != 0.0)
@@ -226,7 +232,7 @@ public class SimScenario implements Serializable {
 		
 		this.world = new World(hosts, worldSizeX, worldSizeY, updateInterval,
 				//YSPARK
-				epochInterval,
+				epochInterval, validEpochNum,
 				updateListeners, simulateConnections, 
 				eqHandler.getEventQueues());
 		
@@ -467,11 +473,23 @@ public class SimScenario implements Serializable {
 			for (int j=0; j<nrofHosts; j++) {
 				ModuleCommunicationBus comBus = new ModuleCommunicationBus();
 
+				/****************************************************************/
+				//YSPARK
 				// prototypes are given to new DTNHost which replicates
 				// new instances of movement model and message router
+				/*
 				DTNHost host = new DTNHost(this.messageListeners, 
 						this.movementListeners,	gid, mmNetInterfaces, comBus, 
 						mmProto, mRouterProto);
+				*/
+				
+				DTNHost host = new DTNHost(this.messageListeners, 
+						this.movementListeners,	gid, mmNetInterfaces, comBus, 
+						mmProto, mRouterProto, this.epochInterval, this.validEpochNum);
+				
+				//host.setEpoch(this.epochInterval, this.epochMargin);
+				/****************************************************************/
+				
 				hosts.add(host);
 			}
 		}		

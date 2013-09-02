@@ -120,7 +120,10 @@ Events1.class = MessageEventGenerator
 # Creation interval in seconds (one new message every 25 to 35 seconds)
 Events1.interval = 25,35
 # Message sizes (500kB - 1MB)
+#YSPARK
 Events1.size = 500k,1M
+#Events1.size = 100k,100k
+
 # range of message source/destination addresses
 Events1.hosts = 0,125
 # Message ID prefix
@@ -195,15 +198,14 @@ Scenario.nAnonymityGroups = 1
 # Epoch interval (seconds)
 Scenario.epochInterval = 300.0
 
+# Keep unupdated packets during valid number of epochs (min: 1)
+Scenario.validEpochNum = 1
+
 # Communication within a trust group
 Scenario.limitedCommunication = true
 
 # Group define
 Anonymity1.nAnonymityHosts = 0.2
-#Anonymity1.trustedHosts = 0, 1, 2
-
-Anonymity2.nAnonymityHosts = 0.2
-#Anonymity2.trustedHosts = 1, 3, 4
 
 
 
