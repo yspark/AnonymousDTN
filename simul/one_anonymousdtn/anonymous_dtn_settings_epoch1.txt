@@ -199,7 +199,7 @@ Scenario.nAnonymityGroups = 1
 Scenario.epochInterval = 300.0
 
 # Keep unupdated packets during valid number of epochs (min: 1)
-Scenario.validEpochNum = 6
+Scenario.validEpochNum = 1
 
 # Communication within a trust group
 Scenario.limitedCommunication = true

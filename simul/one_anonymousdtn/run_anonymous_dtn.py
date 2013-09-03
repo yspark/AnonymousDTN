@@ -18,38 +18,46 @@ Epoch = [5*60, 10*60, 20*60, 30*60]
 PercentageOfTrustedNode = [0.1, 0.2, 0.3, 0.4, 0.6, 0.8]
 
 # 1 time test
-Run = [0]
-Epoch = [10*60]
-PercentageOfTrustedNode = [0.3]
+#Run = [0]
+#Epoch = [10*60]
+#PercentageOfTrustedNode = [0.3]
 
-
-filename = './results/log_' + datetime.datetime.now().strftime("%m_%d_%H_%M") + '.txt' 
 
 pwd = os.getcwd();
 
-for run in Run:
-  for epoch in Epoch:
-    for percentage in PercentageOfTrustedNode:
-   
-      foutput = open(filename, 'a')
-  
-      foutput.write('**********\n')
-      foutput.write('Percentage: ' + str(percentage) + '\t' +'Epoch: ' + str(epoch) + '\n')
-      foutput.write('**********\n')
-      
-      command = './one.sh -adtn -b 1 ' + str(percentage) + ' ' + str(epoch) + ' ' + str(run)
-      print command
-      os.system(command)
+originalSettingFile = 'anonymous_dtn_settings.txt'
+#settingFileList = ['./anonymous_dtn_settings_epoch1.txt', 'anonymous_dtn_settings_epoch3.txt']
+settingFileList = ['anonymous_dtn_settings_epoch6.txt']
+
+for settingFileName in settingFileList:
+  command = 'cp '+ settingFileName + ' ' + originalSettingFile
+  os.system(command)
+
+  filename = './results/log_' + datetime.datetime.now().strftime("%m_%d_%H_%M") + '.txt' 
+
+  for run in Run:
+    for epoch in Epoch:
+      for percentage in PercentageOfTrustedNode:
     
-      freport = open('./reports/anonymous_dtn_MessageStatsReport.txt')
-      foutput.writelines(freport.readlines())
-      freport.close()
-  
-      foutput.close()
+        foutput = open(filename, 'a')
+    
+        foutput.write('**********\n')
+        foutput.write('Percentage: ' + str(percentage) + '\t' +'Epoch: ' + str(epoch) + '\n')
+        foutput.write('**********\n')
+        
+        command = './one.sh -adtn -b 1 ' + str(percentage) + ' ' + str(epoch) + ' ' + str(run)
+        print command
+        os.system(command)
+      
+        freport = open('./reports/anonymous_dtn_MessageStatsReport.txt')
+        foutput.writelines(freport.readlines())
+        freport.close()
+    
+        foutput.close()
+      #end for
     #end for
   #end for
-#end for
-    
+#end for     
 
 
 

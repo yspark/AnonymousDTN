@@ -44,10 +44,14 @@ public class DTNHost implements Comparable<DTNHost> {
 	private List<HashMap<Integer, Integer>> trustedNodesLists;
 	
 	private List<List<Integer>> neighborEphemeralAddressesLists;	
-	
-	
+		
 	private double epochInterval;
-	private int validEpochNum;		
+	private int validEpochNum;
+	
+	
+	// received packet id list and its size limit
+	//private int receivedPacketListSize;
+	//private List<Integer> receivedPacketList;
 	/********************************************************/
 	
 	static {
@@ -370,9 +374,6 @@ public class DTNHost implements Comparable<DTNHost> {
 		if(neighborEphemeralAddressesLists.size() > this.validEpochNum) {
 			neighborEphemeralAddressesLists.remove(0);
 		}
-		
-		if(neighborEphemeralAddressesLists.get(0).size() > 0) 
-			System.out.println("wrong neighbor");
 	}
 	
 	

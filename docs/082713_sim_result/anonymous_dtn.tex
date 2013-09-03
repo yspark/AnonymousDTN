@@ -351,20 +351,6 @@ This attack would waste bandwidth resource and may deter packet forwarding to a 
 However, this kind of attack would not prevent $i$ from forwarding its packets to other legitimate nodes, and those nodes would be able to forward the packets through proper routes to the destination.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Experimental Result}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -373,30 +359,12 @@ However, this kind of attack would not prevent $i$ from forwarding its packets t
 \subsubsection{Simulation model}
 \begin{itemize}
  \item ONE simulator, default scenario/setting
-
  \item Map: Helsinki (4500m * 3500m)
-
  \item Nodes: 126 (80 humans, 40 cars, 6 trams)
-  \begin{itemize}
-   \item Packet buffer: Humans and cars (5MB), trams (50MB).
-   \item Contact interval: Humans (5mins), cars (2mins), trams (1min 20secs)
-  \end{itemize}
-
- \item Packet(message) generation
-  \begin{itemize}
-   \item Packet size: 500KB - 1MB
-   \item Packet generation interval: 25sec - 35sec
-   \item TTL: 5 hours
-  \end{itemize}
-
  \item Movement: Pre-defined routes
-
  \item Network interface: bluetooth, wlan (determine communication distance and bandwidth)
-
  \item Simulation running time: 12 hours
 \end{itemize}
-
-
 
 \subsubsection{Anonymous DTN routing setup}
 \begin{itemize}
@@ -405,8 +373,6 @@ However, this kind of attack would not prevent $i$ from forwarding its packets t
  \item Epoch: varies from 5 mins to 30 mins
  \item Base routing protocol: epidemic
 \end{itemize}
-
-
 
 \subsubsection{Assumptions \& simplification}
 \begin{itemize}
@@ -421,102 +387,57 @@ Epoch starts exactly at the same time in all nodes
 Once two nodes are located within a specific distance, they know ephemeral addresses, packet digest, pulling list of each other without any message exchange. 
 
  \item Forwarding policy\\
-On contact, a node first forwards packets whose destinations are either trusted by the next-hop node or in neighbor list of the next-hop node.  Then it tries to forward remaining packets in FIFO manner. 
+On contact, a node first forwards packets whose destinations are either trusted by the next-hop node or in neighbor list of the next-hop node.  Then it tries to forward remaining packets. 
 \end{itemize}
 
 
 \subsection{Results}
 
-% delivery rate
 \begin{figure}[h!]
 \center
-\subfloat[Delivery rate: Ephemeral ID valid for 1 epoch]{%
-\includegraphics[width=0.49\columnwidth]{figures/epoch_1/delivery_rate.pdf}
-\label{fig:delivery_rate_1}
-}
-\hfill
-\subfloat[Delivery rate: Ephemeral ID valid for 3 epochs]{%
-\includegraphics[width=0.49\columnwidth]{figures/epoch_3/delivery_rate.pdf}
-\label{fig:delivery_rate_3}
-}
-\caption{{\bf Packet delivery rate.} 
-Delivery rate with $100\%$ trusted nodes is exactly same to that of pure epidemic routing protocol (Delivery rate of 24.91\%). 
-Delivery rate with 30 min epoch in Figure~\ref{fig:delivery_rate_1} and delivery rate with 10 min epoch in Figure~\ref{fig:delivery_rate_3} show almost similar result. 
-}
+\includegraphics[width=0.6\columnwidth]{figures/delivery_rate.pdf}
+\caption{{\bf Packet delivery rate (average of 3 trials).}
+Percentage of trusted nodes affects packet delivery rate regardless of epoch. 
+Epoch affects packet delivery rate only when the percentage of trusted nodes is less than $0.6$. 
+In this simulation scenario, 10-min epoch seems to be reasonable, especially when percentage of trusted hosts $>= 0.3$.}
 \label{fig:delivery_rate}
 \end{figure}
 
 
-
-
-% delivery latency
 \begin{figure}[h!]
 \center
-\subfloat[Delivery latency: Ephemeral ID valid for 1 epoch]{%
-\includegraphics[width=0.49\columnwidth]{figures/epoch_1/delivery_latency.pdf}
-\label{fig:delivery_latency_1}
+\subfloat[Packet delivery latency]{%
+\includegraphics[width=0.49\columnwidth]{figures/latency.pdf}
+\label{fig:latency}
 }
 \hfill
-\subfloat[Delivery latency: Ephemeral ID valid for 3 epochs]{%
-\includegraphics[width=0.49\columnwidth]{figures/epoch_3/delivery_latency.pdf}
-\label{fig:delivery_latency_3}
+\subfloat[Packet delivery hop count]{%
+\includegraphics[width=0.49\columnwidth]{figures/hopcount.pdf}
+\label{fig:hopcount}
 }
-\caption{{\bf Packet delivery latency.}
-Packet delivery latency in Figure~\ref{fig:delivery_latency_3} is much higher than in Figure~\ref{fig:delivery_latency_1}, especially when the percentage of trusted nodes is low.
+\caption{{\bf Packet delivery latency \& hop count (average of 3 trials).}
+Epoch does not affect packet delivery latency while it affects packet delivery hop count.  
+It is interesting that larger hop count do not seem to increase delivery latency. 
 }
-\label{fig:delivery_latency}
+\label{fig:delivery_latency_hopcount}
 \end{figure}
 
 
 
-% hop count
 \begin{figure}[h!]
 \center
-\subfloat[Delivery hop count: Ephemeral ID valid for 1 epoch]{%
-\includegraphics[width=0.49\columnwidth]{figures/epoch_1/hopcount.pdf}
-\label{fig:delivery_hopcount_1}
+\subfloat[Relay classification over varied epoch. Percentage of trusted nodes = 0.3]{%
+\includegraphics[width=0.49\columnwidth]{figures/relay_classification_over_epoch.pdf}
+\label{fig:relay_classification_1}
 }
 \hfill
-\subfloat[Delivery hop count: Ephemeral ID valid for 3 epochs]{%
-\includegraphics[width=0.49\columnwidth]{figures/epoch_3/hopcount.pdf}
-\label{fig:delivery_hopcount_3}
+\subfloat[Relay classification over varied percentage of trusted nodes. Epoch = 10mins.]{%
+\includegraphics[width=0.49\columnwidth]{figures/relay_classification_over_percentage.pdf}
+\label{fig:relay_classification_2}
 }
-\caption{{\bf Packet delivery hop count.}
-Delivery hop count in Figure \ref{fig:delivery_hopcount_1} is generally lower than that of pure epidemic routing, since packets are dropped due to ephemeral ID expiry.  
-Delivery hop count in Figure \ref{fig:delivery_hopcount_3} is generally higher than that of pure epidemic routing, especially when the percentage of trusted nodes is low due to inefficient routing using small number of trusted nodes.
-}
-\label{fig:delivery_hopcount}
-\end{figure}
-
-
-
-
-% packet relay classification
-\begin{figure}[h!]
-\center
-\subfloat[Relay classification over varied epoch. Percentage of trusted nodes = 0.3. Ephemeral ID valid for 1 epoch]{%
-\includegraphics[width=0.49\columnwidth]{figures/epoch_1/relay_classification_over_epoch.pdf}
-\label{fig:relay_classification_epoch_1}
-}
-\hfill
-\subfloat[Relay classification over varied epoch. Percentage of trusted nodes = 0.3. Ephemeral ID valid for 3 epochs]{%
-\includegraphics[width=0.49\columnwidth]{figures/epoch_3/relay_classification_over_epoch.pdf}
-\label{fig:relay_classification_epoch_3}
-}
-\hfill
-\subfloat[Relay classification over varied percentage of trusted nodes. Epoch = 10 mins. Ephemeral ID valid for 1 epoch.]{%
-\includegraphics[width=0.49\columnwidth]{figures/epoch_1/relay_classification_over_percentage.pdf}
-\label{fig:relay_classification_percentage_1}
-}
-\hfill
-\subfloat[Relay classification over varied percentage of trusted nodes. Epoch = 10 mins. Ephemeral ID valid for 3 epochs]{%
-\includegraphics[width=0.49\columnwidth]{figures/epoch_3/relay_classification_over_percentage.pdf}
-\label{fig:relay_classification_percentage_3}
-}
-
 \caption{{\bf Packet relay classification.}
-When ephemeral ID valid for 3 epochs is used (Figures~\ref{fig:relay_classification_epoch_3} and \ref{fig:relay_classification_percentage_3}), 
-the number of packet relays from untrusted node to untrusted node and the number of packet relays from untrusted node to trusted node are significantly increased, compared to when ephemeral ID valid for 1 epoch is used (figures~\ref{fig:relay_classification_epoch_1} and \ref{fig:relay_classification_percentage_1}).
+Larger epoch increases relays from untrusted to trusted hosts and from untrusted to trusted host.  But it does not increase relays from trusted to trusted hosts.
+Increasing percentage of trusted nodes generally increases relays from trusted to trusted nodes.
 }
 \label{fig:relay_classification}
 \end{figure}
@@ -526,31 +447,32 @@ the number of packet relays from untrusted node to untrusted node and the number
 
 
 
-% packet drop classification
 \begin{figure}[h!]
 \center
-\subfloat[Packet drops over varied epoch. Percentage of trusted nodes = 0.3. Ephemeral ID valid for 1 epoch.]{%
-\includegraphics[width=0.49\columnwidth]{figures/epoch_1/drop_classification_over_epoch.pdf}
-\label{fig:drop_classification_epoch_1}
+\includegraphics[width=0.6\columnwidth]{figures/average_relay_count.pdf}
+\caption{{\bf Average relay counts per message (average of 3 trials).}
+Packets are relayed similar times when percentage of trusted node $>= 0.6$, regardless of epoch.  
+When percentage of trusted node $<0.6$, average relay count per message are directly effected by both epoch and percentage of trusted nodes. 
+}
+\label{fig:relay_count}
+\end{figure}
+
+
+
+\begin{figure}[h!]
+\center
+\subfloat[Packet drops over varied epoch. Percentage of trusted nodes = 0.3]{%
+\includegraphics[width=0.49\columnwidth]{figures/drop_classification_over_epoch.pdf}
+\label{fig:drop_classification_1}
 }
 \hfill
-\subfloat[Packet drops over varied epoch. Percentage of trusted nodes = 0.3. Ephemeral ID valid for 3 epochs.]{%
-\includegraphics[width=0.49\columnwidth]{figures/epoch_3/drop_classification_over_epoch.pdf}
-\label{fig:drop_classification_epoch_3}
-}
-\hfill
-\subfloat[Packet drops over varied percentage of trusted nodes. Epoch = 10 mins. Ephemeral ID valid for 1 epoch.]{%
-\includegraphics[width=0.49\columnwidth]{figures/epoch_1/drop_classification_over_percentage.pdf}
-\label{fig:drop_classification_percentage_1}
-}
-\subfloat[Packet drops over varied percentage of trusted nodes. Epoch = 10 mins. Ephemeral ID valid for 3 epochs.]{%
-\includegraphics[width=0.49\columnwidth]{figures/epoch_3/drop_classification_over_percentage.pdf}
-\label{fig:drop_classification_percentage_3}
+\subfloat[Packet drops over varied percentage of trusted nodes. Epoch = 10 mins.]{%
+\includegraphics[width=0.49\columnwidth]{figures/drop_classification_over_percentage.pdf}
+\label{fig:drop_classification_2}
 }
 \caption{{\bf Packet drop classification.}
-With ephemeral ID valid for 3 epochs (Figures~\ref{fig:drop_classification_epoch_3} and \ref{fig:drop_classification_percentage_3}),  
-the total number of packet drops is significantly increased compared to when ephemeral ID valid for 1 epoch is used (Figures~\ref{fig:drop_classification_epoch_1} and \ref{fig:drop_classification_percentage_1}).
-However, most packet drops are due to buffer overflow, and packet drops due to ephemeral ID expiry is significantly decreased. 
+With the fixed percentage of trusted nodes (0.3), larger epoch obviously increases packet drops due to buffer overflow, since it also means packets live in DTN for longer times.
+With the fixed epoch (10 mins), larger percentage of trusted nodes increases packet drops due to buffer overflow and ephemeral ID expiry when percentage of trusted nodes $<=0.6$.
 }
 \label{fig:drop_classification}
 \end{figure}
@@ -560,45 +482,24 @@ However, most packet drops are due to buffer overflow, and packet drops due to e
 
 
 
-% packet delivery count with untrusted nodes
+
 \begin{figure}[t!]
 \center
-\subfloat[Packet deliveries with untrusted nodes: Ephemeral ID valid for 1 epoch.]{%
-\includegraphics[width=0.49\columnwidth]{figures/epoch_1/delivery_with_ut.pdf}
-\label{fig:delivery_ut_1}
+\subfloat[Packet delivery count over varied epoch. Percentage of trusted nodes = 30]{%
+\includegraphics[width=0.49\columnwidth]{figures/delivery_count_over_epoch.pdf}
+\label{fig:delivery_count_1}
 }
 \hfill
-\subfloat[Packet deliveries with untrusted nodes: Ephemeral ID valid for 3 epochs.]{%
-\includegraphics[width=0.49\columnwidth]{figures/epoch_3/delivery_with_ut.pdf}
-\label{fig:delivery_ut_3}
+\subfloat[Packet delivery count over varied percentage of trusted nodes. Epoch = 10mins.]{%
+\includegraphics[width=0.49\columnwidth]{figures/delivery_count_over_percentage.pdf}
+\label{fig:delivery_count_2}
 }
-\caption{{\bf Packet deliveries with untrusted nodes.}
-The number Packet deliveries including at least 1 untrusted node is significantly increased with the use of ephemeral ID valid for 3 epochs. 
+\caption{{\bf Packet delivery count.}
+Increasing epoch increases packet delivery count consists of trusted and untrusted hops.  Increasing percentage of trusted nodes increases packet delivery count with trusted hops only as well as that with trusted and untrusted hops while percentage of trusted nodes is less than $0.6$.
 }
 \label{fig:delivery_count}
 \end{figure}
 
-
-
-
-% average relay count per message
-\begin{figure}[h!]
-\center
-\subfloat[Average relay count per message. Ephemeral ID valid for 1 epoch]{%
-\includegraphics[width=0.49\columnwidth]{figures/epoch_1/relay_per_message.pdf}
-\label{fig:relay_per_message_1}
-}
-\hfill
-\subfloat[Average relay count per message. Ephemeral ID valid for 3 epochs]{%
-\includegraphics[width=0.49\columnwidth]{figures/epoch_3/relay_per_message.pdf}
-\label{fig:relay_per_message_3}
-}
-\caption{{\bf Average relay counts per message.}
-With ephemeral ID valid for 1 epoch, packets are not relayed enough times since the packets are dropped mainly due to ephemeral ID expiry, especially when the percentage of trusted node is low (Figure~\ref{fig:relay_per_message_1}). 
-By using ephemeral ID valid for 3 epochs, the average relay count per message stays almost same regardless of the percentage of trusted nodes.
-}
-\label{fig:relay_per_message}
-\end{figure}
 
 
 
