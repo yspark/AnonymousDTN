@@ -417,4 +417,15 @@ public abstract class Report {
 		return format(sum2/values.size() - (E_X*E_X));
 	}
 	
+	
+	/**************************************************/
+	public String getIntSum(List<Integer> values) {
+		int sum = 0; 
+		
+		for (int i : values) {
+			sum += i;
+		}	
+		return Integer.toString(sum);
+	}
+	/**************************************************/
 }

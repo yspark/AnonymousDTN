@@ -204,8 +204,14 @@ public class World {
 		while (this.nextQueueEventTime <= runUntil) {
 			simClock.setTime(this.nextQueueEventTime);
 			ExternalEvent ee = this.nextEventQueue.nextEvent();
-					
+
+			/*************************************/
+			//YSPARK
+			// TODO: stop generating messages at endTime - SimClock.getTime >= TTL 
 			ee.processEvent(this);
+
+			
+			/*************************************/
 			updateHosts(); // update all hosts after every event
 			setNextEventQueue();
 		}

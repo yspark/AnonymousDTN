@@ -2,38 +2,35 @@ import subprocess
 import os
 import datetime
 
+# configuration file
+SettingFileName = 'yspark.txt'
 
+# number of trusted groups
+NumTrustedGroups = 1
+
+
+
+# valid epoch num
+ValidEpochNumList = [6]
 Run = [0, 1, 2]
+Epoch = [10*60, 20*60, 30*60, 60*60]
+PercentageOfTrustedNode = [0.05, 0.1, 0.2, 0.3]
 
-# Fixed epoch, varying percentage
-#Epoch = [10*60]
-#PercentageOfTrustedNode = [0.1, 0.2, 0.3, 0.4, 0.6, 0.8, 1.0]
-
-# Varying epoch, fixed percentage
-#Epoch = [5*60, 10*60, 15*60, 20*60, 25*60, 30*60]
-#PercentageOfTrustedNode = [0.3]
-
-# Varying epoch and percentage
-Epoch = [5*60, 10*60, 20*60, 30*60]
-PercentageOfTrustedNode = [0.1, 0.2, 0.3, 0.4, 0.6, 0.8]
 
 # 1 time test
-#Run = [0]
-#Epoch = [10*60]
-#PercentageOfTrustedNode = [0.3]
+ValidEpochNumList = [3]
+Run = [0]
+Epoch = [10*60]
+PercentageOfTrustedNode = [0.05]
+
+
 
 
 pwd = os.getcwd();
 
-originalSettingFile = 'anonymous_dtn_settings.txt'
-#settingFileList = ['./anonymous_dtn_settings_epoch1.txt', 'anonymous_dtn_settings_epoch3.txt']
-settingFileList = ['anonymous_dtn_settings_epoch6.txt']
+for validEpochNum in ValidEpochNumList:
 
-for settingFileName in settingFileList:
-  command = 'cp '+ settingFileName + ' ' + originalSettingFile
-  os.system(command)
-
-  filename = './results/log_' + datetime.datetime.now().strftime("%m_%d_%H_%M") + '.txt' 
+  filename = './results/log_' + datetime.datetime.now().strftime("%m_%d_%H_%M") + '_' + SettingFileName + '.txt' 
 
   for run in Run:
     for epoch in Epoch:
@@ -41,11 +38,11 @@ for settingFileName in settingFileList:
     
         foutput = open(filename, 'a')
     
-        foutput.write('**********\n')
-        foutput.write('Percentage: ' + str(percentage) + '\t' +'Epoch: ' + str(epoch) + '\n')
-        foutput.write('**********\n')
+        foutput.write('*********************\n')
+        foutput.write('Percentage: ' + str(percentage) + '\tEpoch: ' + str(epoch) + '\tValidEpochNum: ' + str(validEpochNum) + '\n')
+        foutput.write('*********************\n')
         
-        command = './one.sh -adtn -b 1 ' + str(percentage) + ' ' + str(epoch) + ' ' + str(run)
+        command = './one.sh -adtn -b ' + SettingFileName + ' ' + str(NumTrustedGroups) + ' ' + str(percentage) + ' ' + str(epoch) + ' ' + str(validEpochNum) + ' ' + str(run)
         print command
         os.system(command)
       

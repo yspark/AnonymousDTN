@@ -23,6 +23,7 @@ public class DTNSim {
 	
 	public static int nAnonymityGroups = 0;
 	public static double epoch_interval = 0;
+	public static int valid_epoch_num = 0;
 	public static double host_percentage = 0.0;
 	
 	public static int randomSeed = 0;
@@ -70,23 +71,32 @@ public class DTNSim {
 			if (args[0].equals(ANONYMOUS_DTN_MODE_FLAG)) {
 				System.out.println("Anonymous DTN simulation");
 				
-				if(args.length >= 2 && args[1].equals(BATCH_MODE_FLAG))
+				if(args.length != 8) {
+					System.out.println("command: ./one.sh <-atdn> <-b> <Configuration file> <# trusted groups> <Percentage of trusted nodes> <Epoch> <Valid epoch num> <Seed>");
+				}
+				
+				// batch mode
+				if(args[1].equals(BATCH_MODE_FLAG))
 					batchMode = true;				
 				else 
 					batchMode = false;
 				
-				firstConfIndex = 0;						
-				confFiles = new String[1];
 				
-				if(args.length >= 3) {
-					DTNSim.nAnonymityGroups = Integer.parseInt(args[2]); 
-					DTNSim.host_percentage = Double.parseDouble(args[3]);
-					DTNSim.epoch_interval = Double.parseDouble(args[4]);
-					DTNSim.randomSeed = Integer.parseInt(args[5]);
-				}
-				 
-				confFiles[0] = "anonymous_dtn_settings.txt";				
+				// configuration file
+				firstConfIndex = 0;						
+				confFiles = new String[1];				
+				confFiles[0] = args[2];														
 				System.out.println(confFiles[0]);
+				
+				// anonymity parameters 
+				DTNSim.nAnonymityGroups = Integer.parseInt(args[3]); 
+				DTNSim.host_percentage = Double.parseDouble(args[4]);
+				DTNSim.epoch_interval = Double.parseDouble(args[5]);
+				DTNSim.valid_epoch_num = Integer.parseInt(args[6]);
+				DTNSim.randomSeed = Integer.parseInt(args[7]);
+							
+				System.out.printf("%s, %s, %s, %s, %s\n", DTNSim.nAnonymityGroups, DTNSim.host_percentage, DTNSim.epoch_interval, DTNSim.valid_epoch_num, DTNSim.randomSeed);
+				 
 			}									
 			/***************************************************/
 			else if (args[0].equals(BATCH_MODE_FLAG)) {

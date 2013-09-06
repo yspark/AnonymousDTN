@@ -534,6 +534,11 @@ public abstract class ActiveRouter extends MessageRouter {
 			if(!forwardableEphemeralAddresses.contains(m.getToEphemeralAddress())) {
 				int retVal = startTransfer(m, con); 
 				if (retVal == RCV_OK) {
+					
+					//if(!this.getHost().getTrustedNodesLists().isEmpty())
+					//	System.out.println("forwarding packets to untrusted nodes");
+					
+					
 					return m;	// accepted a message, don't try others
 				}
 				else if (retVal > 0) { 

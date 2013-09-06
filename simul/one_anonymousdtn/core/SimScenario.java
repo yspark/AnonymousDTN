@@ -205,12 +205,15 @@ public class SimScenario implements Serializable {
 		
 		if(DTNSim.epoch_interval != 0.0)
 			this.epochInterval = DTNSim.epoch_interval;
+		if(DTNSim.valid_epoch_num != 0) 
+			this.validEpochNum = DTNSim.valid_epoch_num;		
 		if(DTNSim.nAnonymityGroups != 0)
 			this.nAnonymityGroups = DTNSim.nAnonymityGroups;
 		
 		
 		System.out.printf("Number of Anonymity Groups: %d\n", this.nAnonymityGroups);
 		System.out.printf("Epoch interval: %f\n", this.epochInterval);
+		System.out.printf("Valid epoch num: %d\n", this.validEpochNum);
 		/*************************************************************/		
 		
 		/* TODO: check size from movement models */
@@ -532,7 +535,7 @@ public class SimScenario implements Serializable {
 			int nHosts = (int)(percentage * (double)(hosts.size()));
 
 			
-			System.out.println(nHosts);
+			//System.out.println(nHosts);
 			
 			
 			List<Integer> trustedNodesList = new ArrayList<Integer>();

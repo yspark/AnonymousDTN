@@ -149,13 +149,14 @@ MapBasedMovement.mapFile4 = data/shops.wkt
 ## Reports - all report names have to be valid report classes
 
 # how many reports to load
-Report.nrofReports = 1
+Report.nrofReports = 2
 # length of the warm up period (simulated seconds)
 Report.warmup = 0
 # default directory of reports (can be overridden per Report with output setting)
 Report.reportDir = reports/
 # Report classes to load
 Report.report1 = MessageStatsReport
+Report.report2 = EventLogReport
 
 ## Default settings for some routers settings
 ProphetRouter.secondsInTimeUnit = 30
@@ -199,7 +200,7 @@ Scenario.nAnonymityGroups = 1
 Scenario.epochInterval = 300.0
 
 # Keep unupdated packets during valid number of epochs (min: 1)
-Scenario.validEpochNum = 6
+Scenario.validEpochNum = 1
 
 # Communication within a trust group
 Scenario.limitedCommunication = true

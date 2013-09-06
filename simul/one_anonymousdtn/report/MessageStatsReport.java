@@ -41,17 +41,27 @@ public class MessageStatsReport extends Report implements MessageListener {
 	
 	/******************************/
 	//YSPARK
+	/* relay classification for overall packet relays */
 	private int nrofRelayedTrustTrust;
 	private int nrofRelayedTrustUntrust;
 	private int nrofRelayedUntrustTrust;
 	private int nrofRelayedUntrustUntrust;
 	
-	private int nrofDeliveredWithUntrustedHop;
+	/* relay classification for successfully delivered packets only */	
+	private int nrofRelayedDeliveryTrustTrust;
+	private int nrofRelayedDeliveryTrustUntrust;
+	private int nrofRelayedDeliveryUntrustTrust;
+	private int nrofRelayedDeliveryUntrustUntrust;
 	
+	/* packet deliveries with at least one untrusted node */
+	private int nrofDeliveredWithUntrustedHop;
+			
+	/* packet drop classification */
 	private int nrofDroppedBufferFull;
 	private int nrofDroppedTTLExpiry;
 	private int nrofDroppedEphemeralIDExipiry;
 	
+	/* packet removal classification - not used */
 	private int nrofRemovedDelivered;
 	private int nrofRemovedAck;
 	/******************************/	
@@ -88,6 +98,12 @@ public class MessageStatsReport extends Report implements MessageListener {
 		this.nrofRelayedTrustUntrust = 0;
 		this.nrofRelayedUntrustTrust = 0;
 		this.nrofRelayedUntrustUntrust = 0;
+
+		this.nrofRelayedDeliveryTrustTrust = 0;
+		this.nrofRelayedDeliveryTrustUntrust = 0;
+		this.nrofRelayedDeliveryUntrustTrust = 0;
+		this.nrofRelayedDeliveryUntrustUntrust = 0;
+
 		
 		this.nrofDeliveredWithUntrustedHop = 0;
 		
@@ -184,15 +200,18 @@ public class MessageStatsReport extends Report implements MessageListener {
 			//YSPARK						
 			//System.out.printf("finalTarget: %d\n", to.getPermanentAddress());
 			//System.out.println(m.getHops().toString());
-						
+			//System.out.printf("\n");
+
+			/* Packet deliveries with at least one untrusted node */
 			for(DTNHost host : m.getHops()) {
 				boolean bTrustedHop = false;
 				
-				if(host.getPermanentAddress() == to.getPermanentAddress())
+				if(host.getPermanentAddress() == to.getPermanentAddress()) {
 					continue;
-												
+				}
+																	
 				/* to is trusted by the packet destination */
-				if(to.getTrustedNodesLists() != null) {
+				if(!to.getTrustedNodesLists().isEmpty()) {
 					for(HashMap<Integer, Integer> list : to.getTrustedNodesLists()) {
 						if(list.containsKey(host.getPermanentAddress())) {
 							bTrustedHop = true;
@@ -208,9 +227,53 @@ public class MessageStatsReport extends Report implements MessageListener {
 			}
 			
 			
+			/* relay classification for successfully delivered packets only */
+			DTNHost prev = null;
+			DTNHost next = null;
+			
+			boolean bPrevTrusted = false;
+			boolean bNextTrusted = false;
+			
+			for(DTNHost host : m.getHops()) {
+				if(prev == null) {
+					prev = host;
+
+					for(HashMap<Integer, Integer> list : to.getTrustedNodesLists()) {
+						if(list.containsKey(prev.getPermanentAddress())) {
+							bPrevTrusted = true;
+							break;
+						}					
+					}					
+				
+					continue;
+				}
+				else {
+					next = host;
+
+					for(HashMap<Integer, Integer> list : to.getTrustedNodesLists()) {
+						if(list.containsKey(next.getPermanentAddress())) {
+							bNextTrusted = true;
+							break;
+						}					
+					}					
+				}
+				
+				
+				if(bPrevTrusted && bNextTrusted) 							
+					this.nrofRelayedDeliveryTrustTrust++;
+				else if(bPrevTrusted && !bNextTrusted)
+					this.nrofRelayedDeliveryTrustUntrust++;
+				else if(!bPrevTrusted && bNextTrusted)
+					this.nrofRelayedDeliveryUntrustTrust++;
+				else
+					this.nrofRelayedDeliveryUntrustUntrust++;
+												
+				prev = next;
+				bPrevTrusted = bNextTrusted;
+			}
+
 				
 			
-			//System.out.printf("\n");
 			/******************************/
 			
 			if (m.isResponse()) {
@@ -270,7 +333,12 @@ public class MessageStatsReport extends Report implements MessageListener {
 			"\n\tnrelayed_t_to_t: " + this.nrofRelayedTrustTrust +
 			"\n\tnrelayed_t_to_ut: " + this.nrofRelayedTrustUntrust + 
 			"\n\tnrelayed_ut_to_t: " + this.nrofRelayedUntrustTrust + 
-			"\n\tnrelayed_ut_to_ut: " + this.nrofRelayedUntrustUntrust + 
+			"\n\tnrelayed_ut_to_ut: " + this.nrofRelayedUntrustUntrust +
+			"\nnrelayed_delivery: " + getIntSum(this.hopCounts) + 
+			"\n\tnrelayed_delivery_t_to_t: " + this.nrofRelayedDeliveryTrustTrust +
+			"\n\tnrelayed_delivery_t_to_ut: " + this.nrofRelayedDeliveryTrustUntrust + 
+			"\n\tnrelayed_delivery_ut_to_t: " + this.nrofRelayedDeliveryUntrustTrust + 
+			"\n\tnrelayed_delivery_ut_to_ut: " + this.nrofRelayedDeliveryUntrustUntrust +
 			"\naborted: " + this.nrofAborted +
 			"\ndropped: " + this.nrofDropped +
 			"\n\tdropped_buffer_full: " + this.nrofDroppedBufferFull +

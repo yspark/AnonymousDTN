@@ -165,37 +165,108 @@ Delivery hop count in Figure \ref{fig:delivery_hopcount_3} is generally higher t
 
 
 
-% packet relay classification
+% overall packet relay count / delivered packet relay count 
 \begin{figure}[h!]
 \center
-\subfloat[Relay classification over varied epoch. Percentage of trusted nodes = 0.3. Ephemeral ID valid for 1 epoch]{%
+\subfloat[Relay count of overall packets. Ephemeral ID valid for 1 epoch.]{%
+\includegraphics[width=0.49\columnwidth]{figures/epoch_1/relay_count.pdf}
+\label{fig:relay_count_epoch_1}
+}
+\hfill
+\subfloat[Relay count of overall packets. Ephemeral ID valid for 3 epochs.]{%
+\includegraphics[width=0.49\columnwidth]{figures/epoch_3/relay_count.pdf}
+\label{fig:relay_count_epoch_3}
+}
+\hfill
+\subfloat[Relay count of delivered packets only. Ephemeral ID valid for 1 epoch.]{%
+\includegraphics[width=0.49\columnwidth]{figures/epoch_1/relay_delivery_count.pdf}
+\label{fig:relay_delivery_count_epoch_1}
+}
+\hfill
+\subfloat[Relay count of delivered packets only. Ephemeral ID valid for 3 epochs.]{%
+\includegraphics[width=0.49\columnwidth]{figures/epoch_3/relay_delivery_count.pdf}
+\label{fig:relay_delivery_count_epoch_3}
+}
+\hfill
+
+\caption{{\bf Packet relay count.}
+In flood-based routing protocol, only about $5\%$ of packet relays are used for actual packet deliveries. 
+When ephemeral ID valid for 3 epochs is used (Figures~\ref{fig:relay_count_epoch_3} and \ref{fig:relay_delivery_count_epoch_3}), 
+the number of packet relays (both overall packet relays and delivered packet relays) are significantly increased, 
+especially when the percentage of trusted nodes is less than $60\%$.}
+\label{fig:relay_count}
+\end{figure}
+
+
+
+
+
+
+
+% packet relay classification over varying eppoch
+\begin{figure}[h!]
+\center
+\subfloat[Overall packet relay classification. Ephemeral ID valid for 1 epoch]{%
 \includegraphics[width=0.49\columnwidth]{figures/epoch_1/relay_classification_over_epoch.pdf}
-\label{fig:relay_classification_epoch_1}
+\label{fig:overall_relay_classification_epoch_1}
 }
 \hfill
-\subfloat[Relay classification over varied epoch. Percentage of trusted nodes = 0.3. Ephemeral ID valid for 3 epochs]{%
+\subfloat[Overall packet relay classification. Ephemeral ID valid for 3 epochs]{%
 \includegraphics[width=0.49\columnwidth]{figures/epoch_3/relay_classification_over_epoch.pdf}
-\label{fig:relay_classification_epoch_3}
+\label{fig:overall_relay_classification_epoch_3}
 }
 \hfill
-\subfloat[Relay classification over varied percentage of trusted nodes. Epoch = 10 mins. Ephemeral ID valid for 1 epoch.]{%
+\subfloat[Delivered packet relay classification. Ephemeral ID valid for 1 epoch]{%
+\includegraphics[width=0.49\columnwidth]{figures/epoch_1/relay_delivery_classification_over_epoch.pdf}
+\label{fig:delivered_relay_classification_epoch_1}
+}
+\hfill
+\subfloat[Delivered packet relay classification. Ephemeral ID valid for 3 epochs]{%
+\includegraphics[width=0.49\columnwidth]{figures/epoch_3/relay_delivery_classification_over_epoch.pdf}
+\label{fig:delivered_relay_classification_epoch_3}
+}
+
+\caption{{\bf Packet relay classification over varying epoch. Percentage of trusted nodes is $30\%$.}
+Relays between two trusted nodes account for $10\%$ to $20\%$ in overall packet relay classification,
+but relays between two trusted nodes account for more than $60\%$ in delivered packet relay classification.
+In addition, relays between two untrusted nodes account for $25\%$ to $50\%$ in overall packet relay classification, 
+but it accounts only for less than $15\%$ in delivered packet relay classification. 
+}
+\label{fig:relay_classification_epoch}
+\end{figure}
+
+
+
+
+% packet relay classification over varying percentage of trusted nodes
+\begin{figure}[h!]
+\center
+\subfloat[Overall packet relay classification. Ephemeral ID valid for 1 epoch.]{%
 \includegraphics[width=0.49\columnwidth]{figures/epoch_1/relay_classification_over_percentage.pdf}
 \label{fig:relay_classification_percentage_1}
 }
 \hfill
-\subfloat[Relay classification over varied percentage of trusted nodes. Epoch = 10 mins. Ephemeral ID valid for 3 epochs]{%
+\subfloat[Overall packet relay classification. Ephemeral ID valid for 3 epochs.]{%
 \includegraphics[width=0.49\columnwidth]{figures/epoch_3/relay_classification_over_percentage.pdf}
 \label{fig:relay_classification_percentage_3}
 }
 
-\caption{{\bf Packet relay classification.}
-When ephemeral ID valid for 3 epochs is used (Figures~\ref{fig:relay_classification_epoch_3} and \ref{fig:relay_classification_percentage_3}), 
-the number of packet relays from untrusted node to untrusted node and the number of packet relays from untrusted node to trusted node are significantly increased, compared to when ephemeral ID valid for 1 epoch is used (figures~\ref{fig:relay_classification_epoch_1} and \ref{fig:relay_classification_percentage_1}).
+\hfill
+\subfloat[Delivered packet relay classification. Ephemeral ID valid for 1 epoch.]{%
+\includegraphics[width=0.49\columnwidth]{figures/epoch_1/relay_delivery_classification_over_percentage.pdf}
+\label{fig:delivered_relay_classification_percentage_1}
 }
-\label{fig:relay_classification}
+\hfill
+\subfloat[Delivered packet relay classification. Ephemeral ID valid for 3 epochs.]{%{%
+\includegraphics[width=0.49\columnwidth]{figures/epoch_3/relay_delivery_classification_over_percentage.pdf}
+\label{fig:delivered_relay_classification_percentage_3}
+}
+
+\caption{{\bf Packet relay classification over varying percentage of trusted nodes. Epoch is $10$ mins.}
+As in Figure~\ref{fig:relay_classification_epoch}, relays between two untrusted nodes account for relatively small part while relays between two trusted nodes account for the largest part (in most cases) in delivered packet relay classification. 
+}
+\label{fig:relay_classification_percentage}
 \end{figure}
-
-
 
 
 
@@ -256,6 +327,7 @@ The number Packet deliveries including at least 1 untrusted node is significantl
 
 
 % average relay count per message
+\begin{comment}
 \begin{figure}[h!]
 \center
 \subfloat[Average relay count per message. Ephemeral ID valid for 1 epoch]{%
@@ -273,7 +345,7 @@ By using ephemeral ID valid for 3 epochs, the average relay count per message st
 }
 \label{fig:relay_per_message}
 \end{figure}
-
+\end{comment}
 
 
 
