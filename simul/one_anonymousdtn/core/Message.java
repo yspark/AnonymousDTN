@@ -281,6 +281,7 @@ public class Message implements Comparable<Message> {
 		/*************************************************/
 		//YSPARK
 		this.toEphemeralAddress = m.toEphemeralAddress;
+		this.nonUpdateEpochCount = m.nonUpdateEpochCount;
 		/*************************************************/
 		
 		if (m.properties != null) {

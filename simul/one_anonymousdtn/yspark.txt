@@ -126,6 +126,8 @@ Events1.hosts = 0,119
 # Message ID prefix
 Events1.prefix = M
 
+# Message creating time duration (After warmup and before (EndTime-TTL))
+Events1.time = 1000, 25200
 
 ## Movement model settings
 # seed for movement models' pseudo random number generator (default = 0)
