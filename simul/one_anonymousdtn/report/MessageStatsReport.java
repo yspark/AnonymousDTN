@@ -41,6 +41,18 @@ public class MessageStatsReport extends Report implements MessageListener {
 	
 	/******************************/
 	//YSPARK
+	/* number of messages created */
+	private int nrofCreatedTrustTrust;
+	private int nrofCreatedTrustUntrust;
+	private int nrofCreatedUntrustTrust;
+	private int nrofCreatedUntrustUntrust;
+	
+	/* number of messages delivered */
+	private int nrofDeliveredTrustTrust;
+	private int nrofDeliveredTrustUntrust;
+	private int nrofDeliveredUntrustTrust;
+	private int nrofDeliveredUntrustUntrust;
+	
 	/* relay classification for overall packet relays */
 	private int nrofRelayedTrustTrust;
 	private int nrofRelayedTrustUntrust;
@@ -53,7 +65,7 @@ public class MessageStatsReport extends Report implements MessageListener {
 	private int nrofRelayedDeliveryUntrustTrust;
 	private int nrofRelayedDeliveryUntrustUntrust;
 	
-	/* packet deliveries with at least one untrusted node */
+	/* packet deliveries with at least one untrusted node */			
 	private int nrofDeliveredWithUntrustedHop;
 			
 	/* packet drop classification */
@@ -94,6 +106,17 @@ public class MessageStatsReport extends Report implements MessageListener {
 		
 		/******************************/
 		//YSPARK
+		this.nrofCreatedTrustTrust = 0;		
+		this.nrofCreatedTrustUntrust = 0;
+		this.nrofCreatedUntrustTrust = 0;
+		this.nrofCreatedUntrustUntrust = 0;
+		
+		this.nrofDeliveredTrustTrust = 0;
+		this.nrofDeliveredTrustUntrust = 0;
+		this.nrofDeliveredUntrustTrust = 0;
+		this.nrofDeliveredUntrustUntrust = 0;
+		
+		
 		this.nrofRelayedTrustTrust = 0;
 		this.nrofRelayedTrustUntrust = 0;
 		this.nrofRelayedUntrustTrust = 0;
@@ -259,6 +282,8 @@ public class MessageStatsReport extends Report implements MessageListener {
 				}
 				
 				
+				
+				
 				if(bPrevTrusted && bNextTrusted) 							
 					this.nrofRelayedDeliveryTrustTrust++;
 				else if(bPrevTrusted && !bNextTrusted)
@@ -272,7 +297,31 @@ public class MessageStatsReport extends Report implements MessageListener {
 				bPrevTrusted = bNextTrusted;
 			}
 
-				
+
+			//YSPARK
+			fromTrusted = false;
+			toTrusted = false;
+
+			if(m.getFrom().getAnonymityGroupID() == -1)
+				fromTrusted = false;
+			else
+				fromTrusted = true;
+					
+			if(m.getTo().getAnonymityGroupID() == -1)
+				toTrusted = false;
+			else
+				toTrusted = true;
+			
+			
+			if(fromTrusted && toTrusted)
+				nrofDeliveredTrustTrust++;
+			else if(fromTrusted && !toTrusted)
+				nrofDeliveredTrustUntrust++;
+			else if(!fromTrusted && toTrusted)
+				nrofDeliveredUntrustTrust++;
+			else
+				nrofDeliveredUntrustUntrust++;													
+			
 			
 			/******************************/
 			
@@ -295,6 +344,33 @@ public class MessageStatsReport extends Report implements MessageListener {
 		if (m.getResponseSize() > 0) {
 			this.nrofResponseReqCreated++;
 		}
+		
+		/******************************************/
+		//YSPARK
+		boolean fromTrusted = false, toTrusted = false;
+
+		if(m.getFrom().getAnonymityGroupID() == -1)
+			fromTrusted = false;
+		else
+			fromTrusted = true;
+				
+		if(m.getTo().getAnonymityGroupID() == -1)
+			toTrusted = false;
+		else
+			toTrusted = true;
+		
+		
+		if(fromTrusted && toTrusted)
+			nrofCreatedTrustTrust++;
+		else if(fromTrusted && !toTrusted)
+			nrofCreatedTrustUntrust++;
+		else if(!fromTrusted && toTrusted)
+			nrofCreatedUntrustTrust++;
+		else
+			nrofCreatedUntrustUntrust++;
+									
+		/******************************************/
+		
 	}
 	
 	
@@ -328,6 +404,10 @@ public class MessageStatsReport extends Report implements MessageListener {
 		}
 		
 		String statsText = "created: " + this.nrofCreated + 
+			"\n\tcreated_t_to_t: " + nrofCreatedTrustTrust +
+			"\n\tcreated_t_to_ut: " + nrofCreatedTrustUntrust +
+			"\n\tcreated_ut_to_t: " + nrofCreatedUntrustTrust +
+			"\n\tcreated_ut_to_ut: " + nrofCreatedUntrustUntrust +							
 			"\nstarted: " + this.nrofStarted + 
 			"\nrelayed: " + this.nrofRelayed +
 			"\n\tnrelayed_t_to_t: " + this.nrofRelayedTrustTrust +
@@ -346,6 +426,10 @@ public class MessageStatsReport extends Report implements MessageListener {
 			"\n\tdropped_ephmeral_expiry: " + this.nrofDroppedEphemeralIDExipiry +
 			"\nremoved: " + this.nrofRemoved +
 			"\ndelivered: " + this.nrofDelivered +
+			"\n\tdelivered_t_to_t: " + this.nrofDeliveredTrustTrust +
+			"\n\tdelivered_t_to_ut: " + this.nrofDeliveredTrustUntrust +
+			"\n\tdelivered_ut_to_t: " + this.nrofDeliveredUntrustTrust +
+			"\n\tdelivered_ut_to_ut: " + this.nrofDeliveredUntrustUntrust +						
 			"\n\tdelivered_with_ut_hops: " + this.nrofDeliveredWithUntrustedHop +
 			"\ndelivery_prob: " + format(deliveryProb) +
 			"\nresponse_prob: " + format(responseProb) + 

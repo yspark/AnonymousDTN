@@ -560,10 +560,16 @@ public class SimScenario implements Serializable {
 		}
 		
 		for(DTNHost host : hosts) {
+			int anonymityGroupID = 0;
+			
 			for(List<Integer> anonymityGroup : anonymityGroupList) {
-				if(anonymityGroup.contains(host.getPermanentAddress())) {
+				if(anonymityGroup.contains(host.getPermanentAddress())) {					
 					host.addTrustedNodes(anonymityGroup);
+					
+					host.setAnonymityGroupID(anonymityGroupID);
 				}
+				
+				anonymityGroupID++;
 			}
 		}
 				

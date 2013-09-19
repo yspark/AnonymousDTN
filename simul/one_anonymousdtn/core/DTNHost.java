@@ -39,6 +39,7 @@ public class DTNHost implements Comparable<DTNHost> {
 
 	/********************************************************/
 	// YSPARK
+	private int anonymityGroupID;
 	private int ephemeralAddress;
 	//private List<HashMap<Integer, Integer>> anonymityGroupList;
 	private List<HashMap<Integer, Integer>> trustedNodesLists;
@@ -130,6 +131,8 @@ public class DTNHost implements Comparable<DTNHost> {
 		this.epochInterval = epochInterval;
 		this.validEpochNum = validEpochNum;
 		
+		this.anonymityGroupID = -1;
+		
 		this.trustedNodesLists = new ArrayList<HashMap<Integer, Integer>>();		
 	}
 	/*************************************************/
@@ -187,7 +190,15 @@ public class DTNHost implements Comparable<DTNHost> {
 		
 	}
 	*/
-		
+	public int getAnonymityGroupID() {	
+		return this.anonymityGroupID;
+	}
+	
+	public void setAnonymityGroupID(int id) {	
+		this.anonymityGroupID = id;
+	}
+
+	
 	public int getPermanentAddress() {
 		return this.permanentAddress;
 	}
@@ -249,6 +260,10 @@ public class DTNHost implements Comparable<DTNHost> {
 		if(!trustedNodesLists.isEmpty()) {
 			/** update packet destinations */		
 			for(Message m : this.router.getMessageCollection()) {
+				if(!m.isAnonymized())
+					continue;
+				
+				
 				boolean messageUpdated = false;
 				
 				for(HashMap<Integer, Integer> list : this.trustedNodesLists) {
@@ -295,6 +310,9 @@ public class DTNHost implements Comparable<DTNHost> {
 			
 			/** Update ephemeral addresses of incoming messages */
 			for(Message m: this.router.getIncomingMessageCollection()) {
+				if(!m.isAnonymized())
+					continue;
+				
 				for(HashMap<Integer, Integer> list : this.trustedNodesLists) {				
 					if(list.containsValue(m.getToEphemeralAddress())) {									
 						m.setToEphemeralAddress(generateEphemeralAddress(m.getTo().getPermanentAddress(), epoch));
@@ -306,6 +324,9 @@ public class DTNHost implements Comparable<DTNHost> {
 		else {
 			
 			for(Message m : this.router.getMessageCollection()) {
+				if(!m.isAnonymized())
+					continue;
+				
 				m.increaseNonUpdateEpochCount();
 				
 				if(m.getNonUpdateEpochCount() >= validEpochNum) {
@@ -385,8 +406,10 @@ public class DTNHost implements Comparable<DTNHost> {
 	 * @param seed
 	 */
 	public void updateEphemeralID(int epoch) {
-		this.ephemeralAddress = generateEphemeralAddress(this.permanentAddress, epoch);
-		//ephemeralAddress = Integer.valueOf(permanentAddress + epoch).hashCode();
+		if(this.anonymityGroupID == -1)
+			this.ephemeralAddress = this.permanentAddress;
+		else
+			this.ephemeralAddress = generateEphemeralAddress(this.permanentAddress, epoch);
 
 		//System.out.printf("Node %d, %d\n", address, ephemeralAddress);						
 	}

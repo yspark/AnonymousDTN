@@ -22,6 +22,7 @@ public class Message implements Comparable<Message> {
 	/********************************************/
 	//YSPARK
 	/** Ephemeral address of the destination */
+	private boolean anonymized;
 	private int toEphemeralAddress;
 	private int nonUpdateEpochCount;
 	/********************************************/
@@ -78,6 +79,11 @@ public class Message implements Comparable<Message> {
 		//YSPARK
 		this.toEphemeralAddress = to.getEphemeralAddress();
 		this.nonUpdateEpochCount = 0;
+		
+		if(this.to.getAnonymityGroupID() == -1)
+			this.anonymized = false;
+		else
+			this.anonymized = true;
 		/****************************************************/
 				
 		this.id = id;
@@ -282,6 +288,7 @@ public class Message implements Comparable<Message> {
 		//YSPARK
 		this.toEphemeralAddress = m.toEphemeralAddress;
 		this.nonUpdateEpochCount = m.nonUpdateEpochCount;
+		this.anonymized = m.anonymized;
 		/*************************************************/
 		
 		if (m.properties != null) {
@@ -399,6 +406,10 @@ public class Message implements Comparable<Message> {
 	
 	public void increaseNonUpdateEpochCount() {
 		this.nonUpdateEpochCount++;
+	}
+	
+	public boolean isAnonymized() {
+		return this.anonymized;
 	}
 	/******************************************************/
 	

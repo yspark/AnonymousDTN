@@ -209,23 +209,27 @@ public class MessageEventGenerator implements EventQueue {
 		
 		/*********************************************************/
 		//YSPARK
-		boolean flag = true;
-
-		while(flag) {
-			from = drawHostAddress(this.hostRange);
-			to = drawToAddress(hostRange, from);
-			
-			for(List<Integer> anonymityGroup : anonymityGroupList) {
-				if(anonymityGroup.contains(from) && anonymityGroup.contains(to)) {
-					flag = false;					
-					break;
-				}
-			}
-		}
+		
+		if(rng.nextInt(100) < 20) {				
+			boolean flag = true;
+	
+			while(flag) {
+				from = drawHostAddress(this.hostRange);
+				to = drawToAddress(hostRange, from);
 				
-		/* Get two *different* nodes randomly from the host ranges */
-		//from = drawHostAddress(this.hostRange);	
-		//to = drawToAddress(hostRange, from);
+				for(List<Integer> anonymityGroup : anonymityGroupList) {
+					if(anonymityGroup.contains(from) && anonymityGroup.contains(to)) {
+						flag = false;					
+						break;
+					}
+				}
+			}		
+		}	
+		else {
+			/* Get two *different* nodes randomly from the host ranges */
+			from = drawHostAddress(this.hostRange);	
+			to = drawToAddress(hostRange, from);
+		}
 		/*********************************************************/
 		
 		msgSize = drawMessageSize();
