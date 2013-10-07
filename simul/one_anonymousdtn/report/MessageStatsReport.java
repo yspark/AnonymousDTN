@@ -214,8 +214,12 @@ public class MessageStatsReport extends Report implements MessageListener {
 		/******************************/
 
 		if (finalTarget) {
-			this.latencies.add(getSimTime() - 
-				this.creationTimes.get(m.getId()) );
+			/******************************/
+			//YSPARK												
+			//this.latencies.add(getSimTime() - this.creationTimes.get(m.getId()) );
+			this.latencies.add(getSimTime() - this.creationTimes.get(m.getOriginalId()) );
+			/******************************/
+			
 			this.nrofDelivered++;
 			this.hopCounts.add(m.getHops().size() - 1);
 			

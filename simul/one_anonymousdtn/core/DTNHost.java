@@ -256,6 +256,11 @@ public class DTNHost implements Comparable<DTNHost> {
 	public void updatePacketDestinations(int epoch, int validEpochNum) {
 		List<String> messagesToDelete = new ArrayList<String>();		
 		
+		for(Message m : this.router.getMessageCollection()) {
+			if(m.isNewlyReceived())
+				m.setNewlyReceived(false);
+		}
+		
 		//if(trustedNodesLists != null && !trustedNodesLists.isEmpty()) {
 		if(!trustedNodesLists.isEmpty()) {
 			/** update packet destinations */		

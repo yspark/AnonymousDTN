@@ -5,6 +5,7 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import routing.MessageRouter;
@@ -25,6 +26,7 @@ public abstract class Connection {
 	protected int bytesTransferred;
 
 	//YSPARK
+	protected boolean trustedConnection;
 	private List<Integer> fromNodeForwardableEphemeralAddresses;
 	private List<Integer> toNodeForwardableEphemeralAddresses;
 	
@@ -47,8 +49,18 @@ public abstract class Connection {
 		this.bytesTransferred = 0;
 		
 		/***************************************************************/
-		/*
 		// YSPARK
+		this.trustedConnection = false;
+						
+		for(HashMap<Integer, Integer> trustedNodes : fromNode.getTrustedNodesLists()) {
+			if(trustedNodes.containsKey(this.toNode.getPermanentAddress())) {
+				this.trustedConnection = true;
+				//System.out.printf("TrustedConnection (%d, %d)\n", fromNode.getPermanentAddress(), toNode.getPermanentAddress());
+			}
+		}
+		
+			
+		/*		
 		if(fromNode.getMessageCollection().size() > 0) {
 			this.fromNodeForwardableEphemeralAddresses = new ArrayList<Integer>();
 			buildForwardableEphemeralAddresses(fromNode, toNode, fromNodeForwardableEphemeralAddresses);
@@ -108,6 +120,11 @@ public abstract class Connection {
 			buildForwardableEphemeralAddresses(toNode, fromNode, toNodeForwardableEphemeralAddresses);
 			return toNodeForwardableEphemeralAddresses;
 		}
+	}
+	
+	
+	public boolean isTrustedConnection() {
+		return this.trustedConnection;
 	}
 	
 	/***************************************************************/

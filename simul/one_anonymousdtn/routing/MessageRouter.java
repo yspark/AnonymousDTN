@@ -194,7 +194,9 @@ public abstract class MessageRouter {
 	 * this host as the final recipient.
 	 */
 	protected boolean isDeliveredMessage(Message m) {
-		return (this.deliveredMessages.containsKey(m.getId()));
+		//YSPARK
+		//return (this.deliveredMessages.containsKey(m.getId()));
+		return (this.deliveredMessages.containsKey(m.getOriginalId()));
 	}
 	
 	/**
@@ -350,7 +352,9 @@ public abstract class MessageRouter {
 			addToMessages(aMessage, false);
 		}
 		else if (isFirstDelivery) {
-			this.deliveredMessages.put(id, aMessage);
+			//YSPARK
+			//this.deliveredMessages.put(id, aMessage);
+			this.deliveredMessages.put(aMessage.getOriginalId(), aMessage);
 		}
 		
 		for (MessageListener ml : this.mListeners) {

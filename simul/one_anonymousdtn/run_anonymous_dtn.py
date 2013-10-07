@@ -12,17 +12,17 @@ NumTrustedGroups = 1
 
 
 # valid epoch num
-ValidEpochNumList = [3, 6]
-Run = [0]
+ValidEpochNumList = [3]
+Run = [0, 1, 2]
 Epoch = [10*60, 20*60, 30*60, 60*60]
 PercentageOfTrustedNode = [0.05, 0.1, 0.15, 0.2, 0.25]
 
 
 # 1 time test
-ValidEpochNumList = [6]
-Run = [0]
-Epoch = [60*60]
-PercentageOfTrustedNode = [0.10]
+#ValidEpochNumList = [6]
+#Run = [0]
+#Epoch = [60*60]
+#PercentageOfTrustedNode = [0.10]
 
 
 

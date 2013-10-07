@@ -25,6 +25,11 @@ public class Message implements Comparable<Message> {
 	private boolean anonymized;
 	private int toEphemeralAddress;
 	private int nonUpdateEpochCount;
+	
+	private String originalId;	
+	private boolean receivedFromUntrustedNode;
+	private boolean newlyReceived;
+	//private String secondId;
 	/********************************************/
 	
 	/** Identifier of the message */
@@ -74,18 +79,7 @@ public class Message implements Comparable<Message> {
 	public Message(DTNHost from, DTNHost to, String id, int size) {
 		this.from = from;
 		this.to = to;
-		
-		/****************************************************/
-		//YSPARK
-		this.toEphemeralAddress = to.getEphemeralAddress();
-		this.nonUpdateEpochCount = 0;
-		
-		if(this.to.getAnonymityGroupID() == -1)
-			this.anonymized = false;
-		else
-			this.anonymized = true;
-		/****************************************************/
-				
+					
 		this.id = id;
 		this.size = size;
 		this.path = new ArrayList<DTNHost>();
@@ -98,6 +92,25 @@ public class Message implements Comparable<Message> {
 		this.requestMsg = null;
 		this.properties = null;
 		this.appID = null;
+		
+		/****************************************************/
+		//YSPARK
+		this.toEphemeralAddress = to.getEphemeralAddress();
+		this.nonUpdateEpochCount = 0;
+		
+		if(this.to.getAnonymityGroupID() == -1)
+			this.anonymized = false;
+		else
+			this.anonymized = true;
+		
+		
+		this.originalId = new String(this.id);
+		//this.secondId = this.id + this.id.charAt(0);
+		this.receivedFromUntrustedNode = false;
+		this.newlyReceived = true;
+		//this.secondId = null;
+		/****************************************************/
+
 		
 		Message.nextUniqueId++;
 		addNodeOnPath(from);
@@ -289,6 +302,9 @@ public class Message implements Comparable<Message> {
 		this.toEphemeralAddress = m.toEphemeralAddress;
 		this.nonUpdateEpochCount = m.nonUpdateEpochCount;
 		this.anonymized = m.anonymized;
+		
+		this.originalId = m.originalId;
+		this.receivedFromUntrustedNode = m.receivedFromUntrustedNode;
 		/*************************************************/
 		
 		if (m.properties != null) {
@@ -410,6 +426,31 @@ public class Message implements Comparable<Message> {
 	
 	public boolean isAnonymized() {
 		return this.anonymized;
+	}
+	
+	public void changeId() {
+		this.id = this.id + this.id.charAt(0);
+	}
+	
+	public String getOriginalId() {
+		return this.originalId;
+	}
+	
+	public boolean isReceivedFromUntrustedNode() {
+		return this.receivedFromUntrustedNode;
+	}
+	
+	public void setReceivedFromUntrustedNode(boolean flag) {
+		this.receivedFromUntrustedNode = flag;
+	}
+	
+	
+	public boolean isNewlyReceived() {
+		return this.newlyReceived;
+	}
+	
+	public void setNewlyReceived(boolean flag) {
+		this.newlyReceived = flag;
 	}
 	/******************************************************/
 	

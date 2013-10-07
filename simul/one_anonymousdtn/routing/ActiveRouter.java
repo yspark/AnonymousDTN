@@ -456,9 +456,12 @@ public abstract class ActiveRouter extends MessageRouter {
 				
 		List<Integer> forwardableEphemeralAddresses = con.getForwarableEphemeralAddresses(this.getHost().getPermanentAddress());
 		
+		DTNHost toHost = con.getOtherNode(this.getHost());
+		
 		// First, try to forward "forwardable, pulled" packets		
 		for (Message m : messages) {
-			DTNHost toHost = con.getOtherNode(this.getHost());
+			if(!con.isTrustedConnection() &&  m.isNewlyReceived() && m.isReceivedFromUntrustedNode())
+				continue;
 			
 			if(m.getToEphemeralAddress() == toHost.getEphemeralAddress())
 				continue;

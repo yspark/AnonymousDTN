@@ -4,6 +4,8 @@
  */
 package core;
 
+import java.util.HashMap;
+
 import routing.MessageRouter;
 
 
@@ -52,6 +54,42 @@ public class CBRConnection extends Connection {
 
 		this.msgFromNode = from;
 		Message newMessage = m.replicate();
+		
+		/**********************************************************/		
+		//YSPARK			
+		/*
+		 * Node A sends a packet to node B.  A changes its packet ID when 
+		 * 	1) A is in a anonymity (trusted) group, that is, A wants to maintain its anonymity
+		 * 	2) A does not trust B
+		 * 	3) A has received the packet from node C whom A does not trust.  
+		 */		
+		if((from.getAnonymityGroupID() >= 0) && (this.trustedConnection == false) && m.isReceivedFromUntrustedNode()) {
+			/*
+			boolean isFromTrusted = false;
+			
+			for(HashMap<Integer, Integer> trustedList : from.getTrustedNodesLists()) {
+				if(trustedList.containsValue(m.getToEphemeralAddress())) {
+					isFromTrusted = true;
+					break;
+				}
+			}
+			
+			if(!isFromTrusted)				
+				newMessage.changeId();
+			*/
+			
+			//System.out.println("changeID()");
+			
+			newMessage.changeId();
+		}
+		
+		/* Set TRUE if the sender is untrusted by the receiver */
+		if(this.trustedConnection) 
+			newMessage.setReceivedFromUntrustedNode(false);			
+		else
+			newMessage.setReceivedFromUntrustedNode(true);
+		/**********************************************************/
+		
 		int retVal = getOtherNode(from).receiveMessage(newMessage, from);
 
 		if (retVal == MessageRouter.RCV_OK) {
