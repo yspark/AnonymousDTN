@@ -1,0 +1,1488 @@
+**********
+Percentage: 0.1	Epoch: 300
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1457
+started: 57714
+relayed: 31122
+	nrelayed_t_to_t: 176
+	nrelayed_t_to_ut: 3140
+	nrelayed_ut_to_t: 2361
+	nrelayed_ut_to_ut: 25445
+aborted: 26589
+dropped: 31693
+	dropped_buffer_full: 15026
+	dropped_ttl_expiry: 1040
+	dropped_ephmeral_expiry: 15627
+removed: 0
+delivered: 216
+	delivered_with_ut_hops: 177
+delivery_prob: 0.1482
+response_prob: 0.0000
+overhead_ratio: 143.0833
+latency_avg: 3916.5171
+latency_med: 2586.3000
+hopcount_avg: 6.2778
+hopcount_med: 5
+buffertime_avg: 888.3678
+buffertime_med: 946.1000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.2	Epoch: 300
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1462
+started: 58247
+relayed: 31162
+	nrelayed_t_to_t: 1098
+	nrelayed_t_to_ut: 5407
+	nrelayed_ut_to_t: 4338
+	nrelayed_ut_to_ut: 20319
+aborted: 27083
+dropped: 31776
+	dropped_buffer_full: 17660
+	dropped_ttl_expiry: 902
+	dropped_ephmeral_expiry: 13214
+removed: 0
+delivered: 266
+	delivered_with_ut_hops: 208
+delivery_prob: 0.1819
+response_prob: 0.0000
+overhead_ratio: 116.1504
+latency_avg: 3807.6662
+latency_med: 2704.1000
+hopcount_avg: 5.1654
+hopcount_med: 4
+buffertime_avg: 892.6816
+buffertime_med: 933.2000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.3	Epoch: 300
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1457
+started: 57403
+relayed: 30644
+	nrelayed_t_to_t: 2630
+	nrelayed_t_to_ut: 7046
+	nrelayed_ut_to_t: 5203
+	nrelayed_ut_to_ut: 15765
+aborted: 26758
+dropped: 31130
+	dropped_buffer_full: 17681
+	dropped_ttl_expiry: 944
+	dropped_ephmeral_expiry: 12505
+removed: 0
+delivered: 266
+	delivered_with_ut_hops: 178
+delivery_prob: 0.1826
+response_prob: 0.0000
+overhead_ratio: 114.2030
+latency_avg: 3331.3342
+latency_med: 2306.5000
+hopcount_avg: 4.7406
+hopcount_med: 3
+buffertime_avg: 961.2131
+buffertime_med: 953.4000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.4	Epoch: 300
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1457
+started: 57621
+relayed: 31154
+	nrelayed_t_to_t: 4581
+	nrelayed_t_to_ut: 8492
+	nrelayed_ut_to_t: 6191
+	nrelayed_ut_to_ut: 11890
+aborted: 26462
+dropped: 31596
+	dropped_buffer_full: 19665
+	dropped_ttl_expiry: 1020
+	dropped_ephmeral_expiry: 10911
+removed: 0
+delivered: 277
+	delivered_with_ut_hops: 191
+delivery_prob: 0.1901
+response_prob: 0.0000
+overhead_ratio: 111.4693
+latency_avg: 3307.8740
+latency_med: 2238.4000
+hopcount_avg: 4.7292
+hopcount_med: 4
+buffertime_avg: 978.2100
+buffertime_med: 951.9000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.6	Epoch: 300
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1460
+started: 58324
+relayed: 30975
+	nrelayed_t_to_t: 9745
+	nrelayed_t_to_ut: 8883
+	nrelayed_ut_to_t: 6418
+	nrelayed_ut_to_ut: 5929
+aborted: 27348
+dropped: 31337
+	dropped_buffer_full: 22504
+	dropped_ttl_expiry: 1358
+	dropped_ephmeral_expiry: 7475
+removed: 0
+delivered: 289
+	delivered_with_ut_hops: 175
+delivery_prob: 0.1979
+response_prob: 0.0000
+overhead_ratio: 106.1799
+latency_avg: 4068.3253
+latency_med: 2826.6000
+hopcount_avg: 4.8339
+hopcount_med: 4
+buffertime_avg: 1101.9594
+buffertime_med: 942.3000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.8	Epoch: 300
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1467
+started: 59843
+relayed: 32489
+	nrelayed_t_to_t: 21493
+	nrelayed_t_to_ut: 5805
+	nrelayed_ut_to_t: 3995
+	nrelayed_ut_to_ut: 1196
+aborted: 27352
+dropped: 32492
+	dropped_buffer_full: 27464
+	dropped_ttl_expiry: 1783
+	dropped_ephmeral_expiry: 3245
+removed: 0
+delivered: 358
+	delivered_with_ut_hops: 135
+delivery_prob: 0.2440
+response_prob: 0.0000
+overhead_ratio: 89.7514
+latency_avg: 4116.0293
+latency_med: 3044.3000
+hopcount_avg: 4.4944
+hopcount_med: 4
+buffertime_avg: 1264.9492
+buffertime_med: 904.9000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.1	Epoch: 600
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1457
+started: 57757
+relayed: 30741
+	nrelayed_t_to_t: 168
+	nrelayed_t_to_ut: 2803
+	nrelayed_ut_to_t: 2579
+	nrelayed_ut_to_ut: 25191
+aborted: 27013
+dropped: 31148
+	dropped_buffer_full: 23473
+	dropped_ttl_expiry: 1571
+	dropped_ephmeral_expiry: 6104
+removed: 0
+delivered: 204
+	delivered_with_ut_hops: 171
+delivery_prob: 0.1400
+response_prob: 0.0000
+overhead_ratio: 149.6912
+latency_avg: 3969.4074
+latency_med: 3217.1000
+hopcount_avg: 5.3775
+hopcount_med: 4
+buffertime_avg: 1155.8728
+buffertime_med: 982.1000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.2	Epoch: 600
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1462
+started: 59219
+relayed: 31789
+	nrelayed_t_to_t: 1143
+	nrelayed_t_to_ut: 4770
+	nrelayed_ut_to_t: 4979
+	nrelayed_ut_to_ut: 20897
+aborted: 27429
+dropped: 32144
+	dropped_buffer_full: 25626
+	dropped_ttl_expiry: 1226
+	dropped_ephmeral_expiry: 5292
+removed: 0
+delivered: 268
+	delivered_with_ut_hops: 219
+delivery_prob: 0.1833
+response_prob: 0.0000
+overhead_ratio: 117.6157
+latency_avg: 3925.3918
+latency_med: 3035.7000
+hopcount_avg: 5.1007
+hopcount_med: 4
+buffertime_avg: 1110.7405
+buffertime_med: 924.6000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.3	Epoch: 600
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1457
+started: 57015
+relayed: 29932
+	nrelayed_t_to_t: 2575
+	nrelayed_t_to_ut: 6174
+	nrelayed_ut_to_t: 5890
+	nrelayed_ut_to_ut: 15293
+aborted: 27081
+dropped: 30244
+	dropped_buffer_full: 24058
+	dropped_ttl_expiry: 1288
+	dropped_ephmeral_expiry: 4898
+removed: 0
+delivered: 277
+	delivered_with_ut_hops: 196
+delivery_prob: 0.1901
+response_prob: 0.0000
+overhead_ratio: 107.0578
+latency_avg: 3810.0069
+latency_med: 2866.3000
+hopcount_avg: 5.1047
+hopcount_med: 4
+buffertime_avg: 1175.0037
+buffertime_med: 1000.0000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.4	Epoch: 600
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1457
+started: 57104
+relayed: 30365
+	nrelayed_t_to_t: 4510
+	nrelayed_t_to_ut: 7304
+	nrelayed_ut_to_t: 6976
+	nrelayed_ut_to_ut: 11575
+aborted: 26735
+dropped: 30682
+	dropped_buffer_full: 24753
+	dropped_ttl_expiry: 1271
+	dropped_ephmeral_expiry: 4658
+removed: 0
+delivered: 314
+	delivered_with_ut_hops: 227
+delivery_prob: 0.2155
+response_prob: 0.0000
+overhead_ratio: 95.7038
+latency_avg: 3922.6914
+latency_med: 2688.1000
+hopcount_avg: 4.7580
+hopcount_med: 4
+buffertime_avg: 1182.0454
+buffertime_med: 1001.7000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.6	Epoch: 600
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1460
+started: 58364
+relayed: 30855
+	nrelayed_t_to_t: 9729
+	nrelayed_t_to_ut: 7933
+	nrelayed_ut_to_t: 7309
+	nrelayed_ut_to_ut: 5884
+aborted: 27508
+dropped: 31041
+	dropped_buffer_full: 26058
+	dropped_ttl_expiry: 1659
+	dropped_ephmeral_expiry: 3324
+removed: 0
+delivered: 299
+	delivered_with_ut_hops: 186
+delivery_prob: 0.2048
+response_prob: 0.0000
+overhead_ratio: 102.1940
+latency_avg: 3865.5612
+latency_med: 2957.9000
+hopcount_avg: 4.4147
+hopcount_med: 4
+buffertime_avg: 1242.1721
+buffertime_med: 978.3000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.8	Epoch: 600
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1467
+started: 59622
+relayed: 32245
+	nrelayed_t_to_t: 21143
+	nrelayed_t_to_ut: 5260
+	nrelayed_ut_to_t: 4610
+	nrelayed_ut_to_ut: 1232
+aborted: 27375
+dropped: 32244
+	dropped_buffer_full: 28833
+	dropped_ttl_expiry: 2163
+	dropped_ephmeral_expiry: 1248
+removed: 0
+delivered: 364
+	delivered_with_ut_hops: 138
+delivery_prob: 0.2481
+response_prob: 0.0000
+overhead_ratio: 87.5852
+latency_avg: 4096.4003
+latency_med: 3054.3000
+hopcount_avg: 4.2005
+hopcount_med: 3
+buffertime_avg: 1314.8051
+buffertime_med: 880.9000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.1	Epoch: 1200
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1457
+started: 57363
+relayed: 30271
+	nrelayed_t_to_t: 166
+	nrelayed_t_to_ut: 2703
+	nrelayed_ut_to_t: 2654
+	nrelayed_ut_to_ut: 24748
+aborted: 27090
+dropped: 30541
+	dropped_buffer_full: 26837
+	dropped_ttl_expiry: 2084
+	dropped_ephmeral_expiry: 1620
+removed: 0
+delivered: 217
+	delivered_with_ut_hops: 183
+delivery_prob: 0.1489
+response_prob: 0.0000
+overhead_ratio: 138.4977
+latency_avg: 3885.2894
+latency_med: 2930.1000
+hopcount_avg: 4.8387
+hopcount_med: 4
+buffertime_avg: 1311.0425
+buffertime_med: 930.2000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.2	Epoch: 1200
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1462
+started: 58964
+relayed: 31494
+	nrelayed_t_to_t: 1094
+	nrelayed_t_to_ut: 4607
+	nrelayed_ut_to_t: 5083
+	nrelayed_ut_to_ut: 20710
+aborted: 27469
+dropped: 31677
+	dropped_buffer_full: 28432
+	dropped_ttl_expiry: 1629
+	dropped_ephmeral_expiry: 1616
+removed: 0
+delivered: 286
+	delivered_with_ut_hops: 232
+delivery_prob: 0.1956
+response_prob: 0.0000
+overhead_ratio: 109.1189
+latency_avg: 4276.3566
+latency_med: 3434.1000
+hopcount_avg: 4.9196
+hopcount_med: 4
+buffertime_avg: 1252.5099
+buffertime_med: 882.2000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.3	Epoch: 1200
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1457
+started: 56823
+relayed: 29641
+	nrelayed_t_to_t: 2558
+	nrelayed_t_to_ut: 5840
+	nrelayed_ut_to_t: 6202
+	nrelayed_ut_to_ut: 15041
+aborted: 27180
+dropped: 29799
+	dropped_buffer_full: 26725
+	dropped_ttl_expiry: 1469
+	dropped_ephmeral_expiry: 1605
+removed: 0
+delivered: 305
+	delivered_with_ut_hops: 224
+delivery_prob: 0.2093
+response_prob: 0.0000
+overhead_ratio: 96.1836
+latency_avg: 4005.7652
+latency_med: 3130.9000
+hopcount_avg: 4.7049
+hopcount_med: 4
+buffertime_avg: 1322.4171
+buffertime_med: 959.5000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.4	Epoch: 1200
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1457
+started: 56677
+relayed: 29835
+	nrelayed_t_to_t: 4431
+	nrelayed_t_to_ut: 6925
+	nrelayed_ut_to_t: 7243
+	nrelayed_ut_to_ut: 11236
+aborted: 26838
+dropped: 29993
+	dropped_buffer_full: 26895
+	dropped_ttl_expiry: 1424
+	dropped_ephmeral_expiry: 1674
+removed: 0
+delivered: 326
+	delivered_with_ut_hops: 242
+delivery_prob: 0.2237
+response_prob: 0.0000
+overhead_ratio: 90.5184
+latency_avg: 3901.2215
+latency_med: 3178.5000
+hopcount_avg: 4.5031
+hopcount_med: 4
+buffertime_avg: 1337.0477
+buffertime_med: 972.5000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.6	Epoch: 1200
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1460
+started: 57557
+relayed: 30000
+	nrelayed_t_to_t: 9560
+	nrelayed_t_to_ut: 7358
+	nrelayed_ut_to_t: 7442
+	nrelayed_ut_to_ut: 5640
+aborted: 27556
+dropped: 30095
+	dropped_buffer_full: 27056
+	dropped_ttl_expiry: 1706
+	dropped_ephmeral_expiry: 1333
+removed: 0
+delivered: 327
+	delivered_with_ut_hops: 222
+delivery_prob: 0.2240
+response_prob: 0.0000
+overhead_ratio: 90.7431
+latency_avg: 4336.9529
+latency_med: 3221.5000
+hopcount_avg: 4.8685
+hopcount_med: 4
+buffertime_avg: 1361.9512
+buffertime_med: 955.1000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.8	Epoch: 1200
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1467
+started: 60128
+relayed: 32719
+	nrelayed_t_to_t: 21784
+	nrelayed_t_to_ut: 4910
+	nrelayed_ut_to_t: 4825
+	nrelayed_ut_to_ut: 1200
+aborted: 27407
+dropped: 32635
+	dropped_buffer_full: 30352
+	dropped_ttl_expiry: 1956
+	dropped_ephmeral_expiry: 327
+removed: 0
+delivered: 391
+	delivered_with_ut_hops: 160
+delivery_prob: 0.2665
+response_prob: 0.0000
+overhead_ratio: 82.6803
+latency_avg: 4475.3645
+latency_med: 3232.4000
+hopcount_avg: 4.6240
+hopcount_med: 4
+buffertime_avg: 1341.1111
+buffertime_med: 896.8000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.1	Epoch: 1800
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1457
+started: 56547
+relayed: 29409
+	nrelayed_t_to_t: 174
+	nrelayed_t_to_ut: 2558
+	nrelayed_ut_to_t: 2611
+	nrelayed_ut_to_ut: 24066
+aborted: 27135
+dropped: 29635
+	dropped_buffer_full: 26382
+	dropped_ttl_expiry: 2211
+	dropped_ephmeral_expiry: 1042
+removed: 0
+delivered: 237
+	delivered_with_ut_hops: 209
+delivery_prob: 0.1627
+response_prob: 0.0000
+overhead_ratio: 123.0886
+latency_avg: 4742.5097
+latency_med: 3605.4000
+hopcount_avg: 5.1814
+hopcount_med: 4
+buffertime_avg: 1383.7525
+buffertime_med: 918.2000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.2	Epoch: 1800
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1462
+started: 58306
+relayed: 30811
+	nrelayed_t_to_t: 1094
+	nrelayed_t_to_ut: 4495
+	nrelayed_ut_to_t: 5044
+	nrelayed_ut_to_ut: 20178
+aborted: 27494
+dropped: 30961
+	dropped_buffer_full: 28245
+	dropped_ttl_expiry: 1630
+	dropped_ephmeral_expiry: 1086
+removed: 0
+delivered: 281
+	delivered_with_ut_hops: 228
+delivery_prob: 0.1922
+response_prob: 0.0000
+overhead_ratio: 108.6477
+latency_avg: 3977.5139
+latency_med: 3303.3000
+hopcount_avg: 4.8292
+hopcount_med: 4
+buffertime_avg: 1328.5374
+buffertime_med: 874.3000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.3	Epoch: 1800
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1457
+started: 56671
+relayed: 29503
+	nrelayed_t_to_t: 2552
+	nrelayed_t_to_ut: 5738
+	nrelayed_ut_to_t: 6217
+	nrelayed_ut_to_ut: 14996
+aborted: 27166
+dropped: 29591
+	dropped_buffer_full: 26985
+	dropped_ttl_expiry: 1511
+	dropped_ephmeral_expiry: 1095
+removed: 0
+delivered: 314
+	delivered_with_ut_hops: 232
+delivery_prob: 0.2155
+response_prob: 0.0000
+overhead_ratio: 92.9586
+latency_avg: 4097.6213
+latency_med: 3079.1000
+hopcount_avg: 4.8344
+hopcount_med: 4
+buffertime_avg: 1391.5278
+buffertime_med: 956.6000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.4	Epoch: 1800
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1457
+started: 57053
+relayed: 30277
+	nrelayed_t_to_t: 4560
+	nrelayed_t_to_ut: 6975
+	nrelayed_ut_to_t: 7466
+	nrelayed_ut_to_ut: 11276
+aborted: 26772
+dropped: 30367
+	dropped_buffer_full: 27489
+	dropped_ttl_expiry: 1767
+	dropped_ephmeral_expiry: 1111
+removed: 0
+delivered: 314
+	delivered_with_ut_hops: 237
+delivery_prob: 0.2155
+response_prob: 0.0000
+overhead_ratio: 95.4236
+latency_avg: 4141.4019
+latency_med: 3248.0000
+hopcount_avg: 4.5541
+hopcount_med: 4
+buffertime_avg: 1383.3675
+buffertime_med: 938.5000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.6	Epoch: 1800
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1460
+started: 57998
+relayed: 30486
+	nrelayed_t_to_t: 9749
+	nrelayed_t_to_ut: 7401
+	nrelayed_ut_to_t: 7631
+	nrelayed_ut_to_ut: 5705
+aborted: 27511
+dropped: 30544
+	dropped_buffer_full: 27881
+	dropped_ttl_expiry: 1780
+	dropped_ephmeral_expiry: 883
+removed: 0
+delivered: 326
+	delivered_with_ut_hops: 228
+delivery_prob: 0.2233
+response_prob: 0.0000
+overhead_ratio: 92.5153
+latency_avg: 4070.7816
+latency_med: 3126.2000
+hopcount_avg: 4.3896
+hopcount_med: 4
+buffertime_avg: 1393.6775
+buffertime_med: 942.8000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.8	Epoch: 1800
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1467
+started: 60147
+relayed: 32724
+	nrelayed_t_to_t: 21852
+	nrelayed_t_to_ut: 4896
+	nrelayed_ut_to_t: 4777
+	nrelayed_ut_to_ut: 1199
+aborted: 27421
+dropped: 32705
+	dropped_buffer_full: 30230
+	dropped_ttl_expiry: 2273
+	dropped_ephmeral_expiry: 202
+removed: 0
+delivered: 368
+	delivered_with_ut_hops: 148
+delivery_prob: 0.2509
+response_prob: 0.0000
+overhead_ratio: 87.9239
+latency_avg: 4416.6255
+latency_med: 3188.4000
+hopcount_avg: 4.3967
+hopcount_med: 3
+buffertime_avg: 1350.5469
+buffertime_med: 879.1000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.1	Epoch: 300
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1462
+started: 57637
+relayed: 31313
+	nrelayed_t_to_t: 191
+	nrelayed_t_to_ut: 2435
+	nrelayed_ut_to_t: 2223
+	nrelayed_ut_to_ut: 26464
+aborted: 26320
+dropped: 32036
+	dropped_buffer_full: 15193
+	dropped_ttl_expiry: 739
+	dropped_ephmeral_expiry: 16104
+removed: 0
+delivered: 182
+	delivered_with_ut_hops: 145
+delivery_prob: 0.1245
+response_prob: 0.0000
+overhead_ratio: 171.0495
+latency_avg: 2875.4088
+latency_med: 2221.7000
+hopcount_avg: 6.2198
+hopcount_med: 5
+buffertime_avg: 833.0791
+buffertime_med: 947.8000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.2	Epoch: 300
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1463
+started: 57371
+relayed: 30248
+	nrelayed_t_to_t: 938
+	nrelayed_t_to_ut: 5820
+	nrelayed_ut_to_t: 3933
+	nrelayed_ut_to_ut: 19557
+aborted: 27119
+dropped: 30781
+	dropped_buffer_full: 15845
+	dropped_ttl_expiry: 928
+	dropped_ephmeral_expiry: 14008
+removed: 0
+delivered: 259
+	delivered_with_ut_hops: 196
+delivery_prob: 0.1770
+response_prob: 0.0000
+overhead_ratio: 115.7876
+latency_avg: 3249.5251
+latency_med: 2508.1000
+hopcount_avg: 5.0463
+hopcount_med: 4
+buffertime_avg: 923.7249
+buffertime_med: 952.8000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.3	Epoch: 300
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1462
+started: 58257
+relayed: 31320
+	nrelayed_t_to_t: 2227
+	nrelayed_t_to_ut: 7424
+	nrelayed_ut_to_t: 5237
+	nrelayed_ut_to_ut: 16432
+aborted: 26931
+dropped: 31725
+	dropped_buffer_full: 18377
+	dropped_ttl_expiry: 1164
+	dropped_ephmeral_expiry: 12184
+removed: 0
+delivered: 278
+	delivered_with_ut_hops: 200
+delivery_prob: 0.1902
+response_prob: 0.0000
+overhead_ratio: 111.6619
+latency_avg: 3377.4788
+latency_med: 2169.6000
+hopcount_avg: 4.7770
+hopcount_med: 4
+buffertime_avg: 945.0590
+buffertime_med: 943.3000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.4	Epoch: 300
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1460
+started: 58838
+relayed: 31664
+	nrelayed_t_to_t: 4412
+	nrelayed_t_to_ut: 8329
+	nrelayed_ut_to_t: 6291
+	nrelayed_ut_to_ut: 12632
+aborted: 27169
+dropped: 32056
+	dropped_buffer_full: 20254
+	dropped_ttl_expiry: 1176
+	dropped_ephmeral_expiry: 10626
+removed: 0
+delivered: 285
+	delivered_with_ut_hops: 194
+delivery_prob: 0.1952
+response_prob: 0.0000
+overhead_ratio: 110.1018
+latency_avg: 3638.8039
+latency_med: 2753.0000
+hopcount_avg: 5.0070
+hopcount_med: 4
+buffertime_avg: 1039.0547
+buffertime_med: 944.2000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.6	Epoch: 300
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1462
+started: 61293
+relayed: 33764
+	nrelayed_t_to_t: 10197
+	nrelayed_t_to_ut: 11002
+	nrelayed_ut_to_t: 7654
+	nrelayed_ut_to_ut: 4911
+aborted: 27526
+dropped: 33823
+	dropped_buffer_full: 24542
+	dropped_ttl_expiry: 1758
+	dropped_ephmeral_expiry: 7523
+removed: 0
+delivered: 350
+	delivered_with_ut_hops: 209
+delivery_prob: 0.2394
+response_prob: 0.0000
+overhead_ratio: 95.4686
+latency_avg: 4301.8514
+latency_med: 3003.5000
+hopcount_avg: 4.9343
+hopcount_med: 4
+buffertime_avg: 1144.4469
+buffertime_med: 914.6000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.8	Epoch: 300
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1459
+started: 58180
+relayed: 31139
+	nrelayed_t_to_t: 20672
+	nrelayed_t_to_ut: 5266
+	nrelayed_ut_to_t: 4009
+	nrelayed_ut_to_ut: 1192
+aborted: 27035
+dropped: 31198
+	dropped_buffer_full: 26047
+	dropped_ttl_expiry: 2240
+	dropped_ephmeral_expiry: 2911
+removed: 0
+delivered: 337
+	delivered_with_ut_hops: 118
+delivery_prob: 0.2310
+response_prob: 0.0000
+overhead_ratio: 91.4006
+latency_avg: 4069.8409
+latency_med: 3011.5000
+hopcount_avg: 4.3620
+hopcount_med: 4
+buffertime_avg: 1337.4741
+buffertime_med: 929.0000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.1	Epoch: 600
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1462
+started: 58426
+relayed: 31520
+	nrelayed_t_to_t: 191
+	nrelayed_t_to_ut: 2225
+	nrelayed_ut_to_t: 2436
+	nrelayed_ut_to_ut: 26668
+aborted: 26903
+dropped: 31970
+	dropped_buffer_full: 23855
+	dropped_ttl_expiry: 1675
+	dropped_ephmeral_expiry: 6440
+removed: 0
+delivered: 206
+	delivered_with_ut_hops: 174
+delivery_prob: 0.1409
+response_prob: 0.0000
+overhead_ratio: 152.0097
+latency_avg: 3470.2364
+latency_med: 3055.8000
+hopcount_avg: 5.5874
+hopcount_med: 5
+buffertime_avg: 1098.8802
+buffertime_med: 985.2000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.2	Epoch: 600
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1463
+started: 58244
+relayed: 30843
+	nrelayed_t_to_t: 942
+	nrelayed_t_to_ut: 5160
+	nrelayed_ut_to_t: 4599
+	nrelayed_ut_to_ut: 20142
+aborted: 27397
+dropped: 31146
+	dropped_buffer_full: 23679
+	dropped_ttl_expiry: 1427
+	dropped_ephmeral_expiry: 6040
+removed: 0
+delivered: 258
+	delivered_with_ut_hops: 197
+delivery_prob: 0.1763
+response_prob: 0.0000
+overhead_ratio: 118.5465
+latency_avg: 3839.5516
+latency_med: 2795.3000
+hopcount_avg: 4.7713
+hopcount_med: 4
+buffertime_avg: 1179.2344
+buffertime_med: 1014.7000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.3	Epoch: 600
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1462
+started: 58673
+relayed: 31497
+	nrelayed_t_to_t: 2217
+	nrelayed_t_to_ut: 6493
+	nrelayed_ut_to_t: 6101
+	nrelayed_ut_to_ut: 16686
+aborted: 27169
+dropped: 31707
+	dropped_buffer_full: 25197
+	dropped_ttl_expiry: 1362
+	dropped_ephmeral_expiry: 5148
+removed: 0
+delivered: 291
+	delivered_with_ut_hops: 223
+delivery_prob: 0.1990
+response_prob: 0.0000
+overhead_ratio: 107.2371
+latency_avg: 3569.0120
+latency_med: 2574.7000
+hopcount_avg: 4.7973
+hopcount_med: 4
+buffertime_avg: 1169.0138
+buffertime_med: 989.6000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.4	Epoch: 600
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1460
+started: 58785
+relayed: 31365
+	nrelayed_t_to_t: 4316
+	nrelayed_t_to_ut: 7414
+	nrelayed_ut_to_t: 7164
+	nrelayed_ut_to_ut: 12471
+aborted: 27414
+dropped: 31578
+	dropped_buffer_full: 25496
+	dropped_ttl_expiry: 1571
+	dropped_ephmeral_expiry: 4511
+removed: 0
+delivered: 303
+	delivered_with_ut_hops: 218
+delivery_prob: 0.2075
+response_prob: 0.0000
+overhead_ratio: 102.5149
+latency_avg: 4034.3277
+latency_med: 2855.3000
+hopcount_avg: 4.7921
+hopcount_med: 4
+buffertime_avg: 1237.1884
+buffertime_med: 985.3000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.6	Epoch: 600
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1462
+started: 59942
+relayed: 32218
+	nrelayed_t_to_t: 10130
+	nrelayed_t_to_ut: 9184
+	nrelayed_ut_to_t: 7891
+	nrelayed_ut_to_ut: 5013
+aborted: 27721
+dropped: 32218
+	dropped_buffer_full: 27312
+	dropped_ttl_expiry: 1965
+	dropped_ephmeral_expiry: 2941
+removed: 0
+delivered: 364
+	delivered_with_ut_hops: 231
+delivery_prob: 0.2490
+response_prob: 0.0000
+overhead_ratio: 87.5110
+latency_avg: 4626.4832
+latency_med: 3145.5000
+hopcount_avg: 4.8709
+hopcount_med: 4
+buffertime_avg: 1290.0149
+buffertime_med: 909.1000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.8	Epoch: 600
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1459
+started: 58362
+relayed: 31258
+	nrelayed_t_to_t: 20781
+	nrelayed_t_to_ut: 4709
+	nrelayed_ut_to_t: 4570
+	nrelayed_ut_to_ut: 1198
+aborted: 27098
+dropped: 31246
+	dropped_buffer_full: 28143
+	dropped_ttl_expiry: 2165
+	dropped_ephmeral_expiry: 938
+removed: 0
+delivered: 344
+	delivered_with_ut_hops: 120
+delivery_prob: 0.2358
+response_prob: 0.0000
+overhead_ratio: 89.8663
+latency_avg: 4535.6686
+latency_med: 3345.0000
+hopcount_avg: 4.5727
+hopcount_med: 4
+buffertime_avg: 1369.9273
+buffertime_med: 930.6000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.1	Epoch: 1200
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1462
+started: 57411
+relayed: 30441
+	nrelayed_t_to_t: 198
+	nrelayed_t_to_ut: 2031
+	nrelayed_ut_to_t: 2467
+	nrelayed_ut_to_ut: 25745
+aborted: 26967
+dropped: 30668
+	dropped_buffer_full: 26773
+	dropped_ttl_expiry: 2000
+	dropped_ephmeral_expiry: 1895
+removed: 0
+delivered: 205
+	delivered_with_ut_hops: 173
+delivery_prob: 0.1402
+response_prob: 0.0000
+overhead_ratio: 147.4927
+latency_avg: 4095.5356
+latency_med: 3119.0000
+hopcount_avg: 5.3317
+hopcount_med: 4
+buffertime_avg: 1264.7067
+buffertime_med: 935.0000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.2	Epoch: 1200
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1463
+started: 57602
+relayed: 30131
+	nrelayed_t_to_t: 935
+	nrelayed_t_to_ut: 4732
+	nrelayed_ut_to_t: 4886
+	nrelayed_ut_to_ut: 19578
+aborted: 27468
+dropped: 30310
+	dropped_buffer_full: 27066
+	dropped_ttl_expiry: 1664
+	dropped_ephmeral_expiry: 1580
+removed: 0
+delivered: 272
+	delivered_with_ut_hops: 209
+delivery_prob: 0.1859
+response_prob: 0.0000
+overhead_ratio: 109.7757
+latency_avg: 4123.5423
+latency_med: 3096.4000
+hopcount_avg: 4.7574
+hopcount_med: 4
+buffertime_avg: 1336.7832
+buffertime_med: 957.4000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.3	Epoch: 1200
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1462
+started: 58044
+relayed: 30759
+	nrelayed_t_to_t: 2144
+	nrelayed_t_to_ut: 6133
+	nrelayed_ut_to_t: 6143
+	nrelayed_ut_to_ut: 16339
+aborted: 27279
+dropped: 30818
+	dropped_buffer_full: 27590
+	dropped_ttl_expiry: 1566
+	dropped_ephmeral_expiry: 1662
+removed: 0
+delivered: 307
+	delivered_with_ut_hops: 236
+delivery_prob: 0.2100
+response_prob: 0.0000
+overhead_ratio: 99.1922
+latency_avg: 3942.6997
+latency_med: 3008.3000
+hopcount_avg: 4.5668
+hopcount_med: 4
+buffertime_avg: 1315.7602
+buffertime_med: 954.5000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.4	Epoch: 1200
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1460
+started: 58933
+relayed: 31459
+	nrelayed_t_to_t: 4434
+	nrelayed_t_to_ut: 7131
+	nrelayed_ut_to_t: 7385
+	nrelayed_ut_to_ut: 12509
+aborted: 27470
+dropped: 31608
+	dropped_buffer_full: 28108
+	dropped_ttl_expiry: 1996
+	dropped_ephmeral_expiry: 1504
+removed: 0
+delivered: 287
+	delivered_with_ut_hops: 209
+delivery_prob: 0.1966
+response_prob: 0.0000
+overhead_ratio: 108.6132
+latency_avg: 3949.6296
+latency_med: 2844.2000
+hopcount_avg: 4.5575
+hopcount_med: 4
+buffertime_avg: 1353.8447
+buffertime_med: 939.9000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.6	Epoch: 1200
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1462
+started: 60998
+relayed: 33339
+	nrelayed_t_to_t: 10276
+	nrelayed_t_to_ut: 9312
+	nrelayed_ut_to_t: 8654
+	nrelayed_ut_to_ut: 5097
+aborted: 27656
+dropped: 33237
+	dropped_buffer_full: 30554
+	dropped_ttl_expiry: 2082
+	dropped_ephmeral_expiry: 601
+removed: 0
+delivered: 340
+	delivered_with_ut_hops: 225
+delivery_prob: 0.2326
+response_prob: 0.0000
+overhead_ratio: 97.0559
+latency_avg: 4580.7556
+latency_med: 3294.9000
+hopcount_avg: 4.8265
+hopcount_med: 4
+buffertime_avg: 1301.0251
+buffertime_med: 851.0000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.8	Epoch: 1200
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1459
+started: 58520
+relayed: 31392
+	nrelayed_t_to_t: 21119
+	nrelayed_t_to_ut: 4423
+	nrelayed_ut_to_t: 4645
+	nrelayed_ut_to_ut: 1205
+aborted: 27122
+dropped: 31337
+	dropped_buffer_full: 29092
+	dropped_ttl_expiry: 2139
+	dropped_ephmeral_expiry: 106
+removed: 0
+delivered: 361
+	delivered_with_ut_hops: 151
+delivery_prob: 0.2474
+response_prob: 0.0000
+overhead_ratio: 85.9584
+latency_avg: 4573.6571
+latency_med: 3331.1000
+hopcount_avg: 4.7479
+hopcount_med: 4
+buffertime_avg: 1363.6066
+buffertime_med: 884.0000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.1	Epoch: 1800
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1462
+started: 57720
+relayed: 30764
+	nrelayed_t_to_t: 195
+	nrelayed_t_to_ut: 2090
+	nrelayed_ut_to_t: 2481
+	nrelayed_ut_to_ut: 25998
+aborted: 26953
+dropped: 30996
+	dropped_buffer_full: 27773
+	dropped_ttl_expiry: 2077
+	dropped_ephmeral_expiry: 1146
+removed: 0
+delivered: 201
+	delivered_with_ut_hops: 170
+delivery_prob: 0.1375
+response_prob: 0.0000
+overhead_ratio: 152.0547
+latency_avg: 4048.7448
+latency_med: 3069.8000
+hopcount_avg: 4.8507
+hopcount_med: 4
+buffertime_avg: 1316.0238
+buffertime_med: 907.9000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.2	Epoch: 1800
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1463
+started: 57105
+relayed: 29691
+	nrelayed_t_to_t: 912
+	nrelayed_t_to_ut: 4554
+	nrelayed_ut_to_t: 4923
+	nrelayed_ut_to_ut: 19302
+aborted: 27411
+dropped: 29864
+	dropped_buffer_full: 26999
+	dropped_ttl_expiry: 1873
+	dropped_ephmeral_expiry: 992
+removed: 0
+delivered: 269
+	delivered_with_ut_hops: 213
+delivery_prob: 0.1839
+response_prob: 0.0000
+overhead_ratio: 109.3755
+latency_avg: 4599.7896
+latency_med: 3497.1000
+hopcount_avg: 4.6989
+hopcount_med: 4
+buffertime_avg: 1395.2051
+buffertime_med: 942.0000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.3	Epoch: 1800
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1462
+started: 57746
+relayed: 30506
+	nrelayed_t_to_t: 2166
+	nrelayed_t_to_ut: 5964
+	nrelayed_ut_to_t: 6150
+	nrelayed_ut_to_ut: 16226
+aborted: 27234
+dropped: 30561
+	dropped_buffer_full: 27674
+	dropped_ttl_expiry: 1781
+	dropped_ephmeral_expiry: 1106
+removed: 0
+delivered: 315
+	delivered_with_ut_hops: 245
+delivery_prob: 0.2155
+response_prob: 0.0000
+overhead_ratio: 95.8444
+latency_avg: 4112.6248
+latency_med: 3008.3000
+hopcount_avg: 4.5524
+hopcount_med: 4
+buffertime_avg: 1379.1826
+buffertime_med: 936.9000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.4	Epoch: 1800
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1460
+started: 58133
+relayed: 30712
+	nrelayed_t_to_t: 4380
+	nrelayed_t_to_ut: 6943
+	nrelayed_ut_to_t: 7342
+	nrelayed_ut_to_ut: 12047
+aborted: 27417
+dropped: 30791
+	dropped_buffer_full: 27992
+	dropped_ttl_expiry: 1841
+	dropped_ephmeral_expiry: 958
+removed: 0
+delivered: 324
+	delivered_with_ut_hops: 237
+delivery_prob: 0.2219
+response_prob: 0.0000
+overhead_ratio: 93.7901
+latency_avg: 4176.3420
+latency_med: 3265.2000
+hopcount_avg: 4.4475
+hopcount_med: 3
+buffertime_avg: 1421.4132
+buffertime_med: 936.3000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.6	Epoch: 1800
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1462
+started: 59685
+relayed: 31959
+	nrelayed_t_to_t: 10221
+	nrelayed_t_to_ut: 8537
+	nrelayed_ut_to_t: 8125
+	nrelayed_ut_to_ut: 5076
+aborted: 27723
+dropped: 31860
+	dropped_buffer_full: 29450
+	dropped_ttl_expiry: 2140
+	dropped_ephmeral_expiry: 270
+removed: 0
+delivered: 340
+	delivered_with_ut_hops: 215
+delivery_prob: 0.2326
+response_prob: 0.0000
+overhead_ratio: 92.9971
+latency_avg: 4291.8579
+latency_med: 3259.7000
+hopcount_avg: 4.4882
+hopcount_med: 4
+buffertime_avg: 1366.5208
+buffertime_med: 884.9000
+rtt_avg: NaN
+rtt_med: NaN
+**********
+Percentage: 0.8	Epoch: 1800
+**********
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 1459
+started: 58650
+relayed: 31587
+	nrelayed_t_to_t: 21158
+	nrelayed_t_to_ut: 4543
+	nrelayed_ut_to_t: 4665
+	nrelayed_ut_to_ut: 1221
+aborted: 27057
+dropped: 31547
+	dropped_buffer_full: 29055
+	dropped_ttl_expiry: 2484
+	dropped_ephmeral_expiry: 8
+removed: 0
+delivered: 351
+	delivered_with_ut_hops: 134
+delivery_prob: 0.2406
+response_prob: 0.0000
+overhead_ratio: 88.9915
+latency_avg: 4558.2524
+latency_med: 3264.9000
+hopcount_avg: 4.6239
+hopcount_med: 4
+buffertime_avg: 1379.1318
+buffertime_med: 904.1000
+rtt_avg: NaN
+rtt_med: NaN

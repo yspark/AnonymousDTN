@@ -1,0 +1,1056 @@
+*********************
+Percentage: 0.05	Epoch: 600	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 576
+	created_t_to_t: 107
+	created_t_to_ut: 29
+	created_ut_to_t: 22
+	created_ut_to_ut: 418
+started: 205767
+relayed: 107884
+	nrelayed_t_to_t: 123
+	nrelayed_t_to_ut: 965
+	nrelayed_ut_to_t: 239
+	nrelayed_ut_to_ut: 106557
+nrelayed_delivery: 1391
+	nrelayed_delivery_t_to_t: 47
+	nrelayed_delivery_t_to_ut: 20
+	nrelayed_delivery_ut_to_t: 21
+	nrelayed_delivery_ut_to_ut: 1303
+aborted: 97883
+dropped: 108010
+	dropped_buffer_full: 33356
+	dropped_ttl_expiry: 72025
+	dropped_ephmeral_expiry: 2629
+removed: 0
+delivered: 450
+	delivered_t_to_t: 49
+	delivered_t_to_ut: 27
+	delivered_ut_to_t: 1
+	delivered_ut_to_ut: 373
+	delivered_with_ut_hops: 423
+delivery_prob: 0.7813
+response_prob: 0.0000
+overhead_ratio: 238.7422
+latency_avg: 6742.4296
+latency_med: 6156.4000
+hopcount_avg: 3.0911
+hopcount_med: 3
+buffertime_avg: 4278.2576
+buffertime_med: 3678.1000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.1	Epoch: 600	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 573
+	created_t_to_t: 121
+	created_t_to_ut: 43
+	created_ut_to_t: 39
+	created_ut_to_ut: 370
+started: 208872
+relayed: 112281
+	nrelayed_t_to_t: 687
+	nrelayed_t_to_ut: 2443
+	nrelayed_ut_to_t: 1094
+	nrelayed_ut_to_ut: 108057
+nrelayed_delivery: 1379
+	nrelayed_delivery_t_to_t: 143
+	nrelayed_delivery_t_to_ut: 32
+	nrelayed_delivery_ut_to_t: 40
+	nrelayed_delivery_ut_to_ut: 1164
+aborted: 96591
+dropped: 112399
+	dropped_buffer_full: 32502
+	dropped_ttl_expiry: 76675
+	dropped_ephmeral_expiry: 3222
+removed: 0
+delivered: 455
+	delivered_t_to_t: 79
+	delivered_t_to_ut: 40
+	delivered_ut_to_t: 8
+	delivered_ut_to_ut: 328
+	delivered_with_ut_hops: 414
+delivery_prob: 0.7941
+response_prob: 0.0000
+overhead_ratio: 245.7714
+latency_avg: 6812.1662
+latency_med: 6042.3000
+hopcount_avg: 3.0308
+hopcount_med: 3
+buffertime_avg: 4181.8541
+buffertime_med: 3560.6000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.15	Epoch: 600	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 575
+	created_t_to_t: 138
+	created_t_to_ut: 57
+	created_ut_to_t: 47
+	created_ut_to_ut: 333
+started: 209989
+relayed: 114247
+	nrelayed_t_to_t: 1480
+	nrelayed_t_to_ut: 4001
+	nrelayed_ut_to_t: 1584
+	nrelayed_ut_to_ut: 107182
+nrelayed_delivery: 1284
+	nrelayed_delivery_t_to_t: 214
+	nrelayed_delivery_t_to_ut: 25
+	nrelayed_delivery_ut_to_t: 31
+	nrelayed_delivery_ut_to_ut: 1014
+aborted: 95742
+dropped: 114387
+	dropped_buffer_full: 34789
+	dropped_ttl_expiry: 75101
+	dropped_ephmeral_expiry: 4497
+removed: 0
+delivered: 435
+	delivered_t_to_t: 92
+	delivered_t_to_ut: 47
+	delivered_ut_to_t: 6
+	delivered_ut_to_ut: 290
+	delivered_with_ut_hops: 385
+delivery_prob: 0.7565
+response_prob: 0.0000
+overhead_ratio: 261.6368
+latency_avg: 6697.7837
+latency_med: 6241.8000
+hopcount_avg: 2.9517
+hopcount_med: 3
+buffertime_avg: 4060.0503
+buffertime_med: 3322.1000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.2	Epoch: 600	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 575
+	created_t_to_t: 142
+	created_t_to_ut: 63
+	created_ut_to_t: 80
+	created_ut_to_ut: 290
+started: 209496
+relayed: 112309
+	nrelayed_t_to_t: 3072
+	nrelayed_t_to_ut: 6789
+	nrelayed_ut_to_t: 3522
+	nrelayed_ut_to_ut: 98926
+nrelayed_delivery: 1368
+	nrelayed_delivery_t_to_t: 315
+	nrelayed_delivery_t_to_ut: 31
+	nrelayed_delivery_ut_to_t: 60
+	nrelayed_delivery_ut_to_ut: 962
+aborted: 97187
+dropped: 112432
+	dropped_buffer_full: 31333
+	dropped_ttl_expiry: 74486
+	dropped_ephmeral_expiry: 6613
+removed: 0
+delivered: 452
+	delivered_t_to_t: 107
+	delivered_t_to_ut: 53
+	delivered_ut_to_t: 29
+	delivered_ut_to_ut: 263
+	delivered_with_ut_hops: 395
+delivery_prob: 0.7861
+response_prob: 0.0000
+overhead_ratio: 247.4712
+latency_avg: 7033.3898
+latency_med: 6409.5000
+hopcount_avg: 3.0265
+hopcount_med: 3
+buffertime_avg: 4051.1928
+buffertime_med: 3242.2000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.25	Epoch: 600	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 576
+	created_t_to_t: 155
+	created_t_to_ut: 80
+	created_ut_to_t: 91
+	created_ut_to_ut: 250
+started: 208755
+relayed: 112177
+	nrelayed_t_to_t: 5447
+	nrelayed_t_to_ut: 10749
+	nrelayed_ut_to_t: 5943
+	nrelayed_ut_to_ut: 90038
+nrelayed_delivery: 1362
+	nrelayed_delivery_t_to_t: 355
+	nrelayed_delivery_t_to_ut: 41
+	nrelayed_delivery_ut_to_t: 79
+	nrelayed_delivery_ut_to_ut: 887
+aborted: 96578
+dropped: 112300
+	dropped_buffer_full: 27996
+	dropped_ttl_expiry: 73527
+	dropped_ephmeral_expiry: 10777
+removed: 0
+delivered: 453
+	delivered_t_to_t: 121
+	delivered_t_to_ut: 64
+	delivered_ut_to_t: 38
+	delivered_ut_to_ut: 230
+	delivered_with_ut_hops: 389
+delivery_prob: 0.7865
+response_prob: 0.0000
+overhead_ratio: 246.6313
+latency_avg: 7107.7166
+latency_med: 6515.4000
+hopcount_avg: 3.0066
+hopcount_med: 3
+buffertime_avg: 3827.8641
+buffertime_med: 2777.9000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.05	Epoch: 1200	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 576
+	created_t_to_t: 107
+	created_t_to_ut: 29
+	created_ut_to_t: 22
+	created_ut_to_ut: 418
+started: 206903
+relayed: 109154
+	nrelayed_t_to_t: 131
+	nrelayed_t_to_ut: 1212
+	nrelayed_ut_to_t: 483
+	nrelayed_ut_to_ut: 107328
+nrelayed_delivery: 1457
+	nrelayed_delivery_t_to_t: 84
+	nrelayed_delivery_t_to_ut: 32
+	nrelayed_delivery_ut_to_t: 36
+	nrelayed_delivery_ut_to_ut: 1305
+aborted: 97749
+dropped: 109267
+	dropped_buffer_full: 32091
+	dropped_ttl_expiry: 73258
+	dropped_ephmeral_expiry: 3918
+removed: 0
+delivered: 463
+	delivered_t_to_t: 61
+	delivered_t_to_ut: 22
+	delivered_ut_to_t: 4
+	delivered_ut_to_ut: 376
+	delivered_with_ut_hops: 441
+delivery_prob: 0.8038
+response_prob: 0.0000
+overhead_ratio: 234.7538
+latency_avg: 6865.3788
+latency_med: 6078.2000
+hopcount_avg: 3.1469
+hopcount_med: 3
+buffertime_avg: 4224.8367
+buffertime_med: 3549.1000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.1	Epoch: 1200	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 573
+	created_t_to_t: 121
+	created_t_to_ut: 43
+	created_ut_to_t: 39
+	created_ut_to_ut: 370
+started: 208678
+relayed: 112101
+	nrelayed_t_to_t: 729
+	nrelayed_t_to_ut: 2774
+	nrelayed_ut_to_t: 1526
+	nrelayed_ut_to_ut: 107072
+nrelayed_delivery: 1420
+	nrelayed_delivery_t_to_t: 162
+	nrelayed_delivery_t_to_ut: 38
+	nrelayed_delivery_ut_to_t: 52
+	nrelayed_delivery_ut_to_ut: 1168
+aborted: 96577
+dropped: 112206
+	dropped_buffer_full: 32484
+	dropped_ttl_expiry: 76014
+	dropped_ephmeral_expiry: 3708
+removed: 0
+delivered: 468
+	delivered_t_to_t: 90
+	delivered_t_to_ut: 36
+	delivered_ut_to_t: 14
+	delivered_ut_to_ut: 328
+	delivered_with_ut_hops: 428
+delivery_prob: 0.8168
+response_prob: 0.0000
+overhead_ratio: 238.5321
+latency_avg: 6774.0457
+latency_med: 6220.0000
+hopcount_avg: 3.0342
+hopcount_med: 3
+buffertime_avg: 4169.4255
+buffertime_med: 3502.2000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.15	Epoch: 1200	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 575
+	created_t_to_t: 138
+	created_t_to_ut: 57
+	created_ut_to_t: 47
+	created_ut_to_ut: 333
+started: 210301
+relayed: 114555
+	nrelayed_t_to_t: 1513
+	nrelayed_t_to_ut: 4806
+	nrelayed_ut_to_t: 2985
+	nrelayed_ut_to_ut: 105251
+nrelayed_delivery: 1432
+	nrelayed_delivery_t_to_t: 245
+	nrelayed_delivery_t_to_ut: 34
+	nrelayed_delivery_ut_to_t: 53
+	nrelayed_delivery_ut_to_ut: 1100
+aborted: 95746
+dropped: 114661
+	dropped_buffer_full: 34492
+	dropped_ttl_expiry: 74880
+	dropped_ephmeral_expiry: 5289
+removed: 0
+delivered: 469
+	delivered_t_to_t: 105
+	delivered_t_to_ut: 50
+	delivered_ut_to_t: 19
+	delivered_ut_to_ut: 295
+	delivered_with_ut_hops: 414
+delivery_prob: 0.8157
+response_prob: 0.0000
+overhead_ratio: 243.2537
+latency_avg: 7059.9160
+latency_med: 6541.7000
+hopcount_avg: 3.0533
+hopcount_med: 3
+buffertime_avg: 4063.4917
+buffertime_med: 3257.5000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.2	Epoch: 1200	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 575
+	created_t_to_t: 142
+	created_t_to_ut: 63
+	created_ut_to_t: 80
+	created_ut_to_ut: 290
+started: 208874
+relayed: 111728
+	nrelayed_t_to_t: 3019
+	nrelayed_t_to_ut: 7941
+	nrelayed_ut_to_t: 5560
+	nrelayed_ut_to_ut: 95208
+nrelayed_delivery: 1440
+	nrelayed_delivery_t_to_t: 309
+	nrelayed_delivery_t_to_ut: 42
+	nrelayed_delivery_ut_to_t: 82
+	nrelayed_delivery_ut_to_ut: 1007
+aborted: 97146
+dropped: 111828
+	dropped_buffer_full: 31004
+	dropped_ttl_expiry: 73118
+	dropped_ephmeral_expiry: 7706
+removed: 0
+delivered: 475
+	delivered_t_to_t: 115
+	delivered_t_to_ut: 52
+	delivered_ut_to_t: 40
+	delivered_ut_to_ut: 268
+	delivered_with_ut_hops: 429
+delivery_prob: 0.8261
+response_prob: 0.0000
+overhead_ratio: 234.2168
+latency_avg: 7043.3377
+latency_med: 6403.4000
+hopcount_avg: 3.0316
+hopcount_med: 3
+buffertime_avg: 4013.9082
+buffertime_med: 3100.6000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.25	Epoch: 1200	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 576
+	created_t_to_t: 155
+	created_t_to_ut: 80
+	created_ut_to_t: 91
+	created_ut_to_ut: 250
+started: 207891
+relayed: 111222
+	nrelayed_t_to_t: 5557
+	nrelayed_t_to_ut: 12264
+	nrelayed_ut_to_t: 8681
+	nrelayed_ut_to_ut: 84720
+nrelayed_delivery: 1476
+	nrelayed_delivery_t_to_t: 417
+	nrelayed_delivery_t_to_ut: 45
+	nrelayed_delivery_ut_to_t: 93
+	nrelayed_delivery_ut_to_ut: 921
+aborted: 96669
+dropped: 111315
+	dropped_buffer_full: 28033
+	dropped_ttl_expiry: 72036
+	dropped_ephmeral_expiry: 11246
+removed: 0
+delivered: 483
+	delivered_t_to_t: 132
+	delivered_t_to_ut: 66
+	delivered_ut_to_t: 48
+	delivered_ut_to_ut: 237
+	delivered_with_ut_hops: 421
+delivery_prob: 0.8385
+response_prob: 0.0000
+overhead_ratio: 229.2733
+latency_avg: 7213.7807
+latency_med: 6630.1000
+hopcount_avg: 3.0559
+hopcount_med: 3
+buffertime_avg: 3826.5188
+buffertime_med: 2761.9000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.05	Epoch: 1800	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 576
+	created_t_to_t: 107
+	created_t_to_ut: 29
+	created_ut_to_t: 22
+	created_ut_to_ut: 418
+started: 206676
+relayed: 108770
+	nrelayed_t_to_t: 125
+	nrelayed_t_to_ut: 1013
+	nrelayed_ut_to_t: 622
+	nrelayed_ut_to_ut: 107010
+nrelayed_delivery: 1479
+	nrelayed_delivery_t_to_t: 66
+	nrelayed_delivery_t_to_ut: 36
+	nrelayed_delivery_ut_to_t: 42
+	nrelayed_delivery_ut_to_ut: 1335
+aborted: 97906
+dropped: 108873
+	dropped_buffer_full: 32984
+	dropped_ttl_expiry: 72530
+	dropped_ephmeral_expiry: 3359
+removed: 0
+delivered: 473
+	delivered_t_to_t: 61
+	delivered_t_to_ut: 23
+	delivered_ut_to_t: 6
+	delivered_ut_to_ut: 383
+	delivered_with_ut_hops: 452
+delivery_prob: 0.8212
+response_prob: 0.0000
+overhead_ratio: 228.9577
+latency_avg: 6943.1104
+latency_med: 6475.4000
+hopcount_avg: 3.1268
+hopcount_med: 3
+buffertime_avg: 4247.3228
+buffertime_med: 3628.5000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.1	Epoch: 1800	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 573
+	created_t_to_t: 121
+	created_t_to_ut: 43
+	created_ut_to_t: 39
+	created_ut_to_ut: 370
+started: 208006
+relayed: 111224
+	nrelayed_t_to_t: 704
+	nrelayed_t_to_ut: 3065
+	nrelayed_ut_to_t: 2127
+	nrelayed_ut_to_ut: 105328
+nrelayed_delivery: 1438
+	nrelayed_delivery_t_to_t: 140
+	nrelayed_delivery_t_to_ut: 48
+	nrelayed_delivery_ut_to_t: 66
+	nrelayed_delivery_ut_to_ut: 1184
+aborted: 96782
+dropped: 111315
+	dropped_buffer_full: 32082
+	dropped_ttl_expiry: 75122
+	dropped_ephmeral_expiry: 4111
+removed: 0
+delivered: 482
+	delivered_t_to_t: 96
+	delivered_t_to_ut: 34
+	delivered_ut_to_t: 18
+	delivered_ut_to_ut: 334
+	delivered_with_ut_hops: 445
+delivery_prob: 0.8412
+response_prob: 0.0000
+overhead_ratio: 229.7552
+latency_avg: 6960.3058
+latency_med: 6089.9000
+hopcount_avg: 2.9834
+hopcount_med: 3
+buffertime_avg: 4143.6366
+buffertime_med: 3475.2000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.15	Epoch: 1800	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 575
+	created_t_to_t: 138
+	created_t_to_ut: 57
+	created_ut_to_t: 47
+	created_ut_to_ut: 333
+started: 209652
+relayed: 113835
+	nrelayed_t_to_t: 1508
+	nrelayed_t_to_ut: 5287
+	nrelayed_ut_to_t: 3943
+	nrelayed_ut_to_ut: 103097
+nrelayed_delivery: 1483
+	nrelayed_delivery_t_to_t: 274
+	nrelayed_delivery_t_to_ut: 38
+	nrelayed_delivery_ut_to_t: 62
+	nrelayed_delivery_ut_to_ut: 1109
+aborted: 95817
+dropped: 113926
+	dropped_buffer_full: 34302
+	dropped_ttl_expiry: 73299
+	dropped_ephmeral_expiry: 6325
+removed: 0
+delivered: 484
+	delivered_t_to_t: 110
+	delivered_t_to_ut: 47
+	delivered_ut_to_t: 24
+	delivered_ut_to_ut: 303
+	delivered_with_ut_hops: 438
+delivery_prob: 0.8417
+response_prob: 0.0000
+overhead_ratio: 234.1963
+latency_avg: 7055.6289
+latency_med: 6441.2000
+hopcount_avg: 3.0640
+hopcount_med: 3
+buffertime_avg: 4035.1928
+buffertime_med: 3280.0000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.2	Epoch: 1800	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 575
+	created_t_to_t: 142
+	created_t_to_ut: 63
+	created_ut_to_t: 80
+	created_ut_to_ut: 290
+started: 209014
+relayed: 111890
+	nrelayed_t_to_t: 2999
+	nrelayed_t_to_ut: 8407
+	nrelayed_ut_to_t: 6667
+	nrelayed_ut_to_ut: 93817
+nrelayed_delivery: 1439
+	nrelayed_delivery_t_to_t: 273
+	nrelayed_delivery_t_to_ut: 46
+	nrelayed_delivery_ut_to_t: 89
+	nrelayed_delivery_ut_to_ut: 1031
+aborted: 97124
+dropped: 111978
+	dropped_buffer_full: 31691
+	dropped_ttl_expiry: 73093
+	dropped_ephmeral_expiry: 7194
+removed: 0
+delivered: 487
+	delivered_t_to_t: 122
+	delivered_t_to_ut: 54
+	delivered_ut_to_t: 43
+	delivered_ut_to_ut: 268
+	delivered_with_ut_hops: 433
+delivery_prob: 0.8470
+response_prob: 0.0000
+overhead_ratio: 228.7536
+latency_avg: 7216.5394
+latency_med: 6426.9000
+hopcount_avg: 2.9548
+hopcount_med: 3
+buffertime_avg: 4027.5901
+buffertime_med: 3182.3000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.25	Epoch: 1800	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 576
+	created_t_to_t: 155
+	created_t_to_ut: 80
+	created_ut_to_t: 91
+	created_ut_to_ut: 250
+started: 208704
+relayed: 112165
+	nrelayed_t_to_t: 5272
+	nrelayed_t_to_ut: 12214
+	nrelayed_ut_to_t: 9568
+	nrelayed_ut_to_ut: 85111
+nrelayed_delivery: 1415
+	nrelayed_delivery_t_to_t: 396
+	nrelayed_delivery_t_to_ut: 52
+	nrelayed_delivery_ut_to_t: 106
+	nrelayed_delivery_ut_to_ut: 861
+aborted: 96539
+dropped: 112257
+	dropped_buffer_full: 30850
+	dropped_ttl_expiry: 71179
+	dropped_ephmeral_expiry: 10228
+removed: 0
+delivered: 484
+	delivered_t_to_t: 140
+	delivered_t_to_ut: 66
+	delivered_ut_to_t: 54
+	delivered_ut_to_ut: 224
+	delivered_with_ut_hops: 419
+delivery_prob: 0.8403
+response_prob: 0.0000
+overhead_ratio: 230.7459
+latency_avg: 7318.2570
+latency_med: 6617.9000
+hopcount_avg: 2.9236
+hopcount_med: 3
+buffertime_avg: 3895.7992
+buffertime_med: 2895.3000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.05	Epoch: 3600	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 576
+	created_t_to_t: 107
+	created_t_to_ut: 29
+	created_ut_to_t: 22
+	created_ut_to_ut: 418
+started: 208358
+relayed: 110541
+	nrelayed_t_to_t: 121
+	nrelayed_t_to_ut: 1187
+	nrelayed_ut_to_t: 867
+	nrelayed_ut_to_ut: 108366
+nrelayed_delivery: 1473
+	nrelayed_delivery_t_to_t: 58
+	nrelayed_delivery_t_to_ut: 55
+	nrelayed_delivery_ut_to_t: 63
+	nrelayed_delivery_ut_to_ut: 1297
+aborted: 97817
+dropped: 110633
+	dropped_buffer_full: 34960
+	dropped_ttl_expiry: 73596
+	dropped_ephmeral_expiry: 2077
+removed: 0
+delivered: 484
+	delivered_t_to_t: 81
+	delivered_t_to_ut: 26
+	delivered_ut_to_t: 8
+	delivered_ut_to_ut: 369
+	delivered_with_ut_hops: 462
+delivery_prob: 0.8403
+response_prob: 0.0000
+overhead_ratio: 227.3905
+latency_avg: 6713.3260
+latency_med: 6106.7000
+hopcount_avg: 3.0434
+hopcount_med: 3
+buffertime_avg: 4331.1114
+buffertime_med: 3710.8000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.1	Epoch: 3600	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 573
+	created_t_to_t: 121
+	created_t_to_ut: 43
+	created_ut_to_t: 39
+	created_ut_to_ut: 370
+started: 208562
+relayed: 111855
+	nrelayed_t_to_t: 652
+	nrelayed_t_to_ut: 2963
+	nrelayed_ut_to_t: 2435
+	nrelayed_ut_to_ut: 105805
+nrelayed_delivery: 1469
+	nrelayed_delivery_t_to_t: 172
+	nrelayed_delivery_t_to_ut: 48
+	nrelayed_delivery_ut_to_t: 70
+	nrelayed_delivery_ut_to_ut: 1179
+aborted: 96707
+dropped: 111929
+	dropped_buffer_full: 33947
+	dropped_ttl_expiry: 75296
+	dropped_ephmeral_expiry: 2686
+removed: 0
+delivered: 499
+	delivered_t_to_t: 106
+	delivered_t_to_ut: 38
+	delivered_ut_to_t: 22
+	delivered_ut_to_ut: 333
+	delivered_with_ut_hops: 461
+delivery_prob: 0.8709
+response_prob: 0.0000
+overhead_ratio: 223.1583
+latency_avg: 6987.9112
+latency_med: 6236.6000
+hopcount_avg: 2.9439
+hopcount_med: 3
+buffertime_avg: 4192.6792
+buffertime_med: 3537.9000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.15	Epoch: 3600	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 575
+	created_t_to_t: 138
+	created_t_to_ut: 57
+	created_ut_to_t: 47
+	created_ut_to_ut: 333
+started: 210669
+relayed: 114958
+	nrelayed_t_to_t: 1451
+	nrelayed_t_to_ut: 5247
+	nrelayed_ut_to_t: 4365
+	nrelayed_ut_to_ut: 103895
+nrelayed_delivery: 1522
+	nrelayed_delivery_t_to_t: 242
+	nrelayed_delivery_t_to_ut: 43
+	nrelayed_delivery_ut_to_t: 72
+	nrelayed_delivery_ut_to_ut: 1165
+aborted: 95711
+dropped: 115031
+	dropped_buffer_full: 36108
+	dropped_ttl_expiry: 75065
+	dropped_ephmeral_expiry: 3858
+removed: 0
+delivered: 502
+	delivered_t_to_t: 118
+	delivered_t_to_ut: 50
+	delivered_ut_to_t: 29
+	delivered_ut_to_ut: 305
+	delivered_with_ut_hops: 446
+delivery_prob: 0.8730
+response_prob: 0.0000
+overhead_ratio: 228.0000
+latency_avg: 7186.9809
+latency_med: 6554.4000
+hopcount_avg: 3.0319
+hopcount_med: 3
+buffertime_avg: 4083.9680
+buffertime_med: 3280.5000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.2	Epoch: 3600	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 575
+	created_t_to_t: 142
+	created_t_to_ut: 63
+	created_ut_to_t: 80
+	created_ut_to_ut: 290
+started: 208805
+relayed: 111639
+	nrelayed_t_to_t: 2809
+	nrelayed_t_to_ut: 7857
+	nrelayed_ut_to_t: 6515
+	nrelayed_ut_to_ut: 94458
+nrelayed_delivery: 1486
+	nrelayed_delivery_t_to_t: 284
+	nrelayed_delivery_t_to_ut: 51
+	nrelayed_delivery_ut_to_t: 107
+	nrelayed_delivery_ut_to_ut: 1044
+aborted: 97166
+dropped: 111717
+	dropped_buffer_full: 33633
+	dropped_ttl_expiry: 73850
+	dropped_ephmeral_expiry: 4234
+removed: 0
+delivered: 497
+	delivered_t_to_t: 121
+	delivered_t_to_ut: 57
+	delivered_ut_to_t: 56
+	delivered_ut_to_ut: 263
+	delivered_with_ut_hops: 448
+delivery_prob: 0.8643
+response_prob: 0.0000
+overhead_ratio: 223.6258
+latency_avg: 7184.8141
+latency_med: 6630.4000
+hopcount_avg: 2.9899
+hopcount_med: 3
+buffertime_avg: 4151.7904
+buffertime_med: 3308.7000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.25	Epoch: 3600	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 576
+	created_t_to_t: 155
+	created_t_to_ut: 80
+	created_ut_to_t: 91
+	created_ut_to_ut: 250
+started: 206015
+relayed: 109324
+	nrelayed_t_to_t: 4975
+	nrelayed_t_to_ut: 11282
+	nrelayed_ut_to_t: 9240
+	nrelayed_ut_to_ut: 83827
+nrelayed_delivery: 1469
+	nrelayed_delivery_t_to_t: 404
+	nrelayed_delivery_t_to_ut: 48
+	nrelayed_delivery_ut_to_t: 114
+	nrelayed_delivery_ut_to_ut: 903
+aborted: 96691
+dropped: 109404
+	dropped_buffer_full: 32142
+	dropped_ttl_expiry: 71854
+	dropped_ephmeral_expiry: 5408
+removed: 0
+delivered: 496
+	delivered_t_to_t: 140
+	delivered_t_to_ut: 65
+	delivered_ut_to_t: 66
+	delivered_ut_to_ut: 225
+	delivered_with_ut_hops: 429
+delivery_prob: 0.8611
+response_prob: 0.0000
+overhead_ratio: 219.4113
+latency_avg: 7414.9010
+latency_med: 6842.2000
+hopcount_avg: 2.9617
+hopcount_med: 3
+buffertime_avg: 4035.7633
+buffertime_med: 3067.3000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.0	Epoch: 600	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 578
+	created_t_to_t: 578
+	created_t_to_ut: 0
+	created_ut_to_t: 0
+	created_ut_to_ut: 0
+started: 198931
+relayed: 103296
+	nrelayed_t_to_t: 103296
+	nrelayed_t_to_ut: 0
+	nrelayed_ut_to_t: 0
+	nrelayed_ut_to_ut: 0
+nrelayed_delivery: 1768
+	nrelayed_delivery_t_to_t: 1768
+	nrelayed_delivery_t_to_ut: 0
+	nrelayed_delivery_ut_to_t: 0
+	nrelayed_delivery_ut_to_ut: 0
+aborted: 95635
+dropped: 103336
+	dropped_buffer_full: 34207
+	dropped_ttl_expiry: 69129
+	dropped_ephmeral_expiry: 0
+removed: 0
+delivered: 537
+	delivered_t_to_t: 537
+	delivered_t_to_ut: 0
+	delivered_ut_to_t: 0
+	delivered_ut_to_ut: 0
+	delivered_with_ut_hops: 0
+delivery_prob: 0.9291
+response_prob: 0.0000
+overhead_ratio: 191.3575
+latency_avg: 6148.0095
+latency_med: 5160.8000
+hopcount_avg: 3.2924
+hopcount_med: 3
+buffertime_avg: 4827.6163
+buffertime_med: 4309.5000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.0	Epoch: 1200	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 578
+	created_t_to_t: 578
+	created_t_to_ut: 0
+	created_ut_to_t: 0
+	created_ut_to_ut: 0
+started: 198931
+relayed: 103296
+	nrelayed_t_to_t: 103296
+	nrelayed_t_to_ut: 0
+	nrelayed_ut_to_t: 0
+	nrelayed_ut_to_ut: 0
+nrelayed_delivery: 1768
+	nrelayed_delivery_t_to_t: 1768
+	nrelayed_delivery_t_to_ut: 0
+	nrelayed_delivery_ut_to_t: 0
+	nrelayed_delivery_ut_to_ut: 0
+aborted: 95635
+dropped: 103336
+	dropped_buffer_full: 34207
+	dropped_ttl_expiry: 69129
+	dropped_ephmeral_expiry: 0
+removed: 0
+delivered: 537
+	delivered_t_to_t: 537
+	delivered_t_to_ut: 0
+	delivered_ut_to_t: 0
+	delivered_ut_to_ut: 0
+	delivered_with_ut_hops: 0
+delivery_prob: 0.9291
+response_prob: 0.0000
+overhead_ratio: 191.3575
+latency_avg: 6148.0095
+latency_med: 5160.8000
+hopcount_avg: 3.2924
+hopcount_med: 3
+buffertime_avg: 4827.6163
+buffertime_med: 4309.5000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.0	Epoch: 1800	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 578
+	created_t_to_t: 578
+	created_t_to_ut: 0
+	created_ut_to_t: 0
+	created_ut_to_ut: 0
+started: 198931
+relayed: 103296
+	nrelayed_t_to_t: 103296
+	nrelayed_t_to_ut: 0
+	nrelayed_ut_to_t: 0
+	nrelayed_ut_to_ut: 0
+nrelayed_delivery: 1768
+	nrelayed_delivery_t_to_t: 1768
+	nrelayed_delivery_t_to_ut: 0
+	nrelayed_delivery_ut_to_t: 0
+	nrelayed_delivery_ut_to_ut: 0
+aborted: 95635
+dropped: 103336
+	dropped_buffer_full: 34207
+	dropped_ttl_expiry: 69129
+	dropped_ephmeral_expiry: 0
+removed: 0
+delivered: 537
+	delivered_t_to_t: 537
+	delivered_t_to_ut: 0
+	delivered_ut_to_t: 0
+	delivered_ut_to_ut: 0
+	delivered_with_ut_hops: 0
+delivery_prob: 0.9291
+response_prob: 0.0000
+overhead_ratio: 191.3575
+latency_avg: 6148.0095
+latency_med: 5160.8000
+hopcount_avg: 3.2924
+hopcount_med: 3
+buffertime_avg: 4827.6163
+buffertime_med: 4309.5000
+rtt_avg: NaN
+rtt_med: NaN
+*********************
+Percentage: 0.0	Epoch: 3600	ValidEpochNum: 3
+*********************
+Message stats for scenario anonymous_dtn
+sim_time: 43200.1000
+created: 578
+	created_t_to_t: 578
+	created_t_to_ut: 0
+	created_ut_to_t: 0
+	created_ut_to_ut: 0
+started: 198931
+relayed: 103296
+	nrelayed_t_to_t: 103296
+	nrelayed_t_to_ut: 0
+	nrelayed_ut_to_t: 0
+	nrelayed_ut_to_ut: 0
+nrelayed_delivery: 1768
+	nrelayed_delivery_t_to_t: 1768
+	nrelayed_delivery_t_to_ut: 0
+	nrelayed_delivery_ut_to_t: 0
+	nrelayed_delivery_ut_to_ut: 0
+aborted: 95635
+dropped: 103336
+	dropped_buffer_full: 34207
+	dropped_ttl_expiry: 69129
+	dropped_ephmeral_expiry: 0
+removed: 0
+delivered: 537
+	delivered_t_to_t: 537
+	delivered_t_to_ut: 0
+	delivered_ut_to_t: 0
+	delivered_ut_to_ut: 0
+	delivered_with_ut_hops: 0
+delivery_prob: 0.9291
+response_prob: 0.0000
+overhead_ratio: 191.3575
+latency_avg: 6148.0095
+latency_med: 5160.8000
+hopcount_avg: 3.2924
+hopcount_med: 3
+buffertime_avg: 4827.6163
+buffertime_med: 4309.5000
+rtt_avg: NaN
+rtt_med: NaN

@@ -1,0 +1,120 @@
+*********************
+Percentage: 0.05	Epoch: 600	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.1	Epoch: 600	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.15	Epoch: 600	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.2	Epoch: 600	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.25	Epoch: 600	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.05	Epoch: 1200	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.1	Epoch: 1200	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.15	Epoch: 1200	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.2	Epoch: 1200	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.25	Epoch: 1200	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.05	Epoch: 1800	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.1	Epoch: 1800	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.15	Epoch: 1800	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.2	Epoch: 1800	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.25	Epoch: 1800	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.05	Epoch: 3600	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.1	Epoch: 3600	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.15	Epoch: 3600	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.2	Epoch: 3600	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.25	Epoch: 3600	ValidEpochNum: 3
+*********************
+*********************
+Percentage: 0.05	Epoch: 600	ValidEpochNum: 6
+*********************
+*********************
+Percentage: 0.1	Epoch: 600	ValidEpochNum: 6
+*********************
+*********************
+Percentage: 0.15	Epoch: 600	ValidEpochNum: 6
+*********************
+*********************
+Percentage: 0.2	Epoch: 600	ValidEpochNum: 6
+*********************
+*********************
+Percentage: 0.25	Epoch: 600	ValidEpochNum: 6
+*********************
+*********************
+Percentage: 0.05	Epoch: 1200	ValidEpochNum: 6
+*********************
+*********************
+Percentage: 0.1	Epoch: 1200	ValidEpochNum: 6
+*********************
+*********************
+Percentage: 0.15	Epoch: 1200	ValidEpochNum: 6
+*********************
+*********************
+Percentage: 0.2	Epoch: 1200	ValidEpochNum: 6
+*********************
+*********************
+Percentage: 0.25	Epoch: 1200	ValidEpochNum: 6
+*********************
+*********************
+Percentage: 0.05	Epoch: 1800	ValidEpochNum: 6
+*********************
+*********************
+Percentage: 0.1	Epoch: 1800	ValidEpochNum: 6
+*********************
+*********************
+Percentage: 0.15	Epoch: 1800	ValidEpochNum: 6
+*********************
+*********************
+Percentage: 0.2	Epoch: 1800	ValidEpochNum: 6
+*********************
+*********************
+Percentage: 0.25	Epoch: 1800	ValidEpochNum: 6
+*********************
+*********************
+Percentage: 0.05	Epoch: 3600	ValidEpochNum: 6
+*********************
+*********************
+Percentage: 0.1	Epoch: 3600	ValidEpochNum: 6
+*********************
+*********************
+Percentage: 0.15	Epoch: 3600	ValidEpochNum: 6
+*********************
+*********************
+Percentage: 0.2	Epoch: 3600	ValidEpochNum: 6
+*********************
+*********************
+Percentage: 0.25	Epoch: 3600	ValidEpochNum: 6
+*********************
