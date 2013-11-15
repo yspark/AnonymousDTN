@@ -1,0 +1,191 @@
+\documentclass[11pt]{article}
+                                      
+\usepackage{fullpage}					% full page dimensions
+%\usepackage[letterpaper,hmargin=1in,vmargin=1in]{geometry}
+
+\usepackage{amsmath}                    % special AMS math symbols
+\usepackage{amssymb}                    % special AMS math symbols
+\usepackage{color}                      % colored text and backgrounds
+
+%\usepackage{indentfirst}
+\usepackage{framed}
+
+\usepackage{algorithm} 
+\usepackage{algpseudocode}
+
+\usepackage{verbatim}
+
+%\usepackage{graphicx}                   % graphics
+%\usepackage{tabularx}
+
+%\usepackage{epstopdf}
+%\usepackage{amsthm}
+%\usepackage{multirow}
+
+%\usepackage{subcaption}
+%\usepackage{comment}
+%\usepackage{framed}
+%\usepackage{hyperref}
+
+
+\begin{document}
+
+\title{Anonymous DTN routing: Attack scenario}
+\maketitle
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Attack model}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In our attack scenario, an adversary tries to track a victim node or infer trusted nodes of a victim node by injecting a ``marker packet'' and later confirming that the victim node has the marker packet.  
+An adversary can confirm the marker packet through 1) destination address of the marker packet, 2) packet ID of the marker packet and 3) payload of the marker packet.
+
+
+\subsection{Notation}
+\begin{itemize}
+\item $v$: victim node
+\item $a$: adversary node
+\item $T(v)$: group of nodes that $v$ trusts
+\item $D(v)$: list of destinations of packets buffered in $v$
+\item $P_{d}$: packet destined for node $d$.
+\end{itemize}
+
+
+
+\subsection{Tracking a victim node}
+\begin{enumerate}
+\item $a \rightarrow v: P_{a'}, a' \notin T(v)$	\\
+An adversary $a$ sends a marker packet $P_{a'}$ to a victim $v$.
+
+\item Epoch change: $a \Rightarrow a'$, $v \Rightarrow v'$ 
+
+\item $a' \leftarrow v: P_{a'}$	\\
+The adversary $a'$ pulls the marker packet from $v'$ and determines that $v'$ is $v$.
+\end{enumerate}
+
+
+
+
+\subsection{Inferring victim's trusted nodes}
+\begin{enumerate}
+\item $T(v) = \{m, n, o, p\}$	\\
+$B(v) = \{m, n, x, y\}$		\\
+$B(a) = \{p, s, t\}$	\\
+Victim $v$ has its trusted node $\{m, n, o, p\}$ and buffered packets destined for $\{m, n, x, y\}$.
+Adversary $a$ prepares marker packets destined for $\{p, s, t\}$.
+
+\item $a \rightarrow v: P_{p}$	\\
+$v$ pulls packet $P_p$ from $a$, possibly using PIR so that $a$ cannot know which packets are pulled by $v$. 
+
+
+\item $a \Rightarrow a'$	\\
+$B(v) = \{m, n, p, x, y\}$	\\
+$a$ changes its ephemeral ID to $a'$ and gets $B(v)$ that $p$ is newly added to. 
+Then $a$ determines that $v$ pulled packets destined for $p$ and therefore, $v$ trusts $p$. 
+
+
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Secure protocol}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Notation}
+\begin{itemize}
+\item $\rightarrow$: packet transmission between two untrusted nodes
+\item $\Rightarrow$: packet transmission between two trusted nodes
+\end{itemize}
+
+
+\subsection{Packet forwarding scenarios}
+
+\subsubsection{Packet destined for a untrusted node}
+Group of trusted nodes $T = \{a, b, c, d\}$	\\
+Untrusted nodes (potential adversaries) $U = \{x, y, z\}$	\\
+Packet $P_z$: packet destined for $z \notin T$	\\
+
+
+\begin{enumerate}
+\item $a \Rightarrow b \Rightarrow ... \Rightarrow d$: ok
+
+\item $x \rightarrow a \Rightarrow b \Rightarrow ... \Rightarrow d$: ok
+
+\item $x \rightarrow a	\rightarrow y$: ok	\\
+It reveals that node $a$ pulled the packet $P_z$ from $x$, but it does not reveal any secret of $a$ (e.g., two or more ephemeral IDs of node $a$ or trusted nodes of $a$)
+
+
+\item $x \rightarrow a$ (epoch change) $a' \rightarrow y$: controversial \\
+Since $a$ cannot change the packet destination and payload, the adversary $y$ is able to infer that $a'$ is $a$. 
+However, the adversary cannot be sure that $a$ and $a'$ are the same node since 1) $a$ might have sent $P_z$ to other nodes and 2) lists of packet destinations buffered in $a$ and $a'$ are different due to the epoch change. 
+
+
+\item $x \rightarrow a \Rightarrow b \rightarrow y$: controversial	\\
+The adversary is able to infer that $b$ received $P_z$ from $a$ and therefore, $b$ trusts $a$. 
+However, more than one intermediate nodes can exist between $a$ and $b$ and in this case, $b$ may not trust $a$. 
+
+\end{enumerate}
+
+
+
+\subsubsection{Packet destined for a trusted node}
+Group of trusted nodes $T = \{a, b, c, d\}$	\\
+Untrusted nodes (potential adversaries) $U = \{x, y, z\}$	\\
+Packet $P_d$: packet destined for $d \in T$	\\
+
+
+
+\begin{enumerate}
+\item $a \Rightarrow b \Rightarrow ... \Rightarrow d$: ok
+
+\item $x \rightarrow a \Rightarrow b \Rightarrow ... \Rightarrow d$: ok
+
+\item $x \rightarrow a	\rightarrow y$: controversial	\\
+It may reveal that $a$ pulled packet destined for $d$ and therefore, $a$ trusts $d$. 
+To prevent the leakage,
+ \begin{enumerate}
+ \item $a$ changes packet destination $d$ to $d'$.  One naive way is to append a random number $k$ and encrypt the destination address using the symmetric key shared among the trusted nodes.
+ \item $a$ changes packet ID
+ \item $a$ encrypts the payload of $P_d$ (e.g., encryption using symmetric key shared among trusted nodes) 
+ \end{enumerate}
+
+
+\item $x \rightarrow a$ (epoch change) $a' \rightarrow y$: ok \\
+$a$ needs to change packet ID and encrypt the payload, just as in previous scenario.
+
+\item $x \rightarrow a \Rightarrow b \rightarrow y$: ok	\\
+
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+

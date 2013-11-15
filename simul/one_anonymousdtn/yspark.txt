@@ -208,6 +208,8 @@ Scenario.limitedCommunication = true
 Anonymity1.nAnonymityHosts = 0.1
 
 
+# Bloom Filter Depth
+Scenario.bloomFilterDepth = 5
 
 
 

@@ -76,38 +76,7 @@ public abstract class Connection {
 
 
 	/***************************************************************/
-	// YSPARK
-	protected void buildForwardableEphemeralAddresses(DTNHost fromNode, DTNHost toNode, List<Integer> forwardableEphemeralAddresses) {
-				
-		for(Message m : fromNode.getRouter().getMessageCollection()) {
-			
-			//if(toNode.getReceivableEphemeralAddresses().size() != 125) 
-				//System.out.printf("wrong receivableEphemeralAddresses: %d, %d\n", toNode.getPermanentAddress(), toNode.getReceivableEphemeralAddresses().size());
-			
-			if(toNode.getReceivableEphemeralAddresses().contains(m.getToEphemeralAddress())) {
-				forwardableEphemeralAddresses.add(m.getToEphemeralAddress());
-			}
-		}
-		
-		
-		/*
-		if(forwardableEphemeralAddresses.size() == 0) { 
-			System.out.printf("wrong forwardableEphemeralAddresses: %d->%d: %d\n", 
-					fromNode.getPermanentAddress(), toNode.getPermanentAddress(), 
-					toNode.getReceivableEphemeralAddresses().size()
-					);
-			
-			for(Message m : fromNode.getRouter().getMessageCollection()) {					
-				System.out.printf("message:%d\n", m.getToEphemeralAddress());
-			}
-			System.out.println("-----");
-			System.out.println(toNode.getReceivableEphemeralAddresses().toString());
-			
-		}
-		*/
-
-	}
-	
+	// YSPARK	
 	public List<Integer> getForwarableEphemeralAddresses(int permanentAddress) {
 		if(permanentAddress == this.fromNode.getPermanentAddress()) {
 			
@@ -122,6 +91,41 @@ public abstract class Connection {
 		}
 	}
 	
+	private void buildForwardableEphemeralAddresses(DTNHost fromNode, DTNHost toNode, List<Integer> forwardableEphemeralAddresses) {
+
+		ArrayList<ArrayList<BloomFilter<Integer>>> attenuatedBloomFilter = toNode.getAttenuatedBloomFilter();		
+		Integer destination;		
+		
+		for(Message m : fromNode.getRouter().getMessageCollection()) {
+			boolean bFound = false;
+			
+			
+			destination = m.getToEphemeralAddress();									
+			
+			for(ArrayList<BloomFilter<Integer>> attenuatedBloomFilterPerEpoch : attenuatedBloomFilter) {
+				for(BloomFilter<Integer> bloomFilter : attenuatedBloomFilterPerEpoch) {
+					if(bloomFilter.contains(destination)) {
+						forwardableEphemeralAddresses.add(destination);
+						bFound = true;
+						break;
+					}
+				}
+				
+				if(bFound)
+					break;				
+			}
+			
+			/*
+			//if(toNode.getReceivableEphemeralAddresses().size() != 125) 
+				//System.out.printf("wrong receivableEphemeralAddresses: %d, %d\n", toNode.getPermanentAddress(), toNode.getReceivableEphemeralAddresses().size());
+			
+			if(toNode.getReceivableEphemeralAddresses().contains(m.getToEphemeralAddress())) {
+				forwardableEphemeralAddresses.add(m.getToEphemeralAddress());
+			}
+			*/
+		}			
+	}
+
 	
 	public boolean isTrustedConnection() {
 		return this.trustedConnection;

@@ -205,13 +205,8 @@ public class World {
 			simClock.setTime(this.nextQueueEventTime);
 			ExternalEvent ee = this.nextEventQueue.nextEvent();
 
-			/*************************************/
-			//YSPARK
-			// TODO: stop generating messages at endTime - SimClock.getTime >= TTL 
 			ee.processEvent(this);
-
-			
-			/*************************************/
+		
 			updateHosts(); // update all hosts after every event
 			setNextEventQueue();
 		}
@@ -244,27 +239,39 @@ public class World {
 			System.out.printf("Epoch changed: %f\n", SimClock.getTime());
 		}
 		
-		if(bEpochChanged) {
+		if(bEpochChanged) {			
+			for(DTNHost host : this.hosts) { 
+				host.updateDueToEpochChange((int)nextEpochStartTime, epochMargin);				
+			}
 			
-			/** Update packet destinations stored in each host */
+			
+			/*
+			// Update packet destinations stored in each host 
 			for(DTNHost host : this.hosts) {
 				host.updatePacketDestinations((int)nextEpochStartTime, epochMargin);
 			}
 
-			/** Update anonymity group of each host */
+			// Update anonymity group of each host 
 			for(DTNHost host : this.hosts) {
 				host.updateTrustedNodesLists((int)nextEpochStartTime);
 			}
 			
-			/** Update ephemeral address of each host */
+			// Update ephemeral address of each host 
 			for(DTNHost host : this.hosts) {
 				host.updateEphemeralID((int)nextEpochStartTime);
 			}
 						
-			/** Update neighbor node lists of each host */
+			// Update neighbor node lists of each host
 			for(DTNHost host : this.hosts) {
-				host.updateNeighborNodesLists();
+				host.NeighborNodesLists();
 			}
+			
+			
+			// Update attenuate bloom filter of each host
+			for(DTNHost host : this.hosts) {
+				host.clearNbrAttenuateBloomFilter();
+			}
+			*/
 			
 			
 			nextEpochStartTime += epochInterval;			

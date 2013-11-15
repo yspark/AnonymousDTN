@@ -456,15 +456,17 @@ public abstract class ActiveRouter extends MessageRouter {
 				
 		List<Integer> forwardableEphemeralAddresses = con.getForwarableEphemeralAddresses(this.getHost().getPermanentAddress());
 		
-		DTNHost toHost = con.getOtherNode(this.getHost());
+		DTNHost toHost = con.getOtherNode(this.getHost());	
 		
-		// First, try to forward "forwardable, pulled" packets		
+		// First, try to forward "pulled" packets		
 		for (Message m : messages) {
+			/*
 			if(!con.isTrustedConnection() &&  m.isNewlyReceived() && m.isReceivedFromUntrustedNode())
 				continue;
-			
+						
 			if(m.getToEphemeralAddress() == toHost.getEphemeralAddress())
 				continue;
+			*/
 			
 			if(forwardableEphemeralAddresses.contains(m.getToEphemeralAddress())) {
 				
@@ -532,24 +534,30 @@ public abstract class ActiveRouter extends MessageRouter {
 			}
 		}
 
-		// Second, try to forward any packets. 
-		for (Message m : messages) {
-			if(!forwardableEphemeralAddresses.contains(m.getToEphemeralAddress())) {
-				int retVal = startTransfer(m, con); 
-				if (retVal == RCV_OK) {
-					
-					//if(!this.getHost().getTrustedNodesLists().isEmpty())
-					//	System.out.println("forwarding packets to untrusted nodes");
-					
-					
-					return m;	// accepted a message, don't try others
-				}
-				else if (retVal > 0) { 
-					return null; // should try later -> don't bother trying others
+		
+		// Second, try to forward any buffered packets.
+		// from: trusted, to: untrusted => DO NOT send non-pulled packets
+		if(this.getHost().getAnonymityGroupID() != -1 || toHost.getAnonymityGroupID() == -1) {
+			for (Message m : messages) {
+				if(!forwardableEphemeralAddresses.contains(m.getToEphemeralAddress())) {
+					int retVal = startTransfer(m, con); 
+					if (retVal == RCV_OK) {
+						
+						//if(!this.getHost().getTrustedNodesLists().isEmpty())
+						//	System.out.println("forwarding packets to untrusted nodes");
+						
+						
+						return m;	// accepted a message, don't try others
+					}
+					else if (retVal > 0) { 
+						return null; // should try later -> don't bother trying others
+					}
 				}
 			}
-		}	
+		}
+			
 		/*************************************************/
+				
 		return null; // no message was accepted		
 	}
 

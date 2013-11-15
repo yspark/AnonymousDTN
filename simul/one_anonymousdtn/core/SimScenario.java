@@ -87,7 +87,11 @@ public class SimScenario implements Serializable {
 	public static final String EPOCH_INTERVAL = "epochInterval";	
 	/** (Namespace: Scenario) epoch interval*/
 	public static final String VALID_EPOCH_NUM = "validEpochNum";
-		
+	/** (Namespace: Scenario) attenuate bloom filter depth */
+	public static final String BLOOM_FILTER_DEPTH = "bloomFilterDepth";
+	
+	
+	
 	
 	/** Namespace for anonymity group settings ({@value}) */
 	public static final String ANONYMITY_NS = "Anonymity";
@@ -108,6 +112,8 @@ public class SimScenario implements Serializable {
 	/** Keep unupdated packets during valid epochs */
 	private int validEpochNum;
 	
+	/** Bloom Filter depth */
+	private int bloomFilterDepth;
 	/***************************************************/
 	
 	
@@ -202,6 +208,7 @@ public class SimScenario implements Serializable {
 		this.epochInterval = s.getDouble(EPOCH_INTERVAL);
 		this.validEpochNum = s.getInt(VALID_EPOCH_NUM);
 		this.nAnonymityGroups = s.getInt(N_ANONYMITY_GROUPS);
+		this.bloomFilterDepth = s.getInt(BLOOM_FILTER_DEPTH);
 		
 		if(DTNSim.epoch_interval != 0.0)
 			this.epochInterval = DTNSim.epoch_interval;
@@ -488,7 +495,7 @@ public class SimScenario implements Serializable {
 				
 				DTNHost host = new DTNHost(this.messageListeners, 
 						this.movementListeners,	gid, mmNetInterfaces, comBus, 
-						mmProto, mRouterProto, this.epochInterval, this.validEpochNum);
+						mmProto, mRouterProto, this.epochInterval, this.validEpochNum, this.bloomFilterDepth);
 				
 				//host.setEpoch(this.epochInterval, this.epochMargin);
 				/****************************************************************/

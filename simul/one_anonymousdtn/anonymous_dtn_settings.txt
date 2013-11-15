@@ -190,9 +190,9 @@ GUI.EventLogPanel.nrofEvents = 100
 
 
 
-
+###################################################
 ## Anonymous DTN routing
-
+###################################################
 # Number of anonymity groups
 Scenario.nAnonymityGroups = 1
 
@@ -205,8 +205,12 @@ Scenario.validEpochNum = 1
 # Communication within a trust group
 Scenario.limitedCommunication = true
 
+# Bloom Filter Depth
+Scenario.bloomFilterDepth = 5
+
 # Group define
-Anonymity1.nAnonymityHosts = 0.2
+#Anonymity1.nAnonymityHosts = 0.2
+
 
 
 

@@ -209,7 +209,7 @@ public class MessageEventGenerator implements EventQueue {
 		
 		/*********************************************************/
 		//YSPARK
-		
+		// "from node" and "to node" are both included in a trusted group
 		if(rng.nextInt(100) < 20) {				
 			boolean flag = true;
 	
@@ -225,10 +225,27 @@ public class MessageEventGenerator implements EventQueue {
 				}
 			}		
 		}	
+		// if "from node" is not in any trusted group, "to node" should not be in a trusted group
 		else {
+			boolean flag = true;
+			
 			/* Get two *different* nodes randomly from the host ranges */
 			from = drawHostAddress(this.hostRange);	
-			to = drawToAddress(hostRange, from);
+			
+			while(flag) {
+				to = drawToAddress(hostRange, from);
+			
+				for(List<Integer> anonymityGroup : anonymityGroupList) {
+					if(anonymityGroup.contains(from) || !anonymityGroup.contains(to)) {
+						flag = false;					
+						break;
+					}
+				}
+			}
+			
+			
+			
+			
 		}
 		/*********************************************************/
 		

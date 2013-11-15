@@ -239,10 +239,10 @@ abstract public class NetworkInterface implements ModuleCommunicationListener {
 		
 		/***********************************************/
 		// YSPARK
-		// add to neighbor list
-		this.host.addNeighborNode(this.host.getEphemeralAddress());
-		anotherInterface.getHost().addNeighborNode(anotherInterface.getHost().getEphemeralAddress());
-		
+		// add to neighbor list		
+		this.host.addNeighborNode(anotherInterface.getHost().getEphemeralAddress(), anotherInterface.getHost().getAttenuatedBloomFilter().get(0));
+		anotherInterface.getHost().addNeighborNode(this.host.getEphemeralAddress(), this.host.getAttenuatedBloomFilter().get(0));
+				
 		if(DTNSim.ANONYMOUS_DTN_DEBUG >= 2) {
 			if(con.toNode.getMessageCollection().size() > 0 || con.fromNode.getMessageCollection().size() > 0) {
 				System.out.printf("==========\nConnect From(%d/%d) #Msg(%d) <-> To(%d/%d) #Msg(%d)\n",
