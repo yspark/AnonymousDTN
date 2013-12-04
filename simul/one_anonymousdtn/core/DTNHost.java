@@ -41,12 +41,11 @@ public class DTNHost implements Comparable<DTNHost> {
 
 	/********************************************************/
 	// YSPARK
-	private BloomFilter<Integer> bloomFilter;
-	
-	
-	private int anonymityGroupID;
-	private int ephemeralAddress;
+	//private BloomFilter<Integer> bloomFilter;
+	//private ArrayList<Integer> anonymityGroupIDList;	
 	//private List<HashMap<Integer, Integer>> anonymityGroupList;
+	
+	private int ephemeralAddress;
 	private List<HashMap<Integer, Integer>> trustedNodesLists;
 	
 	private double epochInterval;
@@ -141,7 +140,7 @@ public class DTNHost implements Comparable<DTNHost> {
 		this.epochInterval = epochInterval;
 		this.validEpochNum = validEpochNum;
 				
-		this.anonymityGroupID = -1;
+		//this.anonymityGroupID = -1;
 		
 		this.trustedNodesLists = new ArrayList<HashMap<Integer, Integer>>();		
 												
@@ -225,6 +224,9 @@ public class DTNHost implements Comparable<DTNHost> {
 		
 	}
 	*/
+	
+	
+	/*
 	public int getAnonymityGroupID() {	
 		return this.anonymityGroupID;
 	}
@@ -232,6 +234,7 @@ public class DTNHost implements Comparable<DTNHost> {
 	public void setAnonymityGroupID(int id) {	
 		this.anonymityGroupID = id;
 	}
+	*/
 
 	
 	public int getPermanentAddress() {
@@ -293,10 +296,10 @@ public class DTNHost implements Comparable<DTNHost> {
 	public void updateDueToEpochChange(int nextEpochStartTime, int epochMargin) {
 		// 1. Update ephemeral address of each host
 		this.updateEphemeralID(nextEpochStartTime);
-
+	
 		// 2. Update ephemeral addresses of trusted nodes of each host */
 		this.updateTrustedNodesLists((int)nextEpochStartTime);
-
+	
 		// 3. Update packet destinations stored in each host
 		this.updatePacketDestinations((int)nextEpochStartTime, epochMargin);
 		
@@ -316,7 +319,7 @@ public class DTNHost implements Comparable<DTNHost> {
 	 * @param seed
 	 */
 	private void updateEphemeralID(int epoch) {
-		if(this.anonymityGroupID == -1)
+		if(this.trustedNodesLists.isEmpty())
 			this.ephemeralAddress = this.permanentAddress;
 		else
 			this.ephemeralAddress = generateEphemeralAddress(this.permanentAddress, epoch);
@@ -331,12 +334,10 @@ public class DTNHost implements Comparable<DTNHost> {
 	 */
 	private void updateTrustedNodesLists(int epoch) {
 		
-		if(!trustedNodesLists.isEmpty()) {
-				
-			/** Update anonymityGroupList */ 
+		if(!this.trustedNodesLists.isEmpty()) {
+				 
 			HashMap<Integer, Integer> newList = new HashMap<Integer, Integer>();
-			
-			
+						
 					
 			for(int permanentAddress : trustedNodesLists.get(trustedNodesLists.size()-1).keySet() ) {								
 				newList.put(permanentAddress, generateEphemeralAddress(permanentAddress, epoch));
@@ -344,10 +345,10 @@ public class DTNHost implements Comparable<DTNHost> {
 				//System.out.printf("%d, %d\n", nodeAddress, Integer.valueOf(nodeAddress + seed).hashCode());
 			}
 						
-			trustedNodesLists.add(newList);
+			this.trustedNodesLists.add(newList);
 			
-			if(trustedNodesLists.size() > this.validEpochNum) {
-				trustedNodesLists.remove(0);
+			if(this.trustedNodesLists.size() > this.validEpochNum) {
+				this.trustedNodesLists.remove(0);
 			}
 			
 		}
@@ -364,10 +365,11 @@ public class DTNHost implements Comparable<DTNHost> {
 		List<String> messagesToDelete = new ArrayList<String>();
 		boolean isAnonymizedNode = !trustedNodesLists.isEmpty();
 		
+		// uncheck newly received messages
 		for(Message m : this.router.getMessageCollection()) {
 			if(m.isNewlyReceived())
 				m.setNewlyReceived(false);
-		}
+		} 
 		
 			
 		// update packet destinations
@@ -386,9 +388,9 @@ public class DTNHost implements Comparable<DTNHost> {
 				} 
 
 				
-				// Packets destined for trusted nodes are assigned new destination ephemeral addresses
 				boolean messageUpdated = false;
-							
+
+				// Packets destined for trusted nodes are assigned a new destination ephemeral addresses
 				for(HashMap<Integer, Integer> list : this.trustedNodesLists) {					
 					if(list.containsValue(m.getToEphemeralAddress())) {										
 						m.setToEphemeralAddress(generateEphemeralAddress(m.getTo().getPermanentAddress(), epoch));
@@ -399,15 +401,32 @@ public class DTNHost implements Comparable<DTNHost> {
 				
 				
 				if(messageUpdated == false) {
+										
+					// Destination ephemeral address update failed 
+					if(DTNSim.ANONYMOUS_DTN_DEBUG >= 1) {					
+						System.out.printf("update (PAddr %d, EAddr %d), MID: %s, toEAddr: %d, m.to.PAddr: %d, m.to.EAddr: %d, NonUpdateEpoch: %d\n", permanentAddress, ephemeralAddress, m.getId(),m.getToEphemeralAddress(), m.getTo().getPermanentAddress(), m.getTo().getEphemeralAddress(), m.getNonUpdateEpochCount());
+						
+						for(HashMap<Integer, Integer> list : this.trustedNodesLists) {
+							System.out.printf("(%d): ", list.size());
+							System.out.println(list.toString());
+						}
+					}
 					
-					/** work around */
-					if(m.getNonUpdateEpochCount() == 0) {
+					m.increaseNonUpdateEpochCount();
+				
+					if(m.getNonUpdateEpochCount() >= validEpochNum) {
+						messagesToDelete.add(m.getId());
+					}
+					
+					// workaround
+					/*
+					if(m.getNonUpdateEpochCount() == 0) {				
 						if(this.trustedNodesLists.get(0).containsKey(m.getTo().getPermanentAddress())) {
 							m.setToEphemeralAddress(generateEphemeralAddress(m.getTo().getPermanentAddress(), epoch));
 						}
 					}
 					else {
-						/** Destination ephemeral address update failed */
+						// Destination ephemeral address update failed 
 						if(DTNSim.ANONYMOUS_DTN_DEBUG >= 1) {					
 							System.out.printf("update (PAddr %d, EAddr %d), MID: %s, toEAddr: %d, m.to.PAddr: %d, m.to.EAddr: %d, NonUpdateEpoch: %d\n", permanentAddress, ephemeralAddress, m.getId(),m.getToEphemeralAddress(), m.getTo().getPermanentAddress(), m.getTo().getEphemeralAddress(), m.getNonUpdateEpochCount());
 							
@@ -423,6 +442,7 @@ public class DTNHost implements Comparable<DTNHost> {
 							messagesToDelete.add(m.getId());
 						}		
 					}
+					*/
 				}
 				
 						
@@ -482,10 +502,10 @@ public class DTNHost implements Comparable<DTNHost> {
 	
 	
 	private void createAttenuatedBloomFilterPerEpoch(int index) {
-		attenuatedBloomFilter.add(index, new ArrayList<BloomFilter<Integer>>(bloomFilterDepth));
+		this.attenuatedBloomFilter.add(index, new ArrayList<BloomFilter<Integer>>(this.bloomFilterDepth));
 		
-		for(int i=0; i<bloomFilterDepth; i++) { 
-			attenuatedBloomFilter.get(index).add(new BloomFilter<Integer>(0.05, 100));
+		for(int i=0; i<this.bloomFilterDepth; i++) { 
+			this.attenuatedBloomFilter.get(index).add(new BloomFilter<Integer>(0.05, 127));
 		}
 	}
 	

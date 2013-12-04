@@ -73,8 +73,9 @@ public class World {
 	
 	/** epoch interval */
 	private double epochInterval;
-	private int epochMargin;
+	private int validEpochNum;
 	private double nextEpochStartTime;
+	private int bloomFilterDepth;
 	/*******************************************/
 	
 	/**
@@ -83,7 +84,7 @@ public class World {
 	/*******************************************/
 	// YSPARK
 	public World(List<DTNHost> hosts, int sizeX, int sizeY, 
-			double updateInterval, double epochInterval, int epochMargin, 
+			double updateInterval, double epochInterval, int epochMargin, int bloomFilterDepth,
 			List<UpdateListener> updateListeners,
 			boolean simulateConnections, List<EventQueue> eventQueues) {
 		
@@ -91,8 +92,10 @@ public class World {
 						
 		//this.anonymityGroupList = anonymityGroupList;
 		this.epochInterval = epochInterval;		
-		this.epochMargin = epochMargin;
+		this.validEpochNum = epochMargin;
 		this.nextEpochStartTime = 0.0;
+		
+		this.bloomFilterDepth = bloomFilterDepth;
 	}
 	/*******************************************/
 	
@@ -241,39 +244,9 @@ public class World {
 		
 		if(bEpochChanged) {			
 			for(DTNHost host : this.hosts) { 
-				host.updateDueToEpochChange((int)nextEpochStartTime, epochMargin);				
+				host.updateDueToEpochChange((int)nextEpochStartTime, validEpochNum);				
 			}
-			
-			
-			/*
-			// Update packet destinations stored in each host 
-			for(DTNHost host : this.hosts) {
-				host.updatePacketDestinations((int)nextEpochStartTime, epochMargin);
-			}
-
-			// Update anonymity group of each host 
-			for(DTNHost host : this.hosts) {
-				host.updateTrustedNodesLists((int)nextEpochStartTime);
-			}
-			
-			// Update ephemeral address of each host 
-			for(DTNHost host : this.hosts) {
-				host.updateEphemeralID((int)nextEpochStartTime);
-			}
-						
-			// Update neighbor node lists of each host
-			for(DTNHost host : this.hosts) {
-				host.NeighborNodesLists();
-			}
-			
-			
-			// Update attenuate bloom filter of each host
-			for(DTNHost host : this.hosts) {
-				host.clearNbrAttenuateBloomFilter();
-			}
-			*/
-			
-			
+								
 			nextEpochStartTime += epochInterval;			
 		}
 		/***********************************************/

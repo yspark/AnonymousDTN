@@ -242,7 +242,7 @@ public class SimScenario implements Serializable {
 		
 		this.world = new World(hosts, worldSizeX, worldSizeY, updateInterval,
 				//YSPARK
-				epochInterval, validEpochNum,
+				epochInterval, validEpochNum, bloomFilterDepth,
 				updateListeners, simulateConnections, 
 				eqHandler.getEventQueues());
 		
