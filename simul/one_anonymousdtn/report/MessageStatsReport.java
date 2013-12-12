@@ -306,12 +306,12 @@ public class MessageStatsReport extends Report implements MessageListener {
 			fromTrusted = false;
 			toTrusted = false;
 
-			if(m.getFrom().getAnonymityGroupID() == -1)
+			if(m.getFrom().getTrustedNodesLists().isEmpty())
 				fromTrusted = false;
 			else
 				fromTrusted = true;
 					
-			if(m.getTo().getAnonymityGroupID() == -1)
+			if(m.getTo().getTrustedNodesLists().isEmpty())
 				toTrusted = false;
 			else
 				toTrusted = true;
@@ -353,12 +353,12 @@ public class MessageStatsReport extends Report implements MessageListener {
 		//YSPARK
 		boolean fromTrusted = false, toTrusted = false;
 
-		if(m.getFrom().getAnonymityGroupID() == -1)
+		if(m.getFrom().getTrustedNodesLists().isEmpty())
 			fromTrusted = false;
 		else
 			fromTrusted = true;
 				
-		if(m.getTo().getAnonymityGroupID() == -1)
+		if(m.getTo().getTrustedNodesLists().isEmpty())
 			toTrusted = false;
 		else
 			toTrusted = true;

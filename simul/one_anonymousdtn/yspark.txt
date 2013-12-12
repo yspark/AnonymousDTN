@@ -209,7 +209,7 @@ Anonymity1.nAnonymityHosts = 0.1
 
 
 # Bloom Filter Depth
-Scenario.bloomFilterDepth = 5
+Scenario.bloomFilterDepth = 3
 
 
 

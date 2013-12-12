@@ -63,7 +63,7 @@ public class CBRConnection extends Connection {
 		 * 	2) A does not trust B
 		 * 	3) A has received the packet from node C whom A does not trust.  
 		 */		
-		if((from.getAnonymityGroupID() >= 0) && !this.trustedConnection && m.isReceivedFromUntrustedNode()) {		
+		if((!from.getTrustedNodesLists().isEmpty()) && !this.trustedConnection && m.isReceivedFromUntrustedNode()) {		
 			newMessage.changeId();
 		}
 		

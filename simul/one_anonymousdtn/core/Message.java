@@ -98,7 +98,7 @@ public class Message implements Comparable<Message> {
 		this.toEphemeralAddress = to.getEphemeralAddress();
 		this.nonUpdateEpochCount = 0;
 		
-		if(this.to.getAnonymityGroupID() == -1)
+		if(this.to.getTrustedNodesLists().isEmpty())
 			this.anonymized = false;
 		else
 			this.anonymized = true;

@@ -24,9 +24,11 @@ public class DTNSim {
 	public static int nAnonymityGroups = 0;
 	public static double epoch_interval = 0;
 	public static int valid_epoch_num = 0;
-	public static double host_percentage = 0.0;
+	public static double host_percentage = 0.0;		
 	
 	public static int randomSeed = 0;
+	
+	public static int bloomFilterDepth = 0;
 	
 	/********************************************/
 	
@@ -71,8 +73,8 @@ public class DTNSim {
 			if (args[0].equals(ANONYMOUS_DTN_MODE_FLAG)) {
 				System.out.println("Anonymous DTN simulation");
 				
-				if(args.length != 8) {
-					System.out.println("command: ./one.sh <-atdn> <-b> <Configuration file> <# trusted groups> <Percentage of trusted nodes> <Epoch> <Valid epoch num> <Seed>");
+				if(args.length != 9) {
+					System.out.println("command: ./one.sh <-atdn> <-b> <Configuration file> <# trusted groups> <Percentage of trusted nodes> <Epoch> <Valid epoch num> <Seed> <BloomFilter Depth>");
 				}
 				
 				// batch mode
@@ -94,8 +96,9 @@ public class DTNSim {
 				DTNSim.epoch_interval = Double.parseDouble(args[5]);
 				DTNSim.valid_epoch_num = Integer.parseInt(args[6]);
 				DTNSim.randomSeed = Integer.parseInt(args[7]);
+				DTNSim.bloomFilterDepth = Integer.parseInt(args[8]);
 							
-				System.out.printf("%s, %s, %s, %s, %s\n", DTNSim.nAnonymityGroups, DTNSim.host_percentage, DTNSim.epoch_interval, DTNSim.valid_epoch_num, DTNSim.randomSeed);
+				System.out.printf("%s, %s, %s, %s, %s, %s\n", DTNSim.nAnonymityGroups, DTNSim.host_percentage, DTNSim.epoch_interval, DTNSim.valid_epoch_num, DTNSim.randomSeed, DTNSim.bloomFilterDepth);
 				 
 			}									
 			/***************************************************/

@@ -91,8 +91,7 @@ public class SimScenario implements Serializable {
 	public static final String BLOOM_FILTER_DEPTH = "bloomFilterDepth";
 	
 	
-	
-	
+		
 	/** Namespace for anonymity group settings ({@value}) */
 	public static final String ANONYMITY_NS = "Anonymity";
 	/** (Namespace: ANONYMITY_NS) number of hosts in anonymity group */
@@ -216,6 +215,8 @@ public class SimScenario implements Serializable {
 			this.validEpochNum = DTNSim.valid_epoch_num;		
 		if(DTNSim.nAnonymityGroups != 0)
 			this.nAnonymityGroups = DTNSim.nAnonymityGroups;
+		if(DTNSim.bloomFilterDepth != 0)
+			this.bloomFilterDepth = DTNSim.bloomFilterDepth;
 		
 		
 		System.out.printf("Number of Anonymity Groups: %d\n", this.nAnonymityGroups);
@@ -566,6 +567,7 @@ public class SimScenario implements Serializable {
 			anonymityGroupList.add(trustedNodesList);						
 		}
 		
+		
 		for(DTNHost host : hosts) {
 			int anonymityGroupID = 0;
 			
@@ -573,13 +575,13 @@ public class SimScenario implements Serializable {
 				if(anonymityGroup.contains(host.getPermanentAddress())) {					
 					host.addTrustedNodes(anonymityGroup);
 					
-					host.setAnonymityGroupID(anonymityGroupID);
+					//host.setAnonymityGroupID(anonymityGroupID);
 				}
 				
-				anonymityGroupID++;
+				//anonymityGroupID++;
 			}
 		}
-				
+			
 	}
 	
 	

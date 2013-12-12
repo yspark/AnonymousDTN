@@ -504,7 +504,7 @@ public class DTNHost implements Comparable<DTNHost> {
 	private void createAttenuatedBloomFilterPerEpoch(int index) {
 		this.attenuatedBloomFilter.add(index, new ArrayList<BloomFilter<Integer>>(this.bloomFilterDepth));
 		
-		for(int i=0; i<this.bloomFilterDepth; i++) { 
+		for(int i=0; i<=this.bloomFilterDepth; i++) { 
 			this.attenuatedBloomFilter.get(index).add(new BloomFilter<Integer>(0.05, 127));
 		}
 	}
@@ -545,7 +545,16 @@ public class DTNHost implements Comparable<DTNHost> {
 		// add NBR to nbrAttenuateBloomFilter
 		//this.nbrAttenuatedBloomFilter.put(ephemeralAddress, attenuateBloomFilter);
 		
-		// add attenuateBloomFiler of the NBR to the aggreated bloom filter of the host
+		/*
+		if(this.attenuatedBloomFilter.isEmpty())
+			this.attenuatedBloomFilter.add(new ArrayList<BloomFilter<Integer>>());
+		
+		if(this.attenuatedBloomFilter.get(0).isEmpty())
+			this.attenuatedBloomFilter.get(0).add(new BloomFilter<Integer>());
+		 */
+
+		
+		// add attenuateBloomFiler of the NBR to the aggregated bloom filter of the host
 		this.attenuatedBloomFilter.get(0).get(1).add(ephemeralAddress);
 		
 		for(int depth = 1; depth < this.bloomFilterDepth - 1; depth++) {
