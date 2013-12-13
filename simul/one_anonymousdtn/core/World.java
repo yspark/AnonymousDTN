@@ -74,7 +74,9 @@ public class World {
 	/** epoch interval */
 	private double epochInterval;
 	private int validEpochNum;
+	
 	private double nextEpochStartTime;
+	
 	private int bloomFilterDepth;
 	/*******************************************/
 	
@@ -90,7 +92,6 @@ public class World {
 		
 		this(hosts, sizeX, sizeY, updateInterval, updateListeners, simulateConnections, eventQueues);
 						
-		//this.anonymityGroupList = anonymityGroupList;
 		this.epochInterval = epochInterval;		
 		this.validEpochNum = epochMargin;
 		this.nextEpochStartTime = 0.0;
@@ -239,15 +240,21 @@ public class World {
 		
 		if(SimClock.getTime() >= nextEpochStartTime) {
 			bEpochChanged = true;
-			System.out.printf("Epoch changed: %f\n", SimClock.getTime());
+			System.out.printf("Epoch changed: %f (", SimClock.getTime());
 		}
 		
-		if(bEpochChanged) {			
+		if(bEpochChanged) {
+			long startTime = System.currentTimeMillis();
+			
 			for(DTNHost host : this.hosts) { 
 				host.updateDueToEpochChange((int)nextEpochStartTime, validEpochNum);				
-			}
+			}						
 								
-			nextEpochStartTime += epochInterval;			
+			nextEpochStartTime += epochInterval;
+			
+			long endTime = System.currentTimeMillis();
+			
+			System.out.printf("%d ms)\n", (endTime - startTime));			
 		}
 		/***********************************************/
 

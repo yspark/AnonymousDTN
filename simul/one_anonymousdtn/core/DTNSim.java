@@ -88,7 +88,7 @@ public class DTNSim {
 				firstConfIndex = 0;						
 				confFiles = new String[1];				
 				confFiles[0] = args[2];														
-				System.out.println(confFiles[0]);
+				
 				
 				// anonymity parameters 
 				DTNSim.nAnonymityGroups = Integer.parseInt(args[3]); 
@@ -97,9 +97,18 @@ public class DTNSim {
 				DTNSim.valid_epoch_num = Integer.parseInt(args[6]);
 				DTNSim.randomSeed = Integer.parseInt(args[7]);
 				DTNSim.bloomFilterDepth = Integer.parseInt(args[8]);
-							
-				System.out.printf("%s, %s, %s, %s, %s, %s\n", DTNSim.nAnonymityGroups, DTNSim.host_percentage, DTNSim.epoch_interval, DTNSim.valid_epoch_num, DTNSim.randomSeed, DTNSim.bloomFilterDepth);
-				 
+						
+				
+				System.out.printf("------------------------------------------\n");
+				System.out.printf("config file: %s\n", confFiles[0]);
+				//System.out.printf("# anonymity groups: %d\n", DTNSim.nAnonymityGroups);
+				//System.out.printf("% trusted nodes: %d\n", DTNSim.host_percentage);
+				//System.out.printf("epoch interval: %d\n", DTNSim.epoch_interval);
+				//System.out.printf("# valid epochs: %d\n", DTNSim.valid_epoch_num);
+				//System.out.printf("bloom filter depth: %d\n", DTNSim.bloomFilterDepth);
+				System.out.printf("random seed: %d\n", DTNSim.randomSeed);
+				System.out.printf("------------------------------------------\n");
+				
 			}									
 			/***************************************************/
 			else if (args[0].equals(BATCH_MODE_FLAG)) {

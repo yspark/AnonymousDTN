@@ -219,9 +219,18 @@ public class SimScenario implements Serializable {
 			this.bloomFilterDepth = DTNSim.bloomFilterDepth;
 		
 		
+		System.out.printf("------------------------------------------\n");
 		System.out.printf("Number of Anonymity Groups: %d\n", this.nAnonymityGroups);
-		System.out.printf("Epoch interval: %f\n", this.epochInterval);
+		System.out.printf("Percentage of trusted nodes: %2.2f\n", DTNSim.host_percentage);
+		System.out.printf("Epoch interval: %2.0f\n", this.epochInterval);
 		System.out.printf("Valid epoch num: %d\n", this.validEpochNum);
+		System.out.printf("bloom filter depth: %d\n", DTNSim.bloomFilterDepth);
+		System.out.printf("random seed: %d\n", DTNSim.randomSeed);
+		System.out.printf("------------------------------------------\n");
+
+		
+		
+		
 		/*************************************************************/		
 		
 		/* TODO: check size from movement models */
@@ -528,24 +537,19 @@ public class SimScenario implements Serializable {
 	 * Creates anonymity groups (trusted groups)
 	 */
 	private void createAnonymityGroups() {
-		anonymityGroupList = new ArrayList<List<Integer>>();
+		this.anonymityGroupList = new ArrayList<List<Integer>>();
 		
 		Random randomGenerator = new Random(DTNSim.randomSeed);
 				
-		for (int i=1; i<=nAnonymityGroups; i++) {
+		for (int i=1; i<=this.nAnonymityGroups; i++) {
 			Settings s = new Settings(ANONYMITY_NS+i);
 			double percentage = s.getDouble(N_ANONYMITY_HOSTS);
 			
 			if(DTNSim.host_percentage != 0.0)
 				percentage = DTNSim.host_percentage;
-			
-			
+					
 			int nHosts = (int)(percentage * (double)(hosts.size()));
-
-			
-			//System.out.println(nHosts);
-			
-			
+								
 			List<Integer> trustedNodesList = new ArrayList<Integer>();
 			
 			for(int j = 0; j < nHosts; j++) {
@@ -569,16 +573,11 @@ public class SimScenario implements Serializable {
 		
 		
 		for(DTNHost host : hosts) {
-			int anonymityGroupID = 0;
-			
+		
 			for(List<Integer> anonymityGroup : anonymityGroupList) {
 				if(anonymityGroup.contains(host.getPermanentAddress())) {					
-					host.addTrustedNodes(anonymityGroup);
-					
-					//host.setAnonymityGroupID(anonymityGroupID);
-				}
-				
-				//anonymityGroupID++;
+					host.addTrustedNodes(anonymityGroup);					
+				}				
 			}
 		}
 			

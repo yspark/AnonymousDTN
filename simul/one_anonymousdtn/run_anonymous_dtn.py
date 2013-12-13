@@ -4,27 +4,36 @@ import datetime
 import sys
 
 # configuration file
-SettingFileName = 'yspark.txt'
+SettingFileName = 'anonymous_dtn.txt'
+
 
 # number of trusted groups
 NumTrustedGroups = 1
 
 
 
+# simulation running iteration
+Run = [0]
+
 # valid epoch num
 ValidEpochNumList = [3]
-Run = [0]
-Epoch = [30*60, 60*60]
+
+# epoch length 
+Epoch = [15*60, 30*60, 45*60, 60*60]
+
+# percentage of trusted node
 PercentageOfTrustedNode = [0.05, 0.1, 0.15]
+
+# bloom filter depth
 BloomFilterDepth = [1, 3, 5]
 
 
 # 1 time test
-#ValidEpochNumList = [3]
-#Run = [0]
-#Epoch = [30*60]
-#PercentageOfTrustedNode = [0.1]
-#BloomFilterDepth = [3]
+ValidEpochNumList = [3]
+Run = [0]
+Epoch = [30*60]
+PercentageOfTrustedNode = [0.1]
+BloomFilterDepth = [3]
 
 
 
